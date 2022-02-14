@@ -12,9 +12,8 @@ The engine class here performs a similar function to incremental's state.
 - observe(anchor) -> Given an anchor, do all the work that needs to be done when you mark a node as observed, i.e. visiting its children to add the new parents. Mark the children as necessary too. 
 - unobserve(anchor).
 - stabilize: only compute necessary nodes. Nodes in the recompute heap. Maintain the invariant that any value that needs recomputing will be in the recompute heap.
-- How do we coordinate set_updater with the adjust heights heap?
+- How do we coordinate set_updater with the adjust heights heap? (for later)
 - maybe the engine can be responsible for the coordination? 
-- When a node's value changes i.e. when setValue is called, we need to be able to access its parents and add them to recompute heap
 
 ### Anchor
 - Users can create an Anchor in a number of ways:
@@ -24,7 +23,7 @@ The engine class here performs a similar function to incremental's state.
         - map2(Anchor<A> anchorA, Anchor<B> anchorB, std::function<T>(A val, B val))
 - When you create an Anchor, you create it with a height. Its height must always be greater than those of its input.
 - The above functions won't do any computations until you call get.
-- setValue()
+- setValue(). - When called, we need to be able to access its parents and add them to recompute heap
 - setUpdater() - to update the map function. We need to look at the heights of input here. This is where the adjustHeights heap comes in. You also need to remove existing edges.
 - In the map functions, the inputs A and B become children of the new anchor. We also store the updater function.
 - get() - will just run the updater function and return a value. This should work well depending we maintain the invariant that children always get computed before their parents. 

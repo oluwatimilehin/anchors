@@ -3,8 +3,20 @@
 #include <vector>
 
 namespace anchors {
+
+class AnchorBase {
+   public:
+    virtual void compute() = 0;
+
+    virtual int getHeight() = 0;
+
+    virtual int getRecomputeId() = 0;
+
+    virtual int getChangeId() = 0;
+};
+
 template <typename T>
-class Anchor {
+class Anchor : public AnchorBase {
     // TODO: Attempt reading more rust code
    private:
     // PRIVATE TYPES
@@ -17,22 +29,27 @@ class Anchor {
     std::vector<std::shared_ptr<Anchor<T>>> parents;
     // Anchors that depend on it.
 
-    // TODO: Store the parents and children, store the input values, store the updater.
-    // TODO: Big question right now is how do we deal with Anchors of different types, i.e. storing them in a container
+    int recomputeId;
+    int changeId;
+
+    // TODO: Store the input values, store the updater.
 
    public:
     using SingleInputUpdater = std::function<Anchor<T>(T)>;
-    using DualInputUpdater   = std::function<Anchor<T>(T, T)>;
 
     Anchor(T value);
 
     T get();
     // Always return the latest value.
 
-    void compute();
+    void compute() override;
     // Update the value based on the inputs.
 
-    int getHeight();
+    int getHeight() override;
+
+    int getRecomputeId() override;
+
+    int getChangeId() override;
 
     void setValue(T value);
 
