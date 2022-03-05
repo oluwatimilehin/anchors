@@ -15,6 +15,8 @@ The engine class here performs a similar function to incremental's state.
 - How do we coordinate set_updater with the adjust heights heap? (for later)
 - maybe the engine can be responsible for the coordination? 
 
+ A node is "stale" if it has never been computed or if its recompute id is less than the change id of one of its children.
+
 ### Anchor
 - Users can create an Anchor in a number of ways:
     - Just provide the value in a constructor.
@@ -24,7 +26,6 @@ The engine class here performs a similar function to incremental's state.
 - When you create an Anchor, you create it with a height. Its height must always be greater than those of its input.
 - The above functions won't do any computations until you call get.
 - setValue(). - When called, we need to be able to access its parents and add them to recompute heap
-- setUpdater() - to update the map function. We need to look at the heights of input here. This is where the adjustHeights heap comes in. You also need to remove existing edges.
 - In the map functions, the inputs A and B become children of the new anchor. We also store the updater function.
 - get() - will just run the updater function and return a value. This should work well depending we maintain the invariant that children always get computed before their parents. 
 
@@ -43,7 +44,9 @@ Alternatively, we could have a different compute() function which just stores a 
 For later
 - bind()
 - Must every anchor take an input from other anchors? I think so 
-- Start with only allowing inputs to be of the same time. 
+- Start with only allowing inputs to be of the same type.
+- setUpdater() - to update the map function. We need to look at the heights of input here. This is where the adjustHeights heap comes in. You also need to remove existing edges.
+- Maybe instead of pointers, I can implement the right move functions
 
 
 
