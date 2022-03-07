@@ -76,6 +76,8 @@ void Engine::set(std::shared_ptr<Anchor<T>>& anchor, T val) {
     anchor->setChangeId(changeId + 1);
     anchor->setStabilizationNumber(d_stabilizationNumber);
 
+    anchor->setValue(val);
+
     if (anchor->isNecessary()) {
         for (const auto& parent : anchor->getParents()) {
             if (parent->isNecessary()) {
