@@ -18,7 +18,7 @@ class AnchorBase {
 
     virtual int getChangeId() = 0;
 
-    virtual int setChangeId(int) = 0;
+    virtual void setChangeId(int changeId) = 0;
 
     virtual void markNecessary() = 0;
 
@@ -26,9 +26,9 @@ class AnchorBase {
 
     virtual bool isNecessary() = 0;
 
-    virtual const std::unordered_set<std::shared_ptr<AnchorBase>>& getParents() = 0;
+    virtual std::unordered_set<std::shared_ptr<AnchorBase>> getParents() = 0;
 
-    virtual const std::vector<std::shared_ptr<AnchorBase>>& getChildren() = 0;
+    virtual std::vector<std::shared_ptr<AnchorBase>> getChildren() = 0;
 
     virtual void addParent(const std::shared_ptr<AnchorBase>& parent) = 0;
 };
@@ -76,9 +76,9 @@ class Anchor : public AnchorBase {
     void addParent(const std::shared_ptr<AnchorBase>& parent) override;
 
     // TODO: I'm breaking encapsulation with the methods below, do I need to? I should probably just return a copy
-    const std::unordered_set<std::shared_ptr<AnchorBase>>& getParents() override;
+    std::unordered_set<std::shared_ptr<AnchorBase>> getParents() override;
 
-    const std::vector<std::shared_ptr<AnchorBase>>& getChildren() override;
+    std::vector<std::shared_ptr<AnchorBase>> getChildren() override;
 
    private:
     Anchor();
@@ -106,8 +106,14 @@ class Anchor : public AnchorBase {
 };
 
 template <typename T>
-Anchor<T>::Anchor(T value) {
-    d_value = value;
+Anchor<T>::Anchor(T value) : d_value(value),
+                             d_children(),
+                             d_parents() {
+}
+
+template <typename T>
+Anchor<T>::Anchor() : d_children(),
+                      d_parents() {
 }
 
 template <typename T>
@@ -186,7 +192,9 @@ Anchor<T> Anchor<T>::map(const std::shared_ptr<Anchor<T>>& anchor, const SingleI
     Anchor<T> newAnchor;
 
     newAnchor.d_singleInputUpdater = updater;
-    newAnchor.d_children.insert(anchor);
+    newAnchor.d_children.push_back(anchor);
+
+    newAnchor.d_height = anchor->getHeight() + 1;
 
     return newAnchor;
 }
@@ -196,25 +204,42 @@ Anchor<T> Anchor<T>::map2(const std::shared_ptr<Anchor<T>>& anchor1, const std::
     Anchor<T> newAnchor;
 
     newAnchor.d_dualInputUpdater = updater;
-    newAnchor.d_children.insert(anchor1);
-    newAnchor.d_children.insert(anchor2);
+    newAnchor.d_children.push_back(anchor1);
+    newAnchor.d_children.push_back(anchor2);
 
+    int height1 = anchor1->getHeight();
+    int height2 = anchor2->getHeight();
+
+    newAnchor.d_height = height1 > height2 ? height1 + 1 : height2 + 1;
     return newAnchor;
 }
 
 template <typename T>
 void Anchor<T>::addParent(const std::shared_ptr<AnchorBase>& parent) {
-    d_parents.insert(parent);
+    d_parents.insert(std::dynamic_pointer_cast<Anchor<T>>(parent));
+    // TODO: can I avoid this cast?
 }
 
 template <typename T>
-const std::unordered_set<std::shared_ptr<AnchorBase>>& Anchor<T>::getParents() {
-    return d_parents;
+std::unordered_set<std::shared_ptr<AnchorBase>> Anchor<T>::getParents() {
+    std::unordered_set<std::shared_ptr<AnchorBase>> result;
+
+    for (auto& parent : d_parents) {
+        result.insert(parent);
+    }
+
+    return result;
 }
 
 template <typename T>
-const std::vector<std::shared_ptr<AnchorBase>>& Anchor<T>::getChildren() {
-    return d_children;
+std::vector<std::shared_ptr<AnchorBase>> Anchor<T>::getChildren() {
+    std::vector<std::shared_ptr<AnchorBase>> result;
+
+    for (auto& child : d_children) {
+        result.push_back(child);
+    }
+
+    return result;
 }
 
 }  // namespace anchors
