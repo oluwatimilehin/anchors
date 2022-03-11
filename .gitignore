@@ -34,3 +34,5 @@
 .vscode/
 .clang-format
 build/
+.idea/
+cmake-build-debug/

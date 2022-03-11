@@ -1,5 +1,7 @@
-#ifndef ANCHOR_H
-#define ANCHOR_H
+#ifndef ANCHORS_ANCHOR_H
+#define ANCHORS_ANCHOR_H
+
+#include <anchorbase.h>
 
 #include <functional>
 #include <memory>
@@ -8,43 +10,39 @@
 
 namespace anchors {
 
+template <typename T>
+class Anchor;
+
+template <typename T>
+using AnchorPtr = std::shared_ptr<Anchor<T>>;
+
 // TODO: I need to come up with a hash function for these things
-class AnchorBase {
-   public:
-    virtual void compute(int stabilizationNumber) = 0;
-
-    virtual int getHeight()      = 0;
-    virtual int getRecomputeId() = 0;
-
-    virtual int getChangeId() = 0;
-
-    virtual void setChangeId(int changeId) = 0;
-
-    virtual void markNecessary() = 0;
-
-    virtual void decrementNecessaryCount() = 0;
-
-    virtual bool isNecessary() = 0;
-
-    virtual std::unordered_set<std::shared_ptr<AnchorBase>> getParents() = 0;
-
-    virtual std::vector<std::shared_ptr<AnchorBase>> getChildren() = 0;
-
-    virtual void addParent(const std::shared_ptr<AnchorBase>& parent) = 0;
-};
-
 // TODO: I think some of these public functions will be made friend functions, so only the engine class can access them
+// TODO:: What should the copy constructors look like? What requirements do we have for any type T?
 template <typename T>
 class Anchor : public AnchorBase {
    public:
-    // TODO: These updaters currently take a function that returns a value.
-    // Eventually, we want it to return an anchor
-    using SingleInputUpdater = std::function<T(T)>;
+    Anchor();
 
-    using DualInputUpdater = std::function<T(T, T)>;
+    explicit Anchor(const T& value);
 
-    Anchor(T value);
 
+    using SingleInputUpdater = std::function<T(T&)>;
+
+    using DualInputUpdater = std::function<T(T&, T&)>;
+
+    virtual ~Anchor() = default;
+
+    static AnchorPtr<T> create(const T& value);
+
+    static AnchorPtr<T> map(const AnchorPtr<T>& anchor, const SingleInputUpdater& updater);
+
+    static AnchorPtr<T> map2(const AnchorPtr<T>& anchor1, const AnchorPtr<T>& anchor2, const DualInputUpdater& updater);
+    // Set the children of the node.
+
+    friend class Engine;
+
+   private:
     T get();
     // Always return the latest value.
 
@@ -66,25 +64,16 @@ class Anchor : public AnchorBase {
 
     void setChangeId(int changeId) override;
 
-    void setValue(T value);
-
-    static Anchor<T> map(const std::shared_ptr<Anchor<T>>& anchor, const SingleInputUpdater& updater);
-
-    static Anchor<T> map2(const std::shared_ptr<Anchor<T>>& anchor1, const std::shared_ptr<Anchor<T>>& anchor2, const DualInputUpdater& updater);
-    // Set the children of the node.
+    void setValue(const T& value);
 
     void addParent(const std::shared_ptr<AnchorBase>& parent) override;
 
-    // TODO: I'm breaking encapsulation with the methods below, do I need to? I should probably just return a copy
     std::unordered_set<std::shared_ptr<AnchorBase>> getParents() override;
 
     std::vector<std::shared_ptr<AnchorBase>> getChildren() override;
 
-   private:
-    Anchor();
-
     // PRIVATE TYPES
-    int d_height;
+    int d_height{};
     T   d_value;
 
     std::vector<std::shared_ptr<Anchor<T>>> d_children;
@@ -103,17 +92,32 @@ class Anchor : public AnchorBase {
     SingleInputUpdater d_singleInputUpdater;
 
     DualInputUpdater d_dualInputUpdater;
+
+//    template <T>
+//    struct MakeSharedEnabler;
 };
 
+//template <typename T>
+//struct Anchor<T>::MakeSharedEnabler<T> : public Anchor<T>{
+//        MakeSharedEnabler(T val) : Anchor<T>(val){
+//        }
+//
+//        MakeSharedEnabler() : Anchor<T>(){
+//        }
+//};
+
+
 template <typename T>
-Anchor<T>::Anchor(T value) : d_value(value),
+Anchor<T>::Anchor(const T& value) : d_value(value),
                              d_children(),
-                             d_parents() {
+                             d_parents(),
+d_height(0){
 }
 
 template <typename T>
 Anchor<T>::Anchor() : d_children(),
-                      d_parents() {
+                      d_parents(),
+d_height(0){
 }
 
 template <typename T>
@@ -126,14 +130,19 @@ void Anchor<T>::compute(int stabilizationNumber) {
     T newValue;
     d_recomputeId = stabilizationNumber;
 
-    if (d_children.size() == 0) {
+    if (d_children.empty()) {
         return;
-    } else if (d_children.size() == 1) {
-        newValue = d_singleInputUpdater(d_children.at(0)->get());
-    } else if (d_children.size() == 2) {
-        newValue = d_dualInputUpdater(d_children.at(0)->get(), d_children.at(1)->get());
+    }
+
+    if (d_children.size() == 1) {
+        auto input = d_children.at(0)->get();
+        newValue   = d_singleInputUpdater(input);
+
     } else {
-        // TODO: This is an invalid situation
+        auto input1 = d_children.at(0)->get();
+        auto input2 = d_children.at(1)->get();
+
+        newValue = d_dualInputUpdater(input1, input2);
     }
 
     if (newValue != d_value) {
@@ -183,34 +192,41 @@ void Anchor<T>::setChangeId(int changeId) {
 }
 
 template <typename T>
-void Anchor<T>::setValue(T value) {
+void Anchor<T>::setValue(const T& value) {
     d_value = value;
 }
 
 template <typename T>
-Anchor<T> Anchor<T>::map(const std::shared_ptr<Anchor<T>>& anchor, const SingleInputUpdater& updater) {
-    Anchor<T> newAnchor;
-
-    newAnchor.d_singleInputUpdater = updater;
-    newAnchor.d_children.push_back(anchor);
-
-    newAnchor.d_height = anchor->getHeight() + 1;
+AnchorPtr<T> Anchor<T>::create(const T& value) {
+    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>(value));
 
     return newAnchor;
 }
 
 template <typename T>
-Anchor<T> Anchor<T>::map2(const std::shared_ptr<Anchor<T>>& anchor1, const std::shared_ptr<Anchor<T>>& anchor2, const DualInputUpdater& updater) {
-    Anchor<T> newAnchor;
+AnchorPtr<T> Anchor<T>::map(const AnchorPtr<T>& anchor, const SingleInputUpdater& updater) {
+    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());;
 
-    newAnchor.d_dualInputUpdater = updater;
-    newAnchor.d_children.push_back(anchor1);
-    newAnchor.d_children.push_back(anchor2);
+    newAnchor->d_singleInputUpdater = updater;
+    newAnchor->d_children.push_back(anchor);
+
+    newAnchor->d_height = anchor->getHeight() + 1;
+
+    return newAnchor;
+}
+
+template <typename T>
+AnchorPtr<T> Anchor<T>::map2(const AnchorPtr<T>& anchor1, const AnchorPtr<T>& anchor2, const DualInputUpdater& updater) {
+    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());
+
+    newAnchor->d_dualInputUpdater = updater;
+    newAnchor->d_children.push_back(anchor1);
+    newAnchor->d_children.push_back(anchor2);
 
     int height1 = anchor1->getHeight();
     int height2 = anchor2->getHeight();
 
-    newAnchor.d_height = height1 > height2 ? height1 + 1 : height2 + 1;
+    newAnchor->d_height = height1 > height2 ? height1 + 1 : height2 + 1;
     return newAnchor;
 }
 
