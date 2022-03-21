@@ -41,6 +41,8 @@ int main(int, char**) {
 
     // Test with a string
     {
+        std::cout << "\n";
+        std::cout << "Test set 2\n";
         AnchorPtr<std::string> username(Anchor<std::string>::create("John"));
 
         auto updater = [](std::string& text) {
@@ -56,5 +58,31 @@ int main(int, char**) {
         engine.set(username, std::string("Samuel"));
 
         std::cout << "Greeting after changing the value: " << engine.get(greeting) << "\n";
+    }
+
+    // More with numbers
+    {
+        std::cout << "\n";
+        std::cout << "Test set 3\n";
+        AnchorPtr<int> anchorW(Anchor<int>::create(10));
+        AnchorPtr<int> anchorX(Anchor<int>::create(4));
+
+        auto dualInputUpdater = [](int a, int b) {
+            std::cout << "a=" << a << "; b=" << b << "\n";  // should print 10 and 4 only once
+            return a + b;
+        };
+
+        AnchorPtr<int> anchorY(Anchor<int>::map2(anchorW, anchorX, dualInputUpdater));
+        AnchorPtr<int> anchorZ(Anchor<int>::create(5));  // TODO:: It'll be great if I could just create an Anchor without the template. Maybe just AnchorUtil::create();
+
+        AnchorPtr<int> resultAnchor(Anchor<int>::map2(anchorY, anchorZ, dualInputUpdater));
+
+        engine.observe(resultAnchor);
+
+        std::cout << "ResultAnchor: " << engine.get(resultAnchor) << "\n"; // Should be 19
+
+        engine.set(anchorZ, 9);
+        std::cout << "ResultAnchor: " << engine.get(resultAnchor) << "\n"; // Should be 23. What's important here is it should not recompute W + X
+
     }
 }

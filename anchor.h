@@ -26,7 +26,6 @@ class Anchor : public AnchorBase {
 
     explicit Anchor(const T& value);
 
-
     using SingleInputUpdater = std::function<T(T&)>;
 
     using DualInputUpdater = std::function<T(T&, T&)>;
@@ -53,6 +52,8 @@ class Anchor : public AnchorBase {
 
     bool isNecessary() override;
 
+    bool isStale() override;
+
     void decrementNecessaryCount() override;
     // if this is zero, maybe log a message but it shouldn't ever be
 
@@ -74,7 +75,9 @@ class Anchor : public AnchorBase {
 
     // PRIVATE TYPES
     int d_height{};
-    T   d_value;
+    T   d_value{};
+
+    bool d_isStale = true;  // TODO: eventually, we will check if its recompute ID is less than one of its children
 
     std::vector<std::shared_ptr<Anchor<T>>> d_children;
     // Anchors it depends on... For now, there can only be two but eventually we'll have more
@@ -93,31 +96,28 @@ class Anchor : public AnchorBase {
 
     DualInputUpdater d_dualInputUpdater;
 
-//    template <T>
-//    struct MakeSharedEnabler;
+    //    template <T>
+    //    struct MakeSharedEnabler;
 };
 
-//template <typename T>
-//struct Anchor<T>::MakeSharedEnabler<T> : public Anchor<T>{
-//        MakeSharedEnabler(T val) : Anchor<T>(val){
-//        }
+// template <typename T>
+// struct Anchor<T>::MakeSharedEnabler<T> : public Anchor<T>{
+//         MakeSharedEnabler(T val) : Anchor<T>(val){
+//         }
 //
-//        MakeSharedEnabler() : Anchor<T>(){
-//        }
-//};
-
+//         MakeSharedEnabler() : Anchor<T>(){
+//         }
+// };
 
 template <typename T>
 Anchor<T>::Anchor(const T& value) : d_value(value),
-                             d_children(),
-                             d_parents(),
-d_height(0){
+                                    d_children(),
+                                    d_parents() {
 }
 
 template <typename T>
 Anchor<T>::Anchor() : d_children(),
-                      d_parents(),
-d_height(0){
+                      d_parents() {
 }
 
 template <typename T>
@@ -127,6 +127,10 @@ T Anchor<T>::get() {
 
 template <typename T>
 void Anchor<T>::compute(int stabilizationNumber) {
+    if (d_recomputeId == stabilizationNumber) {
+        return;  // TODO: This is to prevent computing a node more than once in the same cycle, but ideally, we should prevent this. Maybe have a separate set of nodes in the recompute heap
+    }
+
     T newValue;
     d_recomputeId = stabilizationNumber;
 
@@ -149,6 +153,8 @@ void Anchor<T>::compute(int stabilizationNumber) {
         d_changeId = stabilizationNumber;
         d_value    = newValue;
     }
+
+    d_isStale = false;
 }
 
 template <typename T>
@@ -159,6 +165,11 @@ void Anchor<T>::markNecessary() {
 template <typename T>
 bool Anchor<T>::isNecessary() {
     return d_necessary > 0;
+}
+
+template <typename T>
+bool Anchor<T>::isStale() {
+    return isNecessary() & d_isStale;
 }
 
 template <typename T>
@@ -205,7 +216,8 @@ AnchorPtr<T> Anchor<T>::create(const T& value) {
 
 template <typename T>
 AnchorPtr<T> Anchor<T>::map(const AnchorPtr<T>& anchor, const SingleInputUpdater& updater) {
-    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());;
+    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());
+    ;
 
     newAnchor->d_singleInputUpdater = updater;
     newAnchor->d_children.push_back(anchor);

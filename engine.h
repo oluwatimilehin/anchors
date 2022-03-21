@@ -96,7 +96,6 @@ void Engine::observe(std::shared_ptr<Anchor<T>>& anchor) {
     }
 
     d_observedNodes.insert(anchor);
-    d_recomputeHeap.push(anchor);
 
     std::unordered_set<std::shared_ptr<AnchorBase>> visited;
     traverse(anchor, visited);
@@ -110,6 +109,10 @@ void Engine::traverse(std::shared_ptr<Anchor<T>>& current, std::unordered_set<st
 
     visited.insert(current);
     current->markNecessary();
+
+    if(current->isStale()){
+        d_recomputeHeap.push(current);
+    }
 
     for (auto& child : current->getChildren()) {
         auto castChild = std::dynamic_pointer_cast<Anchor<T>>(child);

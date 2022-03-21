@@ -12,8 +12,7 @@
 namespace anchors {
 class AnchorBase {
    public:
-
-    virtual ~AnchorBase() {};
+    virtual ~AnchorBase(){};
 
     virtual void compute(int stabilizationNumber) = 0;
 
@@ -29,6 +28,8 @@ class AnchorBase {
     virtual void decrementNecessaryCount() = 0;
 
     virtual bool isNecessary() = 0;
+
+    virtual bool isStale() = 0;
 
     virtual std::unordered_set<std::shared_ptr<AnchorBase>> getParents() = 0;
 
