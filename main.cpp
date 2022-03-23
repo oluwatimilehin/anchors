@@ -1,5 +1,5 @@
-#include <anchor.h>
-#include <engine.h>
+#include "anchorutil.h"
+#include "engine.h"
 
 #include <iostream>
 
@@ -9,14 +9,14 @@ int main(int, char**) {
     // Test with an int
     anchors::Engine engine;
     {
-        AnchorPtr<int> anchorA(Anchor<int>::create(2));
-        AnchorPtr<int> anchorB(Anchor<int>::create(3));
+        AnchorPtr<int> anchorA(AnchorUtil::create(2));
+        AnchorPtr<int> anchorB(AnchorUtil::create(3));
 
         auto dualInputUpdater = [](int a, int b) {
             return a + b;
         };
 
-        AnchorPtr<int> anchorC(Anchor<int>::map2(anchorA, anchorB, dualInputUpdater));
+        AnchorPtr<int> anchorC(AnchorUtil::map2(anchorA, anchorB, dualInputUpdater));
 
         engine.observe(anchorC);
 
@@ -33,7 +33,7 @@ int main(int, char**) {
             return a * 3;
         };
 
-        AnchorPtr<int> anchorD(Anchor<int>::map(anchorC, singleInputUpdater));
+        AnchorPtr<int> anchorD(AnchorUtil::map(anchorC, singleInputUpdater));
 
         engine.observe(anchorD);
         std::cout << "Anchor D value: " << engine.get(anchorD) << "\n";  // should be 39
@@ -43,13 +43,13 @@ int main(int, char**) {
     {
         std::cout << "\n";
         std::cout << "Test set 2\n";
-        AnchorPtr<std::string> username(Anchor<std::string>::create("John"));
+        AnchorPtr<std::string> username(AnchorUtil::create(std::string("John")));
 
         auto updater = [](std::string& text) {
             return "Hello, " + text;
         };
 
-        AnchorPtr<std::string> greeting(Anchor<std::string>::map(username, updater));
+        AnchorPtr<std::string> greeting(AnchorUtil::map(username, updater));
 
         engine.observe(greeting);
 
@@ -64,25 +64,24 @@ int main(int, char**) {
     {
         std::cout << "\n";
         std::cout << "Test set 3\n";
-        AnchorPtr<int> anchorW(Anchor<int>::create(10));
-        AnchorPtr<int> anchorX(Anchor<int>::create(4));
+        AnchorPtr<int> anchorW(AnchorUtil::create(10));
+        AnchorPtr<int> anchorX(AnchorUtil::create(4));
 
         auto dualInputUpdater = [](int a, int b) {
             std::cout << "a=" << a << "; b=" << b << "\n";  // should print 10 and 4 only once
             return a + b;
         };
 
-        AnchorPtr<int> anchorY(Anchor<int>::map2(anchorW, anchorX, dualInputUpdater));
-        AnchorPtr<int> anchorZ(Anchor<int>::create(5));  // TODO:: It'll be great if I could just create an Anchor without the template. Maybe just AnchorUtil::create();
+        AnchorPtr<int> anchorY(AnchorUtil::map2(anchorW, anchorX, dualInputUpdater));
+        AnchorPtr<int> anchorZ(AnchorUtil::create(5));  // TODO:: It'll be great if I could just create an Anchor without the template. Maybe just AnchorUtil::create();
 
-        AnchorPtr<int> resultAnchor(Anchor<int>::map2(anchorY, anchorZ, dualInputUpdater));
+        AnchorPtr<int> resultAnchor(AnchorUtil::map2(anchorY, anchorZ, dualInputUpdater));
 
         engine.observe(resultAnchor);
 
-        std::cout << "ResultAnchor: " << engine.get(resultAnchor) << "\n"; // Should be 19
+        std::cout << "ResultAnchor: " << engine.get(resultAnchor) << "\n";  // Should be 19
 
         engine.set(anchorZ, 9);
-        std::cout << "ResultAnchor: " << engine.get(resultAnchor) << "\n"; // Should be 23. What's important here is it should not recompute W + X
-
+        std::cout << "ResultAnchor: " << engine.get(resultAnchor) << "\n";  // Should be 23. What's important here is it should not recompute W + X
     }
 }

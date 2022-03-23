@@ -29,9 +29,12 @@ void Engine::stabilize() {
 
     while (!d_recomputeHeap.empty()) {
         std::shared_ptr<AnchorBase> top = d_recomputeHeap.top();
+        d_recomputeHeap.pop();
 
-        // TODO: Ideally, we would store the old value to determine whether or not we need to add the children but we can't access T from AnchorBase. Perhaps we can use the change Id?
-        // Maybe pass the stabilization number to compute() to set it as its change ID and recompute ID and only update the change ID when the value actually changes?
+        if (!top->isNecessary()) {
+            continue;
+        }
+
         top->compute(d_stabilizationNumber);
 
         if (top->getChangeId() == d_stabilizationNumber) {
@@ -40,8 +43,6 @@ void Engine::stabilize() {
                 d_recomputeHeap.push(parent);  // The parents should always have a higher height than a child, so this shouldn't cause any issues when we pop the heap
             }
         }
-
-        d_recomputeHeap.pop();
     }
 }
 

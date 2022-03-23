@@ -1,45 +1,35 @@
 #ifndef ANCHORS_ANCHOR_H
 #define ANCHORS_ANCHOR_H
 
-#include <anchorbase.h>
-
 #include <functional>
 #include <memory>
 #include <unordered_set>
 #include <vector>
 
+#include "anchorbase.h"
+
 namespace anchors {
 
-template <typename T>
-class Anchor;
-
-template <typename T>
-using AnchorPtr = std::shared_ptr<Anchor<T>>;
-
-// TODO: I need to come up with a hash function for these things
-// TODO: I think some of these public functions will be made friend functions, so only the engine class can access them
-// TODO:: What should the copy constructors look like? What requirements do we have for any type T?
+// TODO: I need to come up with a hash function for these things. I think each anchor should be created with an ID and hash with the ID
+// Also write hash and equals function
+// TODO:: What should the copy constructors look like, if at all? What requirements do we have for any type T?
 template <typename T>
 class Anchor : public AnchorBase {
    public:
-    Anchor();
-
-    explicit Anchor(const T& value);
-
     using SingleInputUpdater = std::function<T(T&)>;
 
     using DualInputUpdater = std::function<T(T&, T&)>;
 
-    virtual ~Anchor() = default;
+    // I want to make these constructors private, so you can only create an anchor as a ptr.
+    Anchor();
 
-    static AnchorPtr<T> create(const T& value);
+    explicit Anchor(const T& value);
 
-    static AnchorPtr<T> map(const AnchorPtr<T>& anchor, const SingleInputUpdater& updater);
-
-    static AnchorPtr<T> map2(const AnchorPtr<T>& anchor1, const AnchorPtr<T>& anchor2, const DualInputUpdater& updater);
-    // Set the children of the node.
+    ~Anchor() override = default;
 
     friend class Engine;
+
+    friend class AnchorUtil;
 
    private:
     T get();
@@ -99,15 +89,6 @@ class Anchor : public AnchorBase {
     //    template <T>
     //    struct MakeSharedEnabler;
 };
-
-// template <typename T>
-// struct Anchor<T>::MakeSharedEnabler<T> : public Anchor<T>{
-//         MakeSharedEnabler(T val) : Anchor<T>(val){
-//         }
-//
-//         MakeSharedEnabler() : Anchor<T>(){
-//         }
-// };
 
 template <typename T>
 Anchor<T>::Anchor(const T& value) : d_value(value),
@@ -205,41 +186,6 @@ void Anchor<T>::setChangeId(int changeId) {
 template <typename T>
 void Anchor<T>::setValue(const T& value) {
     d_value = value;
-}
-
-template <typename T>
-AnchorPtr<T> Anchor<T>::create(const T& value) {
-    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>(value));
-
-    return newAnchor;
-}
-
-template <typename T>
-AnchorPtr<T> Anchor<T>::map(const AnchorPtr<T>& anchor, const SingleInputUpdater& updater) {
-    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());
-    ;
-
-    newAnchor->d_singleInputUpdater = updater;
-    newAnchor->d_children.push_back(anchor);
-
-    newAnchor->d_height = anchor->getHeight() + 1;
-
-    return newAnchor;
-}
-
-template <typename T>
-AnchorPtr<T> Anchor<T>::map2(const AnchorPtr<T>& anchor1, const AnchorPtr<T>& anchor2, const DualInputUpdater& updater) {
-    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());
-
-    newAnchor->d_dualInputUpdater = updater;
-    newAnchor->d_children.push_back(anchor1);
-    newAnchor->d_children.push_back(anchor2);
-
-    int height1 = anchor1->getHeight();
-    int height2 = anchor2->getHeight();
-
-    newAnchor->d_height = height1 > height2 ? height1 + 1 : height2 + 1;
-    return newAnchor;
 }
 
 template <typename T>

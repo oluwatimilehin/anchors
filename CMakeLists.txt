@@ -11,7 +11,7 @@ file(GLOB SOURCES
         )
 
 # add_library(anchors anchors.cpp)
-add_executable(main ${SOURCE_FILES} ${SOURCES} anchorbase.h)
+add_executable(main ${SOURCE_FILES} ${SOURCES})
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
