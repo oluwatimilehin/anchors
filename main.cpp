@@ -73,7 +73,7 @@ int main(int, char**) {
         };
 
         AnchorPtr<int> anchorY(AnchorUtil::map2(anchorW, anchorX, dualInputUpdater));
-        AnchorPtr<int> anchorZ(AnchorUtil::create(5));  // TODO:: It'll be great if I could just create an Anchor without the template. Maybe just AnchorUtil::create();
+        AnchorPtr<int> anchorZ(AnchorUtil::create(5));
 
         AnchorPtr<int> resultAnchor(AnchorUtil::map2(anchorY, anchorZ, dualInputUpdater));
 

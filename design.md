@@ -21,8 +21,9 @@ The engine class here performs a similar function to incremental's state.
 - Users can create an Anchor in a number of ways:
     - Just provide the value in a constructor.
     - Static functions like:
-        - map (Anchor<A> anchor, std::function<Anchor<T>>(A val)) // function that takes an Anchor and a function that tells it how to create an Anchor from the value of the Anchor.
-        - map2(Anchor<A> anchorA, Anchor<B> anchorB, std::function<T>(A val, B val))
+        - `map (Anchor<A> anchor, std::function<Anchor<T>>(A val)) // function that takes an Anchor and a function that tells it how to create an Anchor from the value of the Anchor.`
+        - `map2(Anchor<A> anchorA, Anchor<B> anchorB, std::function<T>(A val, B val))`
+      
 - When you create an Anchor, you create it with a height. Its height must always be greater than those of its input.
 - The above functions won't do any computations until you call get.
 - setValue(). - When called, we need to be able to access its parents and add them to recompute heap

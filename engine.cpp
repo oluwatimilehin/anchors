@@ -38,9 +38,11 @@ void Engine::stabilize() {
         top->compute(d_stabilizationNumber);
 
         if (top->getChangeId() == d_stabilizationNumber) {
-            // Its value changed. Maybe support a cut-off function later
+            // Its value changed.
             for (const auto& parent : top->getParents()) {
-                d_recomputeHeap.push(parent);  // The parents should always have a higher height than a child, so this shouldn't cause any issues when we pop the heap
+                if (parent->isNecessary()) {
+                    d_recomputeHeap.push(parent);  // The parents should always have a higher height than a child, so this shouldn't cause any issues when we pop the heap
+                }
             }
         }
     }

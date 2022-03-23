@@ -37,7 +37,6 @@ class Engine {
     void unobserve(std::shared_ptr<Anchor<T>>& anchor);
 
    private:
-
     void stabilize();
 
     template <typename T>
@@ -66,16 +65,12 @@ T Engine::get(const std::shared_ptr<Anchor<T>>& anchor) {
 
 template <typename T>
 void Engine::set(std::shared_ptr<Anchor<T>>& anchor, T val) {
-    int changeId = anchor->getChangeId();
-
     T oldVal = anchor->get();
 
     if (oldVal == val)
         return;
 
     anchor->setChangeId(d_stabilizationNumber);
-    // anchor->setStab(d_stabilizationNumber);
-
     anchor->setValue(val);
 
     if (anchor->isNecessary()) {
@@ -110,7 +105,7 @@ void Engine::traverse(std::shared_ptr<Anchor<T>>& current, std::unordered_set<st
     visited.insert(current);
     current->markNecessary();
 
-    if(current->isStale()){
+    if (current->isStale()) {
         d_recomputeHeap.push(current);
     }
 
@@ -134,8 +129,6 @@ void Engine::unobserve(std::shared_ptr<Anchor<T>>& anchor) {
 
     d_observedNodes.erase(anchor);
 }
-
-
 
 }  // namespace anchors
 #endif

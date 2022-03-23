@@ -11,7 +11,7 @@
 namespace anchors {
 
 // TODO: I need to come up with a hash function for these things. I think each anchor should be created with an ID and hash with the ID
-// Also write hash and equals function
+// TODO: Also write hash and output operator function
 // TODO:: What should the copy constructors look like, if at all? What requirements do we have for any type T?
 template <typename T>
 class Anchor : public AnchorBase {
@@ -20,7 +20,7 @@ class Anchor : public AnchorBase {
 
     using DualInputUpdater = std::function<T(T&, T&)>;
 
-    // I want to make these constructors private, so you can only create an anchor as a ptr.
+    //TODO: I want to make these constructors private, so you can only create an anchor as a ptr.
     Anchor();
 
     explicit Anchor(const T& value);
