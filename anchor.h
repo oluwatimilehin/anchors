@@ -1,6 +1,10 @@
 #ifndef ANCHORS_ANCHOR_H
 #define ANCHORS_ANCHOR_H
 
+#include <boost/uuid/uuid.hpp>            // uuid class
+#include <boost/uuid/uuid_generators.hpp> // generators
+#include <boost/uuid/uuid_io.hpp>         // streaming operators etc.
+
 #include <functional>
 #include <memory>
 #include <unordered_set>
@@ -89,6 +93,9 @@ class Anchor : public AnchorBase {
     //    template <T>
     //    struct MakeSharedEnabler;
 };
+
+
+
 
 template <typename T>
 Anchor<T>::Anchor(const T& value) : d_value(value),
