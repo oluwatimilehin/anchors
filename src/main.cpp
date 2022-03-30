@@ -12,12 +12,10 @@ int main(int, char**) {
         AnchorPtr<int> anchorA(AnchorUtil::create(2));
         AnchorPtr<int> anchorB(AnchorUtil::create(3));
 
-        auto dualInputUpdater = [](int a, int b) { return a + b; };
+        auto sum = [](int a, int b) { return a + b; };
 
         AnchorPtr<int> anchorC(
-            AnchorUtil::map2(anchorA, anchorB, dualInputUpdater));
-
-        engine.observe(anchorC);
+            AnchorUtil::map2(anchorA, anchorB, sum));
 
         engine.observe(anchorC);
 
@@ -31,9 +29,9 @@ int main(int, char**) {
                   << engine.get(anchorC) << "\n";  // Should be 13
         std::cout << "Anchor a value: " << engine.get(anchorA) << "\n";
 
-        auto singleInputUpdater = [](int a) { return a * 3; };
+        auto triple = [](int a) { return a * 3; };
 
-        AnchorPtr<int> anchorD(AnchorUtil::map(anchorC, singleInputUpdater));
+        AnchorPtr<int> anchorD(AnchorUtil::map(anchorC, triple));
 
         engine.observe(anchorD);
         std::cout << "Anchor D value: " << engine.get(anchorD)

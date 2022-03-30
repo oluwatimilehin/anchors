@@ -7,17 +7,8 @@
 #include <queue>
 #include <unordered_set>
 
-namespace std {
-template <>
-struct less<std::shared_ptr<anchors::AnchorBase>> {
-    bool operator()(const std::shared_ptr<anchors::AnchorBase>& a1,
-                    const std::shared_ptr<anchors::AnchorBase>& a2) const {
-        return a1->getHeight() > a2->getHeight();
-    }
-};
-}  // namespace std
-
 namespace anchors {
+// The engine only knows about necessary nodes
 class Engine {
    public:
     Engine();

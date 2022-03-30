@@ -1,6 +1,8 @@
 #ifndef ANCHORS_ANCHOR_H
 #define ANCHORS_ANCHOR_H
 
+#include "anchorbase.h"
+
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <functional>
@@ -8,12 +10,18 @@
 #include <unordered_set>
 #include <vector>
 
-#include "anchorbase.h"
-
 template <>
 struct std::hash<anchors::AnchorBase> {
     std::size_t operator()(const anchors::AnchorBase& a) const noexcept {
         return hash_value(a.getId());
+    }
+};
+
+template <>
+struct std::less<std::shared_ptr<anchors::AnchorBase>> {
+    bool operator()(const std::shared_ptr<anchors::AnchorBase>& a1,
+                    const std::shared_ptr<anchors::AnchorBase>& a2) const {
+        return a1->getHeight() > a2->getHeight();
     }
 };
 
@@ -32,8 +40,7 @@ class Anchor : public AnchorBase {
 
     explicit Anchor(const T& value);
 
-    Anchor(const Anchor& a) =
-        delete;  // TODO: confirm that this is the copy constructor
+    Anchor(const Anchor& a) = delete;
 
     ~Anchor() override = default;
 

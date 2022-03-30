@@ -5,6 +5,7 @@ add_subdirectory(src)
 
 
 enable_testing()
+include(CTest)
 add_subdirectory(test)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
