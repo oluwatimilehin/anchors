@@ -1,7 +1,7 @@
 #ifndef ANCHORS_ENGINE_H
 #define ANCHORS_ENGINE_H
 
-#include <anchor.h>
+#include "anchor.h"
 
 #include <memory>
 #include <queue>
@@ -10,7 +10,8 @@
 namespace std {
 template <>
 struct less<std::shared_ptr<anchors::AnchorBase>> {
-    bool operator()(const std::shared_ptr<anchors::AnchorBase>& a1, const std::shared_ptr<anchors::AnchorBase>& a2) const {
+    bool operator()(const std::shared_ptr<anchors::AnchorBase>& a1,
+                    const std::shared_ptr<anchors::AnchorBase>& a2) const {
         return a1->getHeight() > a2->getHeight();
     }
 };
@@ -31,7 +32,8 @@ class Engine {
 
     template <typename T>
     void observe(std::shared_ptr<Anchor<T>>& anchor);
-    // when you observe a node, mark all its children as necessary. Only observed nodes will give the latest value
+    // when you observe a node, mark all its children as necessary. Only
+    // observed nodes will give the latest value
 
     template <typename T>
     void unobserve(std::shared_ptr<Anchor<T>>& anchor);
@@ -40,10 +42,12 @@ class Engine {
     void stabilize();
 
     template <typename T>
-    void traverse(std::shared_ptr<Anchor<T>>& current, std::unordered_set<std::shared_ptr<AnchorBase>>&);
+    void traverse(std::shared_ptr<Anchor<T>>& current,
+                  std::unordered_set<std::shared_ptr<AnchorBase>>&);
 
     std::unordered_set<std::shared_ptr<AnchorBase>> d_observedNodes;
-    // - observed nodes // What do I use this observed nodes for? To stabilize, I can just read from the recompute heap, right?
+    // - observed nodes // What do I use this observed nodes for? To stabilize,
+    // I can just read from the recompute heap, right?
 
     std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
     //  Only add something to the recompute heap if it is necessary and stale.
@@ -67,8 +71,7 @@ template <typename T>
 void Engine::set(std::shared_ptr<Anchor<T>>& anchor, T val) {
     T oldVal = anchor->get();
 
-    if (oldVal == val)
-        return;
+    if (oldVal == val) return;
 
     anchor->setChangeId(d_stabilizationNumber);
     anchor->setValue(val);
@@ -85,7 +88,8 @@ void Engine::set(std::shared_ptr<Anchor<T>>& anchor, T val) {
 template <typename T>
 void Engine::observe(std::shared_ptr<Anchor<T>>& anchor) {
     // Traverse the graph.
-    // anchor -> find children, mark them as necessary and update the current node as its parent. Repeat the same for each child
+    // anchor -> find children, mark them as necessary and update the current
+    // node as its parent. Repeat the same for each child
     if (d_observedNodes.contains(anchor)) {
         return;
     }
@@ -97,7 +101,9 @@ void Engine::observe(std::shared_ptr<Anchor<T>>& anchor) {
 }
 
 template <typename T>
-void Engine::traverse(std::shared_ptr<Anchor<T>>& current, std::unordered_set<std::shared_ptr<AnchorBase>>& visited) {
+void Engine::traverse(
+    std::shared_ptr<Anchor<T>>&                      current,
+    std::unordered_set<std::shared_ptr<AnchorBase>>& visited) {
     if (visited.contains(current)) {
         return;
     }

@@ -1,10 +1,8 @@
 #ifndef ANCHORS_ANCHOR_H
 #define ANCHORS_ANCHOR_H
 
-#include <boost/uuid/uuid.hpp>            // uuid class
-#include <boost/uuid/uuid_generators.hpp> // generators
-#include <boost/uuid/uuid_io.hpp>         // streaming operators etc.
-
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 #include <functional>
 #include <memory>
 #include <unordered_set>
@@ -12,11 +10,15 @@
 
 #include "anchorbase.h"
 
+template <>
+struct std::hash<anchors::AnchorBase> {
+    std::size_t operator()(const anchors::AnchorBase& a) const noexcept {
+        return hash_value(a.getId());
+    }
+};
+
 namespace anchors {
 
-// TODO: I need to come up with a hash function for these things. I think each anchor should be created with an ID and hash with the ID
-// TODO: Also write hash and output operator function
-// TODO:: What should the copy constructors look like, if at all? What requirements do we have for any type T?
 template <typename T>
 class Anchor : public AnchorBase {
    public:
@@ -24,10 +26,14 @@ class Anchor : public AnchorBase {
 
     using DualInputUpdater = std::function<T(T&, T&)>;
 
-    //TODO: I want to make these constructors private, so you can only create an anchor as a ptr.
+    // TODO: I want to make these constructors private, so you can only create
+    // an anchor as a ptr.
     Anchor();
 
     explicit Anchor(const T& value);
+
+    Anchor(const Anchor& a) =
+        delete;  // TODO: confirm that this is the copy constructor
 
     ~Anchor() override = default;
 
@@ -35,27 +41,37 @@ class Anchor : public AnchorBase {
 
     friend class AnchorUtil;
 
+    friend std::ostream& operator<<(std::ostream& out, const Anchor& anchor) {
+        out << "[ value=" << anchor.get() << ", id=" << anchor.getId()
+            << ", height=" << anchor.getHeight(),
+            ", parents=" << anchor.getParents()
+                         << " children=" << anchor.getChildren() << " ]";
+    }
+
    private:
-    T get();
+    T get() const;
     // Always return the latest value.
 
     void compute(int stabilizationNumber) override;
-    // Update the value based on the inputs. Set the recomputeID to stabilizationNumber, only set the changeId if the value changes.
+    // Update the value based on the inputs. Set the recomputeID to
+    // stabilizationNumber, only set the changeId if the value changes.
 
     void markNecessary() override;
 
-    bool isNecessary() override;
+    bool isNecessary() const override;
 
-    bool isStale() override;
+    bool isStale() const override;
 
     void decrementNecessaryCount() override;
-    // if this is zero, maybe log a message but it shouldn't ever be
+    // if this is zero, maybe log a message, but it shouldn't ever be
 
-    int getHeight() override;
+    AnchorId getId() const override;
 
-    int getRecomputeId() override;
+    int getHeight() const override;
 
-    int getChangeId() override;
+    int getRecomputeId() const override;
+
+    int getChangeId() const override;
 
     void setChangeId(int changeId) override;
 
@@ -63,28 +79,35 @@ class Anchor : public AnchorBase {
 
     void addParent(const std::shared_ptr<AnchorBase>& parent) override;
 
-    std::unordered_set<std::shared_ptr<AnchorBase>> getParents() override;
+    std::unordered_set<std::shared_ptr<AnchorBase>> getParents() const override;
 
-    std::vector<std::shared_ptr<AnchorBase>> getChildren() override;
+    std::vector<std::shared_ptr<AnchorBase>> getChildren() const override;
 
-    // PRIVATE TYPES
+    // PRIVATE DATA
+    boost::uuids::random_generator d_idGenerator;
+
     int d_height{};
-    T   d_value{};
+    int d_necessary{};
+    // For each time an anchor is necessary, increment it by 1. When we
+    // unobserve an anchor, we decrement its necessary count. An anchor is
+    // necessary if necessary > 0;
 
-    bool d_isStale = true;  // TODO: eventually, we will check if its recompute ID is less than one of its children
+    int d_recomputeId{};
+    int d_changeId{};
+
+    boost::uuids::uuid d_id;
+
+    T d_value{};
+
+    bool d_isStale;  // TODO: eventually, we will check if its recompute ID is
+                     // less than one of its children
 
     std::vector<std::shared_ptr<Anchor<T>>> d_children;
-    // Anchors it depends on... For now, there can only be two but eventually we'll have more
+    // Anchors it depends on... For now, there can only be two but eventually
+    // we'll have more
 
     std::unordered_set<std::shared_ptr<Anchor<T>>> d_parents;
     // Anchors that depend on it.
-
-    int d_necessary = 0;
-    // For each time an anchor is necessary, increment it by 1. When we unobserve an anchor, we decrement its necessary count.
-    // An anchor is necessary if necessary > 0;
-
-    int d_recomputeId = 0;
-    int d_changeId    = 0;
 
     SingleInputUpdater d_singleInputUpdater;
 
@@ -94,29 +117,28 @@ class Anchor : public AnchorBase {
     //    struct MakeSharedEnabler;
 };
 
-
-
+template <typename T>
+Anchor<T>::Anchor(const T& value)
+    : d_id(d_idGenerator()),
+      d_value(value),
+      d_isStale(true),
+      d_children(),
+      d_parents() {}
 
 template <typename T>
-Anchor<T>::Anchor(const T& value) : d_value(value),
-                                    d_children(),
-                                    d_parents() {
-}
+Anchor<T>::Anchor()
+    : d_id(d_idGenerator()), d_isStale(true), d_children(), d_parents() {}
 
 template <typename T>
-Anchor<T>::Anchor() : d_children(),
-                      d_parents() {
-}
-
-template <typename T>
-T Anchor<T>::get() {
+T Anchor<T>::get() const {
     return d_value;
 }
 
 template <typename T>
 void Anchor<T>::compute(int stabilizationNumber) {
     if (d_recomputeId == stabilizationNumber) {
-        return;  // TODO: This is to prevent computing a node more than once in the same cycle, but ideally, we should prevent this. Maybe have a separate set of nodes in the recompute heap
+        // Don't compute a node more than once in the same cycle
+        return;
     }
 
     T newValue;
@@ -151,12 +173,12 @@ void Anchor<T>::markNecessary() {
 }
 
 template <typename T>
-bool Anchor<T>::isNecessary() {
+bool Anchor<T>::isNecessary() const {
     return d_necessary > 0;
 }
 
 template <typename T>
-bool Anchor<T>::isStale() {
+bool Anchor<T>::isStale() const {
     return isNecessary() & d_isStale;
 }
 
@@ -171,17 +193,22 @@ void Anchor<T>::decrementNecessaryCount() {
 }
 
 template <typename T>
-int Anchor<T>::getHeight() {
+AnchorBase::AnchorId Anchor<T>::getId() const {
+    return d_id;
+}
+
+template <typename T>
+int Anchor<T>::getHeight() const {
     return d_height;
 }
 
 template <typename T>
-int Anchor<T>::getRecomputeId() {
+int Anchor<T>::getRecomputeId() const {
     return d_recomputeId;
 }
 
 template <typename T>
-int Anchor<T>::getChangeId() {
+int Anchor<T>::getChangeId() const {
     return d_changeId;
 }
 
@@ -198,11 +225,10 @@ void Anchor<T>::setValue(const T& value) {
 template <typename T>
 void Anchor<T>::addParent(const std::shared_ptr<AnchorBase>& parent) {
     d_parents.insert(std::dynamic_pointer_cast<Anchor<T>>(parent));
-    // TODO: can I avoid this cast?
 }
 
 template <typename T>
-std::unordered_set<std::shared_ptr<AnchorBase>> Anchor<T>::getParents() {
+std::unordered_set<std::shared_ptr<AnchorBase>> Anchor<T>::getParents() const {
     std::unordered_set<std::shared_ptr<AnchorBase>> result;
 
     for (auto& parent : d_parents) {
@@ -213,7 +239,7 @@ std::unordered_set<std::shared_ptr<AnchorBase>> Anchor<T>::getParents() {
 }
 
 template <typename T>
-std::vector<std::shared_ptr<AnchorBase>> Anchor<T>::getChildren() {
+std::vector<std::shared_ptr<AnchorBase>> Anchor<T>::getChildren() const {
     std::vector<std::shared_ptr<AnchorBase>> result;
 
     for (auto& child : d_children) {
