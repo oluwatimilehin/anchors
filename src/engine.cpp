@@ -5,6 +5,28 @@ namespace anchors {
 Engine::Engine()
     : d_observedNodes(), d_recomputeHeap(), d_adjustHeightsHeap() {}
 
+void Engine::traverse(
+    std::shared_ptr<AnchorBase>&                     current,
+    std::unordered_set<std::shared_ptr<AnchorBase>>& visited) {
+    if (visited.contains(current)) {
+        return;
+    }
+
+    visited.insert(current);
+    current->markNecessary();
+
+    if (current->isStale()) { // TODO:: and it's not already in the recompute heap
+        d_recomputeHeap.push(current);
+    }
+
+    for (auto& child : current->getDependencies()) {
+        //        auto castChild =
+        //        std::dynamic_pointer_cast<AnchorWrap<T>>(child);
+        traverse(child, visited);
+        child->addDependent(current);
+    }
+}
+
 void Engine::stabilize() {
     // Read from recompute heap to perform the calculations
     // When we implement set_updater, we also read from the adjust_heights heap
@@ -38,7 +60,7 @@ void Engine::stabilize() {
 
         if (top->getChangeId() == d_stabilizationNumber) {
             // Its value changed.
-            for (const auto& parent : top->getParents()) {
+            for (const auto& parent : top->getDependents()) {
                 if (parent->isNecessary()) {
                     d_recomputeHeap.push(
                         parent);  // The parents should always have a higher

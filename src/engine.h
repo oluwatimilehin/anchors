@@ -14,26 +14,28 @@ class Engine {
     Engine();
 
     template <typename T>
-    T get(const std::shared_ptr<Anchor<T>>& anchor);
+    T get(const std::shared_ptr<AnchorWrap<T>>& anchor);
     // If the node is observed (or necessary), call stabilize
     // If the node is not observed or necessary, you might get a stale value
 
     template <typename T>
-    void set(std::shared_ptr<Anchor<T>>& anchor, T val);
+    void set(std::shared_ptr<AnchorWrap<T>>& anchor, T val);
 
     template <typename T>
-    void observe(std::shared_ptr<Anchor<T>>& anchor);
+    void observe(std::shared_ptr<AnchorWrap<T>>& anchor);
     // when you observe a node, mark all its children as necessary. Only
     // observed nodes will give the latest value
 
     template <typename T>
-    void unobserve(std::shared_ptr<Anchor<T>>& anchor);
+    void observe(std::vector<std::shared_ptr<AnchorWrap<T>>>& anchors);
+
+    template <typename T>
+    void unobserve(std::shared_ptr<AnchorWrap<T>>& anchor);
 
    private:
     void stabilize();
 
-    template <typename T>
-    void traverse(std::shared_ptr<Anchor<T>>& current,
+    void traverse(std::shared_ptr<AnchorBase>& current,
                   std::unordered_set<std::shared_ptr<AnchorBase>>&);
 
     std::unordered_set<std::shared_ptr<AnchorBase>> d_observedNodes;
@@ -43,6 +45,7 @@ class Engine {
     std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
     //  Only add something to the recompute heap if it is necessary and stale.
 
+
     std::priority_queue<std::shared_ptr<AnchorBase>> d_adjustHeightsHeap;
     // Update the adjust-heights heap when setUpdater is called. Will use later.
 
@@ -50,7 +53,7 @@ class Engine {
 };
 
 template <typename T>
-T Engine::get(const std::shared_ptr<Anchor<T>>& anchor) {
+T Engine::get(const std::shared_ptr<AnchorWrap<T>>& anchor) {
     if (anchor->isNecessary()) {
         stabilize();
     }
@@ -59,16 +62,16 @@ T Engine::get(const std::shared_ptr<Anchor<T>>& anchor) {
 }
 
 template <typename T>
-void Engine::set(std::shared_ptr<Anchor<T>>& anchor, T val) {
+void Engine::set(std::shared_ptr<AnchorWrap<T>>& anchor, T val) {
     T oldVal = anchor->get();
 
     if (oldVal == val) return;
 
     anchor->setChangeId(d_stabilizationNumber);
-    anchor->setValue(val);
+    anchor->set(val);
 
     if (anchor->isNecessary()) {
-        for (const auto& parent : anchor->getParents()) {
+        for (const auto& parent : anchor->getDependents()) {
             if (parent->isNecessary()) {
                 d_recomputeHeap.push(parent);
             }
@@ -77,7 +80,7 @@ void Engine::set(std::shared_ptr<Anchor<T>>& anchor, T val) {
 }
 
 template <typename T>
-void Engine::observe(std::shared_ptr<Anchor<T>>& anchor) {
+void Engine::observe(std::shared_ptr<AnchorWrap<T>>& anchor) {
     // Traverse the graph.
     // anchor -> find children, mark them as necessary and update the current
     // node as its parent. Repeat the same for each child
@@ -88,33 +91,22 @@ void Engine::observe(std::shared_ptr<Anchor<T>>& anchor) {
     d_observedNodes.insert(anchor);
 
     std::unordered_set<std::shared_ptr<AnchorBase>> visited;
-    traverse(anchor, visited);
+    std::shared_ptr<AnchorBase>                     anchorBase = anchor;
+    traverse(anchorBase, visited);
 }
 
 template <typename T>
-void Engine::traverse(
-    std::shared_ptr<Anchor<T>>&                      current,
-    std::unordered_set<std::shared_ptr<AnchorBase>>& visited) {
-    if (visited.contains(current)) {
-        return;
-    }
-
-    visited.insert(current);
-    current->markNecessary();
-
-    if (current->isStale()) {
-        d_recomputeHeap.push(current);
-    }
-
-    for (auto& child : current->getChildren()) {
-        auto castChild = std::dynamic_pointer_cast<Anchor<T>>(child);
-        traverse(castChild, visited);
-        child->addParent(current);
+void Engine::observe(std::vector<std::shared_ptr<AnchorWrap<T>>>& anchors) {
+    // Traverse the graph.
+    // anchor -> find children, mark them as necessary and update the current
+    // node as its parent. Repeat the same for each child
+    for (auto& anchor : anchors) {
+        observe(anchor);
     }
 }
 
 template <typename T>
-void Engine::unobserve(std::shared_ptr<Anchor<T>>& anchor) {
+void Engine::unobserve(std::shared_ptr<AnchorWrap<T>>& anchor) {
     if (!d_observedNodes.contains(anchor)) {
         return;
     }

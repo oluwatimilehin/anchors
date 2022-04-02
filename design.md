@@ -26,7 +26,7 @@ The engine class here performs a similar function to incremental's state.
       
 - When you create an Anchor, you create it with a height. Its height must always be greater than those of its input.
 - The above functions won't do any computations until you call get.
-- setValue(). - When called, we need to be able to access its parents and add them to recompute heap
+- set(). - When called, we need to be able to access its parents and add them to recompute heap
 - In the map functions, the inputs A and B become children of the new anchor. We also store the updater function.
 - get() - will just run the updater function and return a value. This should work well depending we maintain the invariant that children always get computed before their parents. 
 

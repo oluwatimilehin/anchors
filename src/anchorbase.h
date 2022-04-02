@@ -5,7 +5,8 @@
 #ifndef ANCHORS_ANCHORBASE_H
 #define ANCHORS_ANCHORBASE_H
 
-#pragma comment(lib, "bcrypt.lib") // TODO, will this fail on a linux machine? It fixes a boost::uuid linker issue
+#pragma comment(lib, "bcrypt.lib")  // TODO, will this fail on a linux machine?
+                                    // It fixes a boost::uuid linker issue
 
 #include <boost/uuid/uuid.hpp>
 #include <memory>
@@ -38,11 +39,12 @@ class AnchorBase {
 
     virtual bool isStale() const = 0;
 
-    virtual std::unordered_set<std::shared_ptr<AnchorBase>> getParents() const = 0;
+    virtual std::unordered_set<std::shared_ptr<AnchorBase>> getDependents()
+        const = 0;
 
-    virtual std::vector<std::shared_ptr<AnchorBase>> getChildren() const = 0;
+    virtual std::vector<std::shared_ptr<AnchorBase>> getDependencies() const = 0;
 
-    virtual void addParent(const std::shared_ptr<AnchorBase>& parent) = 0;
+    virtual void addDependent(const std::shared_ptr<AnchorBase>& parent) = 0;
 };
 }  // namespace anchors
 

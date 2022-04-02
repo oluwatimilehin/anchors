@@ -1,61 +1,91 @@
 //
 // Created by Timi Adeniran on 23/03/2022.
 //
-#ifndef ANCHORS_ANCHORUTIL_H
-#define ANCHORS_ANCHORUTIL_H
+#ifndef ANCHORS_ANCHORS_H
+#define ANCHORS_ANCHORS_H
 
 #include "anchor.h"
+// TODO: Maybe rename this file
 
 namespace anchors {
 
 template <typename T>
-using AnchorPtr = std::shared_ptr<Anchor<T>>;
+using AnchorPtr = std::shared_ptr<AnchorWrap<T>>;
 
-class AnchorUtil {
+class Anchors {
    public:
     template <typename T>
     static AnchorPtr<T> create(const T& value);
 
-    template <typename T>
-    static AnchorPtr<T> map(const AnchorPtr<T>& anchor, const typename Anchor<T>::SingleInputUpdater& updater);
+    template <typename T, typename InputType1 = T>
+    static AnchorPtr<T> map(
+        const AnchorPtr<InputType1>&                              anchor,
+        const typename Anchor<T, InputType1>::SingleInputUpdater& updater);
 
-    template <typename T>
-    static AnchorPtr<T> map2(const AnchorPtr<T>& anchor1, const AnchorPtr<T>& anchor2, const typename Anchor<T>::DualInputUpdater& updater);
-    // Set the children of the node.
+    template <typename T, typename InputType1 = T>
+    static AnchorPtr<T> map(
+        const AnchorPtr<InputType1>&                               anchor,
+        const typename Anchor<T, InputType1>::SingleInputUpdater&& updater);
+
+    template <typename T, typename InputType1 = T, typename InputType2 = T>
+    static AnchorPtr<T> map2(
+        const AnchorPtr<InputType1>& anchor1,
+        const AnchorPtr<InputType2>& anchor2,
+        const typename Anchor<T, InputType1, InputType2>::DualInputUpdater&
+            updater);
+
+    template <typename T, typename InputType1 = T, typename InputType2 = T>
+    static AnchorPtr<T> map2(
+        const AnchorPtr<InputType1>& anchor1,
+        const AnchorPtr<InputType2>& anchor2,
+        const typename Anchor<T, InputType1, InputType2>::DualInputUpdater&&
+            updater);
 };
 
 template <typename T>
-AnchorPtr<T> AnchorUtil::create(const T& value) {
+AnchorPtr<T> Anchors::create(const T& value) {
     AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>(value));
 
     return newAnchor;
 }
-template <typename T>
-AnchorPtr<T> AnchorUtil::map(const AnchorPtr<T>& anchor, const typename Anchor<T>::SingleInputUpdater& updater) {
-    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());
 
-    newAnchor->d_singleInputUpdater = updater;
-    newAnchor->d_children.push_back(anchor);
-
-    newAnchor->d_height = anchor->getHeight() + 1;
+template <typename T, typename InputType1>
+AnchorPtr<T> Anchors::map(
+    const AnchorPtr<InputType1>&                              anchor,
+    const typename Anchor<T, InputType1>::SingleInputUpdater& updater) {
+    AnchorPtr<T> newAnchor(
+        std::make_shared<Anchor<T, InputType1>>(anchor, updater));
 
     return newAnchor;
 }
 
-template <typename T>
-AnchorPtr<T> AnchorUtil::map2(const AnchorPtr<T>& anchor1, const AnchorPtr<T>& anchor2, const typename Anchor<T>::DualInputUpdater& updater) {
-    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T>>());
+template <typename T, typename InputType1>
+AnchorPtr<T> Anchors::map(
+    const AnchorPtr<InputType1>&                               anchor,
+    const typename Anchor<T, InputType1>::SingleInputUpdater&& updater) {
+    return map<T, InputType1>(anchor, updater);
+}
 
-    newAnchor->d_dualInputUpdater = updater;
-    newAnchor->d_children.push_back(anchor1);
-    newAnchor->d_children.push_back(anchor2);
+template <typename T, typename InputType1, typename InputType2>
+AnchorPtr<T> Anchors::map2(
+    const AnchorPtr<InputType1>& anchor1,
+    const AnchorPtr<InputType2>& anchor2,
+    const typename Anchor<T, InputType1, InputType2>::DualInputUpdater&
+        updater) {
+    AnchorPtr<T> newAnchor(std::make_shared<Anchor<T, InputType1, InputType2>>(
+        anchor1, anchor2, updater));
 
-    int height1 = anchor1->getHeight();
-    int height2 = anchor2->getHeight();
-
-    newAnchor->d_height = height1 > height2 ? height1 + 1 : height2 + 1;
     return newAnchor;
+}
+
+template <typename T, typename InputType1, typename InputType2>
+AnchorPtr<T> Anchors::map2(
+    const AnchorPtr<InputType1>& anchor1,
+    const AnchorPtr<InputType2>& anchor2,
+    const typename Anchor<T, InputType1, InputType2>::DualInputUpdater&&
+        updater) {
+    return map2<T, InputType1, InputType2>(anchor1, anchor2, updater);
 }
 
 }  // namespace anchors
-#endif  // ANCHORS_ANCHORUTIL_H
+#endif  // ANCHORS_ANCHORS_H

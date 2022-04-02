@@ -9,13 +9,12 @@ int main(int, char**) {
     // Test with an int
     Engine engine;
     {
-        AnchorPtr<int> anchorA(AnchorUtil::create(2));
-        AnchorPtr<int> anchorB(AnchorUtil::create(3));
+        AnchorPtr<int> anchorA(Anchors::create(2));
+        AnchorPtr<int> anchorB(Anchors::create(3));
 
         auto sum = [](int a, int b) { return a + b; };
 
-        AnchorPtr<int> anchorC(
-            AnchorUtil::map2(anchorA, anchorB, sum));
+        AnchorPtr<int> anchorC(Anchors::map2(anchorA, anchorB, sum));
 
         engine.observe(anchorC);
 
@@ -31,7 +30,7 @@ int main(int, char**) {
 
         auto triple = [](int a) { return a * 3; };
 
-        AnchorPtr<int> anchorD(AnchorUtil::map(anchorC, triple));
+        AnchorPtr<int> anchorD(Anchors::map(anchorC, triple));
 
         engine.observe(anchorD);
         std::cout << "Anchor D value: " << engine.get(anchorD)
@@ -42,12 +41,11 @@ int main(int, char**) {
     {
         std::cout << "\n";
         std::cout << "Test set 2\n";
-        AnchorPtr<std::string> username(
-            AnchorUtil::create(std::string("John")));
+        AnchorPtr<std::string> username(Anchors::create(std::string("John")));
 
         auto updater = [](std::string& text) { return "Hello, " + text; };
 
-        AnchorPtr<std::string> greeting(AnchorUtil::map(username, updater));
+        AnchorPtr<std::string> greeting(Anchors::map(username, updater));
 
         engine.observe(greeting);
 
@@ -63,8 +61,8 @@ int main(int, char**) {
     {
         std::cout << "\n";
         std::cout << "Test set 3\n";
-        AnchorPtr<int> anchorW(AnchorUtil::create(10));
-        AnchorPtr<int> anchorX(AnchorUtil::create(4));
+        AnchorPtr<int> anchorW(Anchors::create(10));
+        AnchorPtr<int> anchorX(Anchors::create(4));
 
         auto dualInputUpdater = [](int a, int b) {
             std::cout << "a=" << a << "; b=" << b
@@ -73,11 +71,11 @@ int main(int, char**) {
         };
 
         AnchorPtr<int> anchorY(
-            AnchorUtil::map2(anchorW, anchorX, dualInputUpdater));
-        AnchorPtr<int> anchorZ(AnchorUtil::create(5));
+            Anchors::map2(anchorW, anchorX, dualInputUpdater));
+        AnchorPtr<int> anchorZ(Anchors::create(5));
 
         AnchorPtr<int> resultAnchor(
-            AnchorUtil::map2(anchorY, anchorZ, dualInputUpdater));
+            Anchors::map2(anchorY, anchorZ, dualInputUpdater));
 
         engine.observe(resultAnchor);
 
