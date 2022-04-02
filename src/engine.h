@@ -45,9 +45,11 @@ class Engine {
     std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
     //  Only add something to the recompute heap if it is necessary and stale.
 
+    std::unordered_set<std::shared_ptr<AnchorBase>> d_recomputeSet;
 
-    std::priority_queue<std::shared_ptr<AnchorBase>> d_adjustHeightsHeap;
-    // Update the adjust-heights heap when setUpdater is called. Will use later.
+    //    std::priority_queue<std::shared_ptr<AnchorBase>> d_adjustHeightsHeap;
+    //    // Update the adjust-heights heap when setUpdater is called. Will use
+    //    later.
 
     int d_stabilizationNumber = 0;
 };
@@ -72,8 +74,9 @@ void Engine::set(std::shared_ptr<AnchorWrap<T>>& anchor, T val) {
 
     if (anchor->isNecessary()) {
         for (const auto& parent : anchor->getDependents()) {
-            if (parent->isNecessary()) {
+            if (parent->isNecessary() && !d_recomputeSet.contains(parent)) {
                 d_recomputeHeap.push(parent);
+                d_recomputeSet.insert(parent);
             }
         }
     }

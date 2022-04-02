@@ -2,8 +2,7 @@
 
 namespace anchors {
 
-Engine::Engine()
-    : d_observedNodes(), d_recomputeHeap(), d_adjustHeightsHeap() {}
+Engine::Engine() : d_observedNodes(), d_recomputeHeap(), d_recomputeSet() {}
 
 void Engine::traverse(
     std::shared_ptr<AnchorBase>&                     current,
@@ -15,7 +14,7 @@ void Engine::traverse(
     visited.insert(current);
     current->markNecessary();
 
-    if (current->isStale()) { // TODO:: and it's not already in the recompute heap
+    if (current->isStale() && !d_recomputeSet.contains(current)) {
         d_recomputeHeap.push(current);
     }
 
@@ -61,7 +60,7 @@ void Engine::stabilize() {
         if (top->getChangeId() == d_stabilizationNumber) {
             // Its value changed.
             for (const auto& parent : top->getDependents()) {
-                if (parent->isNecessary()) {
+                if (parent->isStale() && !d_recomputeSet.contains(parent)) {
                     d_recomputeHeap.push(
                         parent);  // The parents should always have a higher
                                   // height than a child, so this shouldn't
@@ -70,6 +69,8 @@ void Engine::stabilize() {
             }
         }
     }
+
+    d_recomputeSet.clear();
 }
 
 }  // namespace anchors

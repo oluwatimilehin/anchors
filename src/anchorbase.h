@@ -42,7 +42,8 @@ class AnchorBase {
     virtual std::unordered_set<std::shared_ptr<AnchorBase>> getDependents()
         const = 0;
 
-    virtual std::vector<std::shared_ptr<AnchorBase>> getDependencies() const = 0;
+    virtual std::vector<std::shared_ptr<AnchorBase>> getDependencies()
+        const = 0;
 
     virtual void addDependent(const std::shared_ptr<AnchorBase>& parent) = 0;
 };

@@ -126,8 +126,7 @@ class Anchor : public AnchorWrap<T> {
     int d_recomputeId{};
     int d_changeId{};
 
-    bool d_isStale;  // TODO: eventually, we will check if its recompute ID
-                     // is less than one of its children
+    bool d_isStale;
 
     const std::shared_ptr<AnchorWrap<InputType1>> d_firstChild;
     const std::shared_ptr<AnchorWrap<InputType2>> d_secondChild;
@@ -222,7 +221,19 @@ bool Anchor<T, InputType1, InputType2>::isNecessary() const {
 
 template <typename T, typename InputType1, typename InputType2>
 bool Anchor<T, InputType1, InputType2>::isStale() const {
-    return isNecessary() & d_isStale;
+    bool recomputeIdLessThanChilds = false;
+
+    if (d_numChildren >= 1) {
+        recomputeIdLessThanChilds =
+            d_recomputeId < d_firstChild->getRecomputeId();
+
+        if (!recomputeIdLessThanChilds && d_numChildren == 2) {
+            recomputeIdLessThanChilds |=
+                d_recomputeId < d_secondChild->getRecomputeId();
+        }
+    }
+
+    return isNecessary() & (d_isStale || recomputeIdLessThanChilds);
 }
 
 template <typename T, typename InputType1, typename InputType2>
