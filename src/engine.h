@@ -73,7 +73,7 @@ void Engine::set(std::shared_ptr<AnchorWrap<T>>& anchor, T val) {
     anchor->set(val);
 
     if (anchor->isNecessary()) {
-        for (const auto& parent : anchor->getDependents()) {
+        for (const auto& parent : anchor->getDependants()) {
             if (parent->isNecessary() && !d_recomputeSet.contains(parent)) {
                 d_recomputeHeap.push(parent);
                 d_recomputeSet.insert(parent);

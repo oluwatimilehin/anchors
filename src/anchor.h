@@ -46,12 +46,10 @@ class Anchor : public AnchorWrap<T> {
 
     using DualInputUpdater = std::function<T(InputType1&, InputType2&)>;
 
-    // TODO: I want to make these constructors private, so you can only
-    // create an anchor as a ptr.
     Anchor() = delete;
 
-    // Always return the latest value.
-
+    // TODO: I want to make these constructors private, so you can only
+    // create an anchor as a ptr.
     explicit Anchor(const T& value);
 
     explicit Anchor(const std::shared_ptr<AnchorWrap<InputType1>>& firstChild,
@@ -71,8 +69,9 @@ class Anchor : public AnchorWrap<T> {
 
     friend std::ostream& operator<<(std::ostream& out, const Anchor& anchor) {
         out << "[ value=" << anchor.get() << ", height=" << anchor.getHeight(),
-            ", parents=" << anchor.getDependents()
-                         << " children=" << anchor.getDependencies() << " ]";
+            ", dependants=" << anchor.getDependants()
+                            << " dependencies=" << anchor.getDependencies()
+                            << " ]";
     }
 
    private:
@@ -101,9 +100,9 @@ class Anchor : public AnchorWrap<T> {
 
     void set(const T& value) override;
 
-    void addDependent(const std::shared_ptr<AnchorBase>& parent) override;
+    void addDependant(const std::shared_ptr<AnchorBase>& parent) override;
 
-    std::unordered_set<std::shared_ptr<AnchorBase>> getDependents()
+    std::unordered_set<std::shared_ptr<AnchorBase>> getDependants()
         const override;
 
     std::vector<std::shared_ptr<AnchorBase>> getDependencies() const override;
@@ -121,17 +120,17 @@ class Anchor : public AnchorWrap<T> {
     // unobserve an anchor, we decrement its necessary count. An anchor is
     // necessary if necessary > 0;
 
-    int d_numChildren{};
+    int d_numDependencies{};
 
     int d_recomputeId{};
     int d_changeId{};
 
     bool d_isStale;
 
-    const std::shared_ptr<AnchorWrap<InputType1>> d_firstChild;
-    const std::shared_ptr<AnchorWrap<InputType2>> d_secondChild;
+    const std::shared_ptr<AnchorWrap<InputType1>> d_firstDependency;
+    const std::shared_ptr<AnchorWrap<InputType2>> d_secondDependency;
 
-    std::unordered_set<std::shared_ptr<AnchorBase>> d_parents;
+    std::unordered_set<std::shared_ptr<AnchorBase>> d_dependants;
     // Anchors that depend on it.
 
     SingleInputUpdater d_singleInputUpdater;
@@ -144,7 +143,7 @@ class Anchor : public AnchorWrap<T> {
 
 template <typename T, typename InputType1, typename InputType2>
 Anchor<T, InputType1, InputType2>::Anchor(const T& value)
-    : d_id(d_idGenerator()), d_value(value), d_isStale(true), d_parents() {}
+    : d_id(d_idGenerator()), d_value(value), d_isStale(true), d_dependants() {}
 
 template <typename T, typename InputType1, typename InputType2>
 Anchor<T, InputType1, InputType2>::Anchor(
@@ -152,10 +151,10 @@ Anchor<T, InputType1, InputType2>::Anchor(
     const SingleInputUpdater&                      updater)
     : d_id(d_idGenerator()),
       d_height(firstChild->getHeight() + 1),
-      d_numChildren(1),
+      d_numDependencies(1),
       d_isStale(true),
-      d_firstChild(firstChild),
-      d_parents(),
+      d_firstDependency(firstChild),
+      d_dependants(),
       d_singleInputUpdater(updater) {}
 
 template <typename T, typename InputType1, typename InputType2>
@@ -165,11 +164,11 @@ Anchor<T, InputType1, InputType2>::Anchor(
     const DualInputUpdater&                        updater)
     : d_id(d_idGenerator()),
       d_height(std::max(firstChild->getHeight(), secondChild->getHeight()) + 1),
-      d_numChildren(2),
+      d_numDependencies(2),
       d_isStale(true),
-      d_firstChild(firstChild),
-      d_secondChild(secondChild),
-      d_parents(),
+      d_firstDependency(firstChild),
+      d_secondDependency(secondChild),
+      d_dependants(),
       d_dualInputUpdater(updater) {}
 
 template <typename T, typename InputType1, typename InputType2>
@@ -189,16 +188,16 @@ void Anchor<T, InputType1, InputType2>::compute(int stabilizationNumber) {
 
     d_isStale = false;
 
-    if (d_numChildren == 0) {
+    if (d_numDependencies == 0) {
         return;
     }
 
-    if (d_numChildren == 1) {
-        InputType1 inputVal = d_firstChild->get();
+    if (d_numDependencies == 1) {
+        InputType1 inputVal = d_firstDependency->get();
         newValue            = d_singleInputUpdater(inputVal);
     } else {
-        InputType1 inputVal  = d_firstChild->get();
-        InputType2 inputVal2 = d_secondChild->get();
+        InputType1 inputVal  = d_firstDependency->get();
+        InputType2 inputVal2 = d_secondDependency->get();
 
         newValue = d_dualInputUpdater(inputVal, inputVal2);
     }
@@ -223,13 +222,13 @@ template <typename T, typename InputType1, typename InputType2>
 bool Anchor<T, InputType1, InputType2>::isStale() const {
     bool recomputeIdLessThanChilds = false;
 
-    if (d_numChildren >= 1) {
+    if (d_numDependencies >= 1) {
         recomputeIdLessThanChilds =
-            d_recomputeId < d_firstChild->getRecomputeId();
+            d_recomputeId < d_firstDependency->getRecomputeId();
 
-        if (!recomputeIdLessThanChilds && d_numChildren == 2) {
+        if (!recomputeIdLessThanChilds && d_numDependencies == 2) {
             recomputeIdLessThanChilds |=
-                d_recomputeId < d_secondChild->getRecomputeId();
+                d_recomputeId < d_secondDependency->getRecomputeId();
         }
     }
 
@@ -239,7 +238,6 @@ bool Anchor<T, InputType1, InputType2>::isStale() const {
 template <typename T, typename InputType1, typename InputType2>
 void Anchor<T, InputType1, InputType2>::decrementNecessaryCount() {
     if (d_necessary <= 0) {
-        // TODO:: LOG an error
         return;
     }
 
@@ -277,17 +275,17 @@ void Anchor<T, InputType1, InputType2>::set(const T& value) {
 }
 
 template <typename T, typename InputType1, typename InputType2>
-void Anchor<T, InputType1, InputType2>::addDependent(
+void Anchor<T, InputType1, InputType2>::addDependant(
     const std::shared_ptr<AnchorBase>& parent) {
-    d_parents.insert(parent);
+    d_dependants.insert(parent);
 }
 
 template <typename T, typename InputType1, typename InputType2>
 std::unordered_set<std::shared_ptr<AnchorBase>>
-Anchor<T, InputType1, InputType2>::getDependents() const {
+Anchor<T, InputType1, InputType2>::getDependants() const {
     std::unordered_set<std::shared_ptr<AnchorBase>> result;
 
-    for (auto& parent : d_parents) {
+    for (auto& parent : d_dependants) {
         result.insert(parent);
     }
 
@@ -299,11 +297,11 @@ std::vector<std::shared_ptr<AnchorBase>>
 Anchor<T, InputType1, InputType2>::getDependencies() const {
     std::vector<std::shared_ptr<AnchorBase>> result;
 
-    if (d_numChildren >= 1) {
-        result.push_back(d_firstChild);
+    if (d_numDependencies >= 1) {
+        result.push_back(d_firstDependency);
 
-        if (d_numChildren == 2) {
-            result.push_back(d_secondChild);
+        if (d_numDependencies == 2) {
+            result.push_back(d_secondDependency);
         }
     }
 

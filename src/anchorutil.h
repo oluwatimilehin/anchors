@@ -5,7 +5,6 @@
 #define ANCHORS_ANCHORS_H
 
 #include "anchor.h"
-// TODO: Maybe rename this file
 
 namespace anchors {
 

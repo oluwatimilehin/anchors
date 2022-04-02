@@ -39,13 +39,13 @@ class AnchorBase {
 
     virtual bool isStale() const = 0;
 
-    virtual std::unordered_set<std::shared_ptr<AnchorBase>> getDependents()
+    virtual std::unordered_set<std::shared_ptr<AnchorBase>> getDependants()
         const = 0;
 
     virtual std::vector<std::shared_ptr<AnchorBase>> getDependencies()
         const = 0;
 
-    virtual void addDependent(const std::shared_ptr<AnchorBase>& parent) = 0;
+    virtual void addDependant(const std::shared_ptr<AnchorBase>& parent) = 0;
 };
 }  // namespace anchors
 

@@ -18,11 +18,11 @@ void Engine::traverse(
         d_recomputeHeap.push(current);
     }
 
-    for (auto& child : current->getDependencies()) {
+    for (auto& dep : current->getDependencies()) {
         //        auto castChild =
-        //        std::dynamic_pointer_cast<AnchorWrap<T>>(child);
-        traverse(child, visited);
-        child->addDependent(current);
+        //        std::dynamic_pointer_cast<AnchorWrap<T>>(dep);
+        traverse(dep, visited);
+        dep->addDependant(current);
     }
 }
 
@@ -59,12 +59,13 @@ void Engine::stabilize() {
 
         if (top->getChangeId() == d_stabilizationNumber) {
             // Its value changed.
-            for (const auto& parent : top->getDependents()) {
-                if (parent->isStale() && !d_recomputeSet.contains(parent)) {
+            for (const auto& dependant : top->getDependants()) {
+                if (dependant->isStale() &&
+                    !d_recomputeSet.contains(dependant)) {
                     d_recomputeHeap.push(
-                        parent);  // The parents should always have a higher
-                                  // height than a child, so this shouldn't
-                                  // cause any issues when we pop the heap
+                        dependant);  // The parents should always have a higher
+                                     // height than a child, so this shouldn't
+                                     // cause any issues when we pop the heap
                 }
             }
         }
