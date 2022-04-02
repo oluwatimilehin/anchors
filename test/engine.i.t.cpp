@@ -47,7 +47,7 @@ TEST_F(EngineFixture, IntegerArithmetic_observedValuesShouldBeUpToDate) {
 TEST_F(EngineFixture, StringConcatenation_observedValueShouldBeUpToDate) {
     auto username(Anchors::create(std::string("John")));
 
-    auto concatenate = [](std::string& text) { return "Hello, " + text; };
+    auto concatenate = [](const std::string& text) { return "Hello, " + text; };
 
     auto greeting(Anchors::map<std::string>(username, concatenate));
 
@@ -96,23 +96,23 @@ TEST_F(EngineFixture, OnlyModifiedAnchorIsRecomputed) {
 TEST_F(EngineFixture, VectorManipulation_observedValuesShouldBeUpToDate) {
     auto myOrders = Anchors::create(std::vector<int>{150, 200, 300});
 
-    auto maxOrder =
-        Anchors::map<int, std::vector<int>>(myOrders, [](std::vector<int>& v) {
+    auto maxOrder = Anchors::map<int, std::vector<int>>(
+        myOrders, [](const std::vector<int>& v) {
             return *std::max_element(v.begin(), v.end());
         });
 
-    auto minOrder =
-        Anchors::map<int, std::vector<int>>(myOrders, [](std::vector<int>& v) {
+    auto minOrder = Anchors::map<int, std::vector<int>>(
+        myOrders, [](const std::vector<int>& v) {
             return *std::min_element(v.begin(), v.end());
         });
 
     auto orderRange = Anchors::map2<int>(
         maxOrder, minOrder, [](int max, int min) { return max - min; });
 
-    d_engine.observe(maxOrder);
-    d_engine.observe(minOrder);
-    d_engine.observe(orderRange);
+    std::vector<AnchorPtr<int>> anchorsToObserve{
+        maxOrder, minOrder, orderRange};
 
+    d_engine.observe(anchorsToObserve);
 
     EXPECT_EQ(d_engine.get(maxOrder), 300);
     EXPECT_EQ(d_engine.get(minOrder), 150);

@@ -1,10 +1,22 @@
 #include "engine.h"
 
+#include <sstream>
+#include <stdexcept>
+
+namespace {
+template <typename T>
+std::string toString(const T& value) {
+    std::ostringstream ss;
+    ss << value;
+    return ss.str();
+}
+}  // namespace
+
 namespace anchors {
 
 Engine::Engine() : d_observedNodes(), d_recomputeHeap(), d_recomputeSet() {}
 
-void Engine::traverse(
+void Engine::observeNode(
     std::shared_ptr<AnchorBase>&                     current,
     std::unordered_set<std::shared_ptr<AnchorBase>>& visited) {
     if (visited.contains(current)) {
@@ -19,10 +31,17 @@ void Engine::traverse(
     }
 
     for (auto& dep : current->getDependencies()) {
-        //        auto castChild =
-        //        std::dynamic_pointer_cast<AnchorWrap<T>>(dep);
-        traverse(dep, visited);
+        observeNode(dep, visited);
         dep->addDependant(current);
+    }
+}
+
+void Engine::unobserveNode(std::shared_ptr<AnchorBase>& current) {
+    current->decrementNecessaryCount();
+
+    for (auto& dep : current->getDependencies()) {
+        unobserveNode(dep);
+        dep->removeDependant(current);
     }
 }
 
@@ -62,10 +81,10 @@ void Engine::stabilize() {
             for (const auto& dependant : top->getDependants()) {
                 if (dependant->isStale() &&
                     !d_recomputeSet.contains(dependant)) {
-                    d_recomputeHeap.push(
-                        dependant);  // The parents should always have a higher
-                                     // height than a child, so this shouldn't
-                                     // cause any issues when we pop the heap
+                    d_recomputeHeap.push(dependant);
+                    // The parents should always have a higher
+                    // height than a child, so this shouldn't
+                    // cause any issues when we pop the heap
                 }
             }
         }

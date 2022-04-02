@@ -46,6 +46,8 @@ class AnchorBase {
         const = 0;
 
     virtual void addDependant(const std::shared_ptr<AnchorBase>& parent) = 0;
+
+    virtual void removeDependant(const std::shared_ptr<AnchorBase>& parent) = 0;
 };
 }  // namespace anchors
 

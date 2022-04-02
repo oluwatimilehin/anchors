@@ -41,10 +41,8 @@ class AnchorWrap : public AnchorBase {
 template <typename T, typename InputType1 = T, typename InputType2 = T>
 class Anchor : public AnchorWrap<T> {
    public:
-    using SingleInputUpdater = std::function<T(
-        InputType1&)>;  // TODO: I think the inputs should be const
-
-    using DualInputUpdater = std::function<T(InputType1&, InputType2&)>;
+    using SingleInputUpdater = std::function<T(InputType1&)>;
+    using DualInputUpdater   = std::function<T(InputType1&, InputType2&)>;
 
     Anchor() = delete;
 
@@ -101,6 +99,8 @@ class Anchor : public AnchorWrap<T> {
     void set(const T& value) override;
 
     void addDependant(const std::shared_ptr<AnchorBase>& parent) override;
+
+    void removeDependant(const std::shared_ptr<AnchorBase>& parent) override;
 
     std::unordered_set<std::shared_ptr<AnchorBase>> getDependants()
         const override;
@@ -278,6 +278,12 @@ template <typename T, typename InputType1, typename InputType2>
 void Anchor<T, InputType1, InputType2>::addDependant(
     const std::shared_ptr<AnchorBase>& parent) {
     d_dependants.insert(parent);
+}
+
+template <typename T, typename InputType1, typename InputType2>
+void Anchor<T, InputType1, InputType2>::removeDependant(
+    const std::shared_ptr<AnchorBase>& parent) {
+    d_dependants.erase(parent);
 }
 
 template <typename T, typename InputType1, typename InputType2>

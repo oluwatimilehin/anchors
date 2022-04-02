@@ -35,12 +35,12 @@ class Engine {
    private:
     void stabilize();
 
-    void traverse(std::shared_ptr<AnchorBase>& current,
-                  std::unordered_set<std::shared_ptr<AnchorBase>>&);
+    void observeNode(std::shared_ptr<AnchorBase>& current,
+                     std::unordered_set<std::shared_ptr<AnchorBase>>&);
+
+    void unobserveNode(std::shared_ptr<AnchorBase>& current);
 
     std::unordered_set<std::shared_ptr<AnchorBase>> d_observedNodes;
-    // - observed nodes // What do I use this observed nodes for? To stabilize,
-    // I can just read from the recompute heap, right?
 
     std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
     //  Only add something to the recompute heap if it is necessary and stale.
@@ -95,7 +95,7 @@ void Engine::observe(std::shared_ptr<AnchorWrap<T>>& anchor) {
 
     std::unordered_set<std::shared_ptr<AnchorBase>> visited;
     std::shared_ptr<AnchorBase>                     anchorBase = anchor;
-    traverse(anchorBase, visited);
+    observeNode(anchorBase, visited);
 }
 
 template <typename T>
@@ -114,12 +114,9 @@ void Engine::unobserve(std::shared_ptr<AnchorWrap<T>>& anchor) {
         return;
     }
 
-    // TODO: On unobserve:
-    //   - decrement the necessary count of this node and all its children.
-    //   - remove it as a parent for each child. Do we actually need to do this?
-    //
-
     d_observedNodes.erase(anchor);
+
+    unobserveNode(anchor);
 }
 
 }  // namespace anchors
