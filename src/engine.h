@@ -56,7 +56,7 @@ class Engine {
 
 template <typename T>
 T Engine::get(const std::shared_ptr<AnchorWrap<T>>& anchor) {
-    if (anchor->isNecessary()) {
+    if (d_observedNodes.contains(anchor)) {
         stabilize();
     }
 
@@ -68,6 +68,7 @@ void Engine::set(std::shared_ptr<AnchorWrap<T>>& anchor, T val) {
     T oldVal = anchor->get();
 
     if (oldVal == val) return;
+    d_stabilizationNumber++;
 
     anchor->setChangeId(d_stabilizationNumber);
     anchor->set(val);
@@ -116,7 +117,8 @@ void Engine::unobserve(std::shared_ptr<AnchorWrap<T>>& anchor) {
 
     d_observedNodes.erase(anchor);
 
-    unobserveNode(anchor);
+    std::shared_ptr<AnchorBase> anchorBase = anchor;
+    unobserveNode(anchorBase);
 }
 
 }  // namespace anchors

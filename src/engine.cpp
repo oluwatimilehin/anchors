@@ -70,7 +70,7 @@ void Engine::stabilize() {
         std::shared_ptr<AnchorBase> top = d_recomputeHeap.top();
         d_recomputeHeap.pop();
 
-        if (!top->isNecessary()) {
+        if (!top->isStale()) {
             continue;
         }
 

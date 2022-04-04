@@ -67,9 +67,9 @@ class Anchor : public AnchorWrap<T> {
 
     friend std::ostream& operator<<(std::ostream& out, const Anchor& anchor) {
         out << "[ value=" << anchor.get() << ", height=" << anchor.getHeight(),
-            ", dependants=" << anchor.getDependants()
-                            << " dependencies=" << anchor.getDependencies()
-                            << " ]";
+            ", firstDependency=" << anchor.d_firstDependency
+                                 << ", secondDependency="
+                                 << anchor.d_secondDependency << " ]";
     }
 
    private:
@@ -220,19 +220,19 @@ bool Anchor<T, InputType1, InputType2>::isNecessary() const {
 
 template <typename T, typename InputType1, typename InputType2>
 bool Anchor<T, InputType1, InputType2>::isStale() const {
-    bool recomputeIdLessThanChilds = false;
+    bool recomputeIdLessThanChildChangeId = false;
 
     if (d_numDependencies >= 1) {
-        recomputeIdLessThanChilds =
-            d_recomputeId < d_firstDependency->getRecomputeId();
+        recomputeIdLessThanChildChangeId =
+            d_recomputeId < d_firstDependency->getChangeId();
 
-        if (!recomputeIdLessThanChilds && d_numDependencies == 2) {
-            recomputeIdLessThanChilds |=
-                d_recomputeId < d_secondDependency->getRecomputeId();
+        if (!recomputeIdLessThanChildChangeId && d_numDependencies == 2) {
+            recomputeIdLessThanChildChangeId |=
+                d_recomputeId < d_secondDependency->getChangeId();
         }
     }
 
-    return isNecessary() & (d_isStale || recomputeIdLessThanChilds);
+    return isNecessary() & (d_isStale || recomputeIdLessThanChildChangeId);
 }
 
 template <typename T, typename InputType1, typename InputType2>
