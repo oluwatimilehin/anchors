@@ -1,6 +1,6 @@
 # Anchors
 
-Anchors is a C++ library for [self-adjusting computations](https://lord.io/spreadsheets/), based
+Anchors is a C++ library for [self-adjusting computations](https://lord.io/spreadsheets/) based
 on [lord/anchors](https://github.com/lord/anchors) for rust
 and [janestreet/incremental](https://github.com/janestreet/incremental) for OCaml.
 
@@ -11,7 +11,7 @@ It allows you model complex computations as a DAG which will update efficiently 
 An `Anchor` represents a node in the graph (or think of it like a cell in a spreadsheet) and you can define an updater
 function to create an `Anchor` from one or more Anchors.
 
-For a basic example, let's define an `Anchor` whose value is the sum of two other anchors.
+As a basic example, let's define an `Anchor` whose value is the sum of two other anchors.
 
 ````c++
 using namespace anchors;
