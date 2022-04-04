@@ -63,50 +63,50 @@ TEST_F(EngineFixture, OnlyModifiedAnchorIsRecomputed) {
     auto anchorW(Anchors::create(10));
     auto anchorX(Anchors::create(4));
 
-    int  addCounter = 0;
-    auto add        = [&addCounter](int a, int b) {
-        addCounter++;
-        return a + b;
-    };
+    int  additionCounter = 0;
+    auto anchorY(
+        Anchors::map2<int>(anchorW, anchorX, [&additionCounter](int a, int b) {
+            additionCounter++;
+            return a + b;
+        }));
 
-    auto anchorY(Anchors::map2<int>(anchorW, anchorX, add));
     auto anchorZ(Anchors::create(5));
 
-    int  subtractCounter = 0;
-    auto subtract        = [&subtractCounter](int a, int b) {
-        subtractCounter++;
-        return a - b;
-    };
+    int  subtractionCounter = 0;
+    auto result(
+        Anchors::map2<int>(anchorY, anchorZ, [&subtractionCounter](int a, int b) {
+            subtractionCounter++;
+            return a - b;
+        }));
 
-    auto result(Anchors::map2<int>(anchorY, anchorZ, subtract));
     d_engine.observe(result);
 
     EXPECT_EQ(d_engine.get(result), 9);
-    EXPECT_EQ(addCounter, 1);
-    EXPECT_EQ(subtractCounter, 1);
+    EXPECT_EQ(additionCounter, 1);
+    EXPECT_EQ(subtractionCounter, 1);
 
     d_engine.set(anchorZ, 7);
     EXPECT_EQ(d_engine.get(result), 7);
     EXPECT_EQ(
-        addCounter,
+        additionCounter,
         1);  // It shouldn't recompute anchorY because its value did not change
-    EXPECT_EQ(subtractCounter, 2);
+    EXPECT_EQ(subtractionCounter, 2);
 }
 
 TEST_F(EngineFixture, VectorManipulation_observedValuesShouldBeUpToDate) {
     auto myOrders = Anchors::create(std::vector<int>{150, 200, 300});
 
-    auto maxOrder = Anchors::map<int, std::vector<int>>(
+    AnchorPtr<int> maxOrder = Anchors::map<int, std::vector<int>>(
         myOrders, [](const std::vector<int>& v) {
             return *std::max_element(v.begin(), v.end());
         });
 
-    auto minOrder = Anchors::map<int, std::vector<int>>(
+    AnchorPtr<int> minOrder = Anchors::map<int, std::vector<int>>(
         myOrders, [](const std::vector<int>& v) {
             return *std::min_element(v.begin(), v.end());
         });
 
-    auto orderRange = Anchors::map2<int>(
+    AnchorPtr<int> orderRange = Anchors::map2<int>(
         maxOrder, minOrder, [](int max, int min) { return max - min; });
 
     std::vector<AnchorPtr<int>> anchorsToObserve{
