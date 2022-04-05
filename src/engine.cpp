@@ -1,20 +1,12 @@
 #include "engine.h"
 
-#include <sstream>
-#include <stdexcept>
-
-namespace {
-template <typename T>
-std::string toString(const T& value) {
-    std::ostringstream ss;
-    ss << value;
-    return ss.str();
-}
-}  // namespace
-
 namespace anchors {
 
-Engine::Engine() : d_observedNodes(), d_recomputeHeap(), d_recomputeSet() {}
+Engine::Engine()
+    : d_stabilizationNumber(0),
+      d_observedNodes(),
+      d_recomputeHeap(),
+      d_recomputeSet() {}
 
 void Engine::observeNode(
     std::shared_ptr<AnchorBase>&                     current,
@@ -30,6 +22,7 @@ void Engine::observeNode(
         d_recomputeHeap.push(current);
     }
 
+    // Repeat the same for all its dependencies
     for (auto& dep : current->getDependencies()) {
         observeNode(dep, visited);
         dep->addDependant(current);
@@ -46,26 +39,16 @@ void Engine::unobserveNode(std::shared_ptr<AnchorBase>& current) {
 }
 
 void Engine::stabilize() {
-    // Read from recompute heap to perform the calculations
-    // When we implement set_updater, we also read from the adjust_heights heap
-    /**
-     *  - Increment stabilization number.
-     * 	- It picks a node at a time from the recompute heap in a three step
-     process: ○ Remove the node with the smallest height from the heap ○
-     Recompute it
-                    - If its value changed (perhaps according to the cut-off
-     function), add the nodes that depend on it (parents) to the heap.
-        -
-        - Set the recompute ID of each calculated node to the current
-     stabilization number
-     *
-     */
+    // In the future, we might first need to adjust_heights.
     if (d_recomputeHeap.empty()) {
         return;
     }
 
     d_stabilizationNumber++;
-
+    // Stabilization involves a three-step process:
+    // - Remove the node with the smallest height from the recompute heap
+    // - Recompute it.
+    // - If its value changed, add the nodes that depend on it to the heap
     while (!d_recomputeHeap.empty()) {
         std::shared_ptr<AnchorBase> top = d_recomputeHeap.top();
         d_recomputeHeap.pop();
@@ -82,9 +65,6 @@ void Engine::stabilize() {
                 if (dependant->isStale() &&
                     !d_recomputeSet.contains(dependant)) {
                     d_recomputeHeap.push(dependant);
-                    // The parents should always have a higher
-                    // height than a child, so this shouldn't
-                    // cause any issues when we pop the heap
                 }
             }
         }

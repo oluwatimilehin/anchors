@@ -1,61 +1,121 @@
+// engine.h
 #ifndef ANCHORS_ENGINE_H
 #define ANCHORS_ENGINE_H
 
 #include "anchor.h"
+#include "anchorutil.h"
 
 #include <memory>
 #include <queue>
 #include <unordered_set>
 
 namespace anchors {
-// The engine only knows about necessary nodes
+
+/**
+ * Engine is the brain of Anchors. It contains the necessary logic and data
+ * structures that determine what Anchors to (re)compute and when.
+ */
 class Engine {
    public:
+    /**
+     * Creates an Engine.
+     */
     Engine();
 
+    /**
+     * Returns the value of the given Anchor. This function is only guaranteed
+     * to return the latest value of an Anchor marked observed using
+     * `observe()`.
+     *
+     * For an unobserved Anchor, it may return a stale value—if the Anchor was
+     * created with a value or has been computed before—or an undefined value if
+     * the Anchor was created with a function e.g. using `Anchors::map`, and has
+     * not been computed before.
+     *
+     * @tparam T - type of the Anchor value.
+     * @param anchor - input Anchor.
+     * @return the current value of the input Anchor.
+     */
     template <typename T>
-    T get(const std::shared_ptr<AnchorWrap<T>>& anchor);
-    // If the node is observed (or necessary), call stabilize
-    // If the node is not observed or necessary, you might get a stale value
+    T get(const AnchorPtr<T>& anchor);
 
+    /**
+     * Sets the value of the given Anchor. If the provided value is different
+     * from the current value of the Anchor, any observed Anchors that depends
+     * on the given Anchor will return an up-to-date value when its value is
+     * retrieved using `get()`.
+     *
+     * @tparam T - type of the Anchor value.
+     * @param anchor - input Anchor.
+     * @param val - new value of the Anchor.
+     */
     template <typename T>
-    void set(std::shared_ptr<AnchorWrap<T>>& anchor, T val);
+    void set(AnchorPtr<T>& anchor, T val);
 
+    /**
+     * Marks an Anchor as observed. An observed Anchor is guaranteed to be up to
+     * date when you retrieve its value.
+     *
+     * @tparam T - type of the Anchor value.
+     * @param anchor - input Anchor.
+     */
     template <typename T>
-    void observe(std::shared_ptr<AnchorWrap<T>>& anchor);
-    // when you observe a node, mark all its children as necessary. Only
-    // observed nodes will give the latest value
+    void observe(AnchorPtr<T>& anchor);
 
+    /**
+     * Marks a vector of Anchors with the same type as observed.
+     *
+     * @tparam T - type of the Anchors.
+     * @param anchors - input Anchors.
+     */
     template <typename T>
-    void observe(std::vector<std::shared_ptr<AnchorWrap<T>>>& anchors);
+    void observe(std::vector<AnchorPtr<T>>& anchors);
 
+    /**
+     * Marks an Anchor as unobserved.
+     * @tparam T - type of the Anchor value.
+     * @param anchor - input Anchor.
+     */
     template <typename T>
-    void unobserve(std::shared_ptr<AnchorWrap<T>>& anchor);
+    void unobserve(AnchorPtr<T>& anchor);
 
    private:
+    // PRIVATE MANIPULATORS
     void stabilize();
+    // Brings all observed Anchors up-to-date.
 
     void observeNode(std::shared_ptr<AnchorBase>& current,
                      std::unordered_set<std::shared_ptr<AnchorBase>>&);
+    // Marks all the dependencies of the given Anchor as necessary and adds
+    // stale Anchors to the recompute heap;
 
     void unobserveNode(std::shared_ptr<AnchorBase>& current);
+    // Removes `current` from the set of observed Anchors.
+    // Also decrements the 'necessary' count and removes `current` as a
+    // dependant of each of its dependencies.
+
+    // PRIVATE DATA
+    int d_stabilizationNumber;
+    // Current stabilization number of the engine. We use this number to
+    // represent when an Anchor value was recomputed and/or changed.
 
     std::unordered_set<std::shared_ptr<AnchorBase>> d_observedNodes;
+    // Set of observed Anchors.
 
     std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
-    //  Only add something to the recompute heap if it is necessary and stale.
+    // Priority queue containing Anchors that need to be recomputed, in
+    // increasing order of their heights.
 
     std::unordered_set<std::shared_ptr<AnchorBase>> d_recomputeSet;
+    // Set of Anchors present in the recompute queue.
 
     //    std::priority_queue<std::shared_ptr<AnchorBase>> d_adjustHeightsHeap;
     //    // Update the adjust-heights heap when setUpdater is called. Will use
     //    later.
-
-    int d_stabilizationNumber = 0;
 };
 
 template <typename T>
-T Engine::get(const std::shared_ptr<AnchorWrap<T>>& anchor) {
+T Engine::get(const AnchorPtr<T>& anchor) {
     if (d_observedNodes.contains(anchor)) {
         stabilize();
     }
@@ -64,7 +124,7 @@ T Engine::get(const std::shared_ptr<AnchorWrap<T>>& anchor) {
 }
 
 template <typename T>
-void Engine::set(std::shared_ptr<AnchorWrap<T>>& anchor, T val) {
+void Engine::set(AnchorPtr<T>& anchor, T val) {
     T oldVal = anchor->get();
 
     if (oldVal == val) return;
@@ -84,10 +144,7 @@ void Engine::set(std::shared_ptr<AnchorWrap<T>>& anchor, T val) {
 }
 
 template <typename T>
-void Engine::observe(std::shared_ptr<AnchorWrap<T>>& anchor) {
-    // Traverse the graph.
-    // anchor -> find children, mark them as necessary and update the current
-    // node as its parent. Repeat the same for each child
+void Engine::observe(AnchorPtr<T>& anchor) {
     if (d_observedNodes.contains(anchor)) {
         return;
     }
@@ -100,17 +157,14 @@ void Engine::observe(std::shared_ptr<AnchorWrap<T>>& anchor) {
 }
 
 template <typename T>
-void Engine::observe(std::vector<std::shared_ptr<AnchorWrap<T>>>& anchors) {
-    // Traverse the graph.
-    // anchor -> find children, mark them as necessary and update the current
-    // node as its parent. Repeat the same for each child
+void Engine::observe(std::vector<AnchorPtr<T>>& anchors) {
     for (auto& anchor : anchors) {
         observe(anchor);
     }
 }
 
 template <typename T>
-void Engine::unobserve(std::shared_ptr<AnchorWrap<T>>& anchor) {
+void Engine::unobserve(AnchorPtr<T>& anchor) {
     if (!d_observedNodes.contains(anchor)) {
         return;
     }
