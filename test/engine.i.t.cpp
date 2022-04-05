@@ -73,8 +73,8 @@ TEST_F(EngineFixture, OnlyModifiedAnchorIsRecomputed) {
     auto anchorZ(Anchors::create(5));
 
     int  subtractionCounter = 0;
-    auto result(
-        Anchors::map2<int>(anchorY, anchorZ, [&subtractionCounter](int a, int b) {
+    auto result(Anchors::map2<int>(
+        anchorY, anchorZ, [&subtractionCounter](int a, int b) {
             subtractionCounter++;
             return a - b;
         }));

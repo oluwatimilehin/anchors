@@ -1,3 +1,4 @@
+// anchor.h
 #ifndef ANCHORS_ANCHOR_H
 #define ANCHORS_ANCHOR_H
 
@@ -18,6 +19,8 @@ struct std::hash<anchors::AnchorBase> {
     }
 };
 
+// Used by the priority queue in the Engine class to store Anchors in increasing
+// order.
 template <>
 struct std::less<std::shared_ptr<anchors::AnchorBase>> {
     bool operator()(const std::shared_ptr<anchors::AnchorBase>& a1,
@@ -28,6 +31,12 @@ struct std::less<std::shared_ptr<anchors::AnchorBase>> {
 
 namespace anchors {
 
+/**
+ * This class exists to simplify the Anchors API, so that we can pass an Anchor
+ * around using only the type of its value, and exclude the type of its
+ * inputs.
+ * @tparam T - type of an Anchor's value.
+ */
 template <typename T>
 class AnchorWrap : public AnchorBase {
    public:
@@ -46,22 +55,36 @@ class Anchor : public AnchorWrap<T> {
 
     Anchor() = delete;
 
-    // TODO: I want to make these constructors private, so you can only
-    // create an anchor as a ptr.
+    // TODO: Work out links to other functions.
+    /**
+     * Creates an Anchor. See {Anchors::create(const T& value)}
+     * @param value - initial value of the Anchor
+     */
     explicit Anchor(const T& value);
 
-    explicit Anchor(const std::shared_ptr<AnchorWrap<InputType1>>& firstChild,
+    /**
+     * Creates an Anchor from an input Anchor. See {Anchors::map()}
+     *
+     * @param input - input Anchor.
+     * @param updater - function that maps the input Anchor to the output.
+     */
+    explicit Anchor(const std::shared_ptr<AnchorWrap<InputType1>>& input,
                     const SingleInputUpdater&                      updater);
 
-    explicit Anchor(const std::shared_ptr<AnchorWrap<InputType1>>& firstChild,
-                    const std::shared_ptr<AnchorWrap<InputType2>>& secondChild,
+    /**
+     * Creates an Anchor from two input Anchors.
+     *
+     * @param firstInput - first input Anchor.
+     * @param secondInput - second input Anchor.
+     * @param updater - function that maps the input Anchors to the output.
+     */
+    explicit Anchor(const std::shared_ptr<AnchorWrap<InputType1>>& firstInput,
+                    const std::shared_ptr<AnchorWrap<InputType2>>& secondInput,
                     const DualInputUpdater&                        updater);
 
     Anchor(const Anchor& a) = delete;
 
     ~Anchor() override = default;
-
-    T get() const override;
 
     friend class Engine;
 
@@ -73,39 +96,66 @@ class Anchor : public AnchorWrap<T> {
     }
 
    private:
+    // PRIVATE MANIPULATORS
+    T get() const override;
+    // Returns the current value of an Anchor.
+
     void compute(int stabilizationNumber) override;
-    // Update the value based on the inputs. Set the recomputeID to
-    // stabilizationNumber, only set the changeId if the value changes.
+    // Computes the value of an Anchor based on its inputs and updater function.
+    // When this function is called by the Engine, it is guaranteed that the
+    // inputs are up to date.
+    // This function also sets the recomputeID of the Anchor to the given
+    // stabilizationNumber, and will update the changeId only if the Anchor
+    // value changes after recomputing.
 
     void markNecessary() override;
+    // Increments the `necessary count` of an Anchor. An Anchor is necessary if
+    // it is a dependency of an observed Anchor, either directly or indirectly.
 
     bool isNecessary() const override;
+    // Returns true if at least one observed Anchor depends on it, either
+    // directly or indirectly.
 
     bool isStale() const override;
+    // Returns true if the Anchor is necessary and has never been computed or
+    // its recomputeId is less than the changeId of one of its children.
 
     void decrementNecessaryCount() override;
-    // if this is zero, maybe log a message, but it shouldn't ever be
+    // Decrements the `necessary count` of an Anchor after a dependant is marked
+    // as unobserved.
 
     AnchorBase::AnchorId getId() const override;
+    // Returns the generated UUID of the Anchor.
 
     int getHeight() const override;
+    // Returns the height of an Anchor. An Anchor's height must always be
+    // greater than the heights of its inputs.
 
     int getRecomputeId() const override;
+    // Returns the ID at which the Anchor was last computed.
 
     int getChangeId() const override;
+    // Returns the ID at which the value of an Anchor last changed.
 
     void setChangeId(int changeId) override;
+    // Set the ID at which the value of an Anchor changed.
 
     void set(const T& value) override;
+    // Set the value of the Anchor.
 
-    void addDependant(const std::shared_ptr<AnchorBase>& parent) override;
+    void addDependant(const std::shared_ptr<AnchorBase>& dependant) override;
+    // Adds the given Anchor as a dependant of this Anchor. When this Anchor's
+    // value changes, we want to know update its dependants.
 
-    void removeDependant(const std::shared_ptr<AnchorBase>& parent) override;
+    void removeDependant(const std::shared_ptr<AnchorBase>& dependant) override;
+    // Removes the given Anchor from the dependants of this Anchor.
 
     std::unordered_set<std::shared_ptr<AnchorBase>> getDependants()
         const override;
+    // Returns the dependants of this Anchor.
 
     std::vector<std::shared_ptr<AnchorBase>> getDependencies() const override;
+    // Returns the dependencies of this Anchor.
 
     // PRIVATE DATA
     boost::uuids::random_generator d_idGenerator;
@@ -116,16 +166,12 @@ class Anchor : public AnchorWrap<T> {
 
     int d_height{};
     int d_necessary{};
-    // For each time an anchor is necessary, increment it by 1. When we
-    // unobserve an anchor, we decrement its necessary count. An anchor is
-    // necessary if necessary > 0;
-
     int d_numDependencies{};
 
     int d_recomputeId{};
     int d_changeId{};
 
-    bool d_isStale;
+    bool d_hasNeverBeenComputed;
 
     const std::shared_ptr<AnchorWrap<InputType1>> d_firstDependency;
     const std::shared_ptr<AnchorWrap<InputType2>> d_secondDependency;
@@ -136,38 +182,38 @@ class Anchor : public AnchorWrap<T> {
     SingleInputUpdater d_singleInputUpdater;
 
     DualInputUpdater d_dualInputUpdater;
-
-    //    template <T>
-    //    struct MakeSharedEnabler;
 };
 
 template <typename T, typename InputType1, typename InputType2>
 Anchor<T, InputType1, InputType2>::Anchor(const T& value)
-    : d_id(d_idGenerator()), d_value(value), d_isStale(true), d_dependants() {}
+    : d_id(d_idGenerator()),
+      d_value(value),
+      d_hasNeverBeenComputed(true),
+      d_dependants() {}
 
 template <typename T, typename InputType1, typename InputType2>
 Anchor<T, InputType1, InputType2>::Anchor(
-    const std::shared_ptr<AnchorWrap<InputType1>>& firstChild,
+    const std::shared_ptr<AnchorWrap<InputType1>>& input,
     const SingleInputUpdater&                      updater)
     : d_id(d_idGenerator()),
-      d_height(firstChild->getHeight() + 1),
+      d_height(input->getHeight() + 1),
       d_numDependencies(1),
-      d_isStale(true),
-      d_firstDependency(firstChild),
+      d_hasNeverBeenComputed(true),
+      d_firstDependency(input),
       d_dependants(),
       d_singleInputUpdater(updater) {}
 
 template <typename T, typename InputType1, typename InputType2>
 Anchor<T, InputType1, InputType2>::Anchor(
-    const std::shared_ptr<AnchorWrap<InputType1>>& firstChild,
-    const std::shared_ptr<AnchorWrap<InputType2>>& secondChild,
+    const std::shared_ptr<AnchorWrap<InputType1>>& firstInput,
+    const std::shared_ptr<AnchorWrap<InputType2>>& secondInput,
     const DualInputUpdater&                        updater)
     : d_id(d_idGenerator()),
-      d_height(std::max(firstChild->getHeight(), secondChild->getHeight()) + 1),
+      d_height(std::max(firstInput->getHeight(), secondInput->getHeight()) + 1),
       d_numDependencies(2),
-      d_isStale(true),
-      d_firstDependency(firstChild),
-      d_secondDependency(secondChild),
+      d_hasNeverBeenComputed(true),
+      d_firstDependency(firstInput),
+      d_secondDependency(secondInput),
       d_dependants(),
       d_dualInputUpdater(updater) {}
 
@@ -186,7 +232,7 @@ void Anchor<T, InputType1, InputType2>::compute(int stabilizationNumber) {
     T newValue;
     d_recomputeId = stabilizationNumber;
 
-    d_isStale = false;
+    d_hasNeverBeenComputed = false;
 
     if (d_numDependencies == 0) {
         return;
@@ -232,7 +278,8 @@ bool Anchor<T, InputType1, InputType2>::isStale() const {
         }
     }
 
-    return isNecessary() & (d_isStale || recomputeIdLessThanChildChangeId);
+    return isNecessary() &
+           (d_hasNeverBeenComputed || recomputeIdLessThanChildChangeId);
 }
 
 template <typename T, typename InputType1, typename InputType2>
@@ -276,14 +323,14 @@ void Anchor<T, InputType1, InputType2>::set(const T& value) {
 
 template <typename T, typename InputType1, typename InputType2>
 void Anchor<T, InputType1, InputType2>::addDependant(
-    const std::shared_ptr<AnchorBase>& parent) {
-    d_dependants.insert(parent);
+    const std::shared_ptr<AnchorBase>& dependant) {
+    d_dependants.insert(dependant);
 }
 
 template <typename T, typename InputType1, typename InputType2>
 void Anchor<T, InputType1, InputType2>::removeDependant(
-    const std::shared_ptr<AnchorBase>& parent) {
-    d_dependants.erase(parent);
+    const std::shared_ptr<AnchorBase>& dependant) {
+    d_dependants.erase(dependant);
 }
 
 template <typename T, typename InputType1, typename InputType2>

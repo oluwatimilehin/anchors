@@ -1,7 +1,3 @@
-//
-// Created by Timi Adeniran on 10/03/2022.
-//
-
 #ifndef ANCHORS_ANCHORBASE_H
 #define ANCHORS_ANCHORBASE_H
 
@@ -14,6 +10,13 @@
 #include <vector>
 
 namespace anchors {
+/***
+ `AnchorBase` represents an Anchor without its type information, which allows us
+ store Anchors of different types in a container.
+
+ The functions in this class are implemented as private functions and only
+ visible to the Engine class.
+ ***/
 class AnchorBase {
    public:
     using AnchorId = boost::uuids::uuid;
@@ -24,7 +27,8 @@ class AnchorBase {
 
     virtual AnchorId getId() const = 0;
 
-    virtual int getHeight() const      = 0;
+    virtual int getHeight() const = 0;
+
     virtual int getRecomputeId() const = 0;
 
     virtual int getChangeId() const = 0;

@@ -10,7 +10,11 @@ template <typename T>
 using AnchorPtr = std::shared_ptr<AnchorWrap<T>>;
 
 /**
- * Utility class for creating a shared pointer to an Anchor.
+ * `Anchors` is an utility class containing functions to simplify creating a
+ * shared pointer to an Anchor, which the Engine class expects.
+ *
+ * To create shared pointers with custom allocators, you can call the public
+ * constructors in the `Anchor` class.
  */
 class Anchors {
    public:
