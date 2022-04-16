@@ -45,7 +45,7 @@ void Engine::stabilize() {
     }
 
     d_stabilizationNumber++;
-    // Stabilization involves a three-step process:
+    // Stabilization is a three-step process:
     // - Remove the node with the smallest height from the recompute heap
     // - Recompute it.
     // - If its value changed, add the nodes that depend on it to the heap

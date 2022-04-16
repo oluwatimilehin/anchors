@@ -1,8 +1,7 @@
 #ifndef ANCHORS_ANCHORBASE_H
 #define ANCHORS_ANCHORBASE_H
 
-#pragma comment(lib, "bcrypt.lib")  // TODO, will this fail on a linux machine?
-                                    // It fixes a boost::uuid linker issue
+#pragma comment(lib, "bcrypt.lib")  // For Windows machines
 
 #include <boost/uuid/uuid.hpp>
 #include <memory>
