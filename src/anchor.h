@@ -93,6 +93,8 @@ class Anchor : public AnchorWrap<T> {
             ", firstDependency=" << anchor.d_firstDependency
                                  << ", secondDependency="
                                  << anchor.d_secondDependency << " ]";
+
+        return out;
     }
 
    private:
