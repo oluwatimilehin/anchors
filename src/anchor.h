@@ -55,15 +55,14 @@ class Anchor : public AnchorWrap<T> {
 
     Anchor() = delete;
 
-    // TODO: Work out links to other functions.
     /**
-     * Creates an Anchor. See {Anchors::create(const T& value)}
+     * Creates an Anchor. See Anchors::create(const T& value)
      * @param value - initial value of the Anchor
      */
     explicit Anchor(const T& value);
 
     /**
-     * Creates an Anchor from an input Anchor. See {Anchors::map()}
+     * Creates an Anchor from an input Anchor. See Anchors::map()
      *
      * @param input - input Anchor.
      * @param updater - function that maps the input Anchor to the output.
@@ -72,7 +71,7 @@ class Anchor : public AnchorWrap<T> {
                     const SingleInputUpdater&                      updater);
 
     /**
-     * Creates an Anchor from two input Anchors.
+     * Creates an Anchor from two input Anchors. See Anchors::map2()
      *
      * @param firstInput - first input Anchor.
      * @param secondInput - second input Anchor.
