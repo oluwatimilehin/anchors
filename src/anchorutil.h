@@ -5,19 +5,21 @@
 #include "anchor.h"
 
 namespace anchors {
-
-template <typename T>
-using AnchorPtr = std::shared_ptr<AnchorWrap<T>>;
-
 /**
- * `Anchors` is an utility class containing functions to simplify creating a
- * shared pointer to an Anchor, which the Engine class expects.
+ * Anchors is an utility class containing functions to simplify creating a
+ * shared pointer to an Anchor, which the Engine class operates on.
  *
- * To create shared pointers with custom allocators, you can call the public
+ * To create shared pointers with custom allocators, you can invoke the public
  * constructors in the `Anchor` class.
  */
 class Anchors {
    public:
+    /**
+     * Alias representing a shared pointer to an Anchor of output type `T`.
+     */
+    template <typename T>
+    using AnchorPtr = std::shared_ptr<AnchorWrap<T>>;
+
     /**
      * Creates an Anchor containing the given value.
      *

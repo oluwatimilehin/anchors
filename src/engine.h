@@ -12,13 +12,14 @@
 namespace anchors {
 
 /**
- * Engine is the brain of Anchors. It contains the necessary logic and data
- * structures that determine what Anchors to (re)compute and when.
+ * Engine is the brain of %Anchors, containing the necessary functions and data to
+ * retrieve the value of an `Anchor` object. Note that this class is not
+ * thread-safe.
  */
 class Engine {
    public:
     /**
-     * Creates an Engine.
+     * Creates an instance of the Engine class.
      */
     Engine();
 

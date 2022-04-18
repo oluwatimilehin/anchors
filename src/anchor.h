@@ -32,26 +32,43 @@ struct std::less<std::shared_ptr<anchors::AnchorBase>> {
 namespace anchors {
 
 /**
- * This class exists to simplify the Anchors API, so that we can pass an Anchor
- * around using only the type of its value, and exclude the type of its
- * inputs.
+ * This class exists to simplify the `Anchors` API, so that we can pass an
+ * Anchor around using only the type of its value, and excluding the type of its
+ * input `Anchors`.
  * @tparam T - type of an Anchor's value.
  */
 template <typename T>
 class AnchorWrap : public AnchorBase {
    public:
     virtual ~AnchorWrap(){};
-
     virtual T get() const = 0;
 
+   protected:
     virtual void set(const T& value) = 0;
+
+    friend class Engine;
 };
 
+/**
+ * A single node in the computation graph containing a value.
+ * @tparam T - type of the Anchor's value
+ * @tparam InputType1 - optional type of the first input Anchor, if applicable.
+ * @tparam InputType2 - optional type of the second input Anchor, if applicable.
+ */
 template <typename T, typename InputType1 = T, typename InputType2 = T>
 class Anchor : public AnchorWrap<T> {
    public:
+    /**
+     * Alias for function that accepts an input of type `InputType1` and returns a
+     * value of type `T`.
+     */
     using SingleInputUpdater = std::function<T(InputType1&)>;
-    using DualInputUpdater   = std::function<T(InputType1&, InputType2&)>;
+
+    /**
+     * Alias for function that accepts inputs of type `InputType1` and `InputType2`
+     * and returns a value of type `T`.
+     */
+    using DualInputUpdater = std::function<T(InputType1&, InputType2&)>;
 
     Anchor() = delete;
 
@@ -104,7 +121,7 @@ class Anchor : public AnchorWrap<T> {
     void compute(int stabilizationNumber) override;
     // Computes the value of an Anchor based on its inputs and updater function.
     // When this function is called by the Engine, it is guaranteed that the
-    // inputs are up to date.
+    // inputs are up-to-date.
     // This function also sets the recomputeID of the Anchor to the given
     // stabilizationNumber, and will update the changeId only if the Anchor
     // value changes after recomputing.
