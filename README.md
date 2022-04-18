@@ -1,3 +1,5 @@
+
+
 # Anchors
 
 Anchors is a C++ library for [self-adjusting computations](https://lord.io/spreadsheets/) based
@@ -13,7 +15,7 @@ function to create an `Anchor` from one or more Anchors.
 
 As a basic example, let's define an `Anchor` whose value is the sum of two other anchors.
 
-````c++
+````cpp
 using namespace anchors;
 
 Engine d_engine; // First set up the anchors engine
@@ -30,7 +32,7 @@ auto anchorC(Anchors::map2<int>(anchorA, anchorB, sum)); // Note that the functi
 Anchors follows a demand-driven model and will only (re)compute the value of an `Anchor` if you observe the `Anchor`.
 That is, only observed `Anchor` nodes are guaranteed to return their latest value.
 
-````c++
+````cpp
 d_engine.observe(anchorC);
 EXPECT_EQ(d_engine.get(anchorC), 5);
 ````
@@ -38,10 +40,10 @@ EXPECT_EQ(d_engine.get(anchorC), 5);
 If you update the value of an `Anchor` that an observed `Anchor` depends on, subsequent calls for the observed `Anchor`
 will return the updated value.
 
-```c++
+````cpp
 d_engine.set(anchorA, 10);
 EXPECT_EQ(d_engine.get(anchorC), 13);
-```
+````
 
 ### More Examples
 
