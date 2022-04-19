@@ -1,0 +1,22 @@
+sudo: false
+
+branches:
+  only:
+    - main
+
+addons:
+  apt:
+    packages:
+      - doxygen
+
+script:
+  - doxygen docs/Doxyfile.in
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: docs/html
+  github_token: $GH_REPO_TOKEN
+  keep_history: true
+  on:
+    branch: main
