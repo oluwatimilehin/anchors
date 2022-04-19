@@ -1,0 +1,187 @@
+\hypertarget{classanchors_1_1Anchors}{}\doxysection{anchors\+::Anchors Class Reference}
+\label{classanchors_1_1Anchors}\index{anchors::Anchors@{anchors::Anchors}}
+
+
+\mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}} is an utility class containing functions to simplify creating a shared pointer to an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}, which the \mbox{\hyperlink{classanchors_1_1Engine}{Engine}} class operates on.  
+
+
+
+
+{\ttfamily \#include $<$anchorutil.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}\label{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}} 
+{\footnotesize template$<$typename T $>$ }\\using {\bfseries Anchor\+Ptr} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ T $>$ $>$
+\begin{DoxyCompactList}\small\item\em Alias representing a shared pointer to an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} of output type T. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ \mbox{\hyperlink{classanchors_1_1Anchors_a67bc86dc97f15c2beb28bc395f9f57b8}{create}} (const T \&value)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} containing the given value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename Input\+Type1  = T$>$ }\\static \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ \mbox{\hyperlink{classanchors_1_1Anchors_a4e0d9710f681bd94d4bf493831c358d2}{map}} (const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&anchor, const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1 $>$\+::\+Single\+Input\+Updater \&updater)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from an input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename Input\+Type1  = T$>$ }\\static \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ \mbox{\hyperlink{classanchors_1_1Anchors_a9f8a15e84a2730abdfb04cd532c07c62}{map}} (const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&anchor, const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1 $>$\+::\+Single\+Input\+Updater \&\&updater)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from an input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename Input\+Type1  = T, typename Input\+Type2  = T$>$ }\\static \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ \mbox{\hyperlink{classanchors_1_1Anchors_a4f9bf61e8eeb3ad44360b57f6c579542}{map2}} (const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&anchor1, const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type2 $>$ \&anchor2, const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Dual\+Input\+Updater \&updater)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from two input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename Input\+Type1  = T, typename Input\+Type2  = T$>$ }\\static \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ \mbox{\hyperlink{classanchors_1_1Anchors_a60a3206d143248df185ca41de3f77af4}{map2}} (const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&anchor1, const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type2 $>$ \&anchor2, const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Dual\+Input\+Updater \&\&updater)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from two input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}} is an utility class containing functions to simplify creating a shared pointer to an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}, which the \mbox{\hyperlink{classanchors_1_1Engine}{Engine}} class operates on. 
+
+To create shared pointers with custom allocators, you can invoke the public constructors in the {\ttfamily \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}} class. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classanchors_1_1Anchors_a67bc86dc97f15c2beb28bc395f9f57b8}\label{classanchors_1_1Anchors_a67bc86dc97f15c2beb28bc395f9f57b8}} 
+\index{anchors::Anchors@{anchors::Anchors}!create@{create}}
+\index{create@{create}!anchors::Anchors@{anchors::Anchors}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ anchors\+::\+Anchors\+::create (\begin{DoxyParamCaption}\item[{const T \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} containing the given value. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. {\ttfamily T} should overload the equality and output operators if not already defined. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ initial value of the \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a shared pointer to the created \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classanchors_1_1Anchors_a9f8a15e84a2730abdfb04cd532c07c62}\label{classanchors_1_1Anchors_a9f8a15e84a2730abdfb04cd532c07c62}} 
+\index{anchors::Anchors@{anchors::Anchors}!map@{map}}
+\index{map@{map}!anchors::Anchors@{anchors::Anchors}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ anchors\+::\+Anchors\+::map (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&}]{anchor,  }\item[{const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1 $>$\+::\+Single\+Input\+Updater \&\&}]{updater }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from an input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. {\ttfamily T} should overload the equality and output operators if not already defined. \\
+\hline
+{\em Input\+Type1} & -\/ optional type of the input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. Only specify this type if it is different from the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em anchor} & -\/ input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} \\
+\hline
+{\em updater} & -\/ function that maps the input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} to the output. Accepts an Rvalue reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a shared pointer to the created \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classanchors_1_1Anchors_a4e0d9710f681bd94d4bf493831c358d2}\label{classanchors_1_1Anchors_a4e0d9710f681bd94d4bf493831c358d2}} 
+\index{anchors::Anchors@{anchors::Anchors}!map@{map}}
+\index{map@{map}!anchors::Anchors@{anchors::Anchors}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ anchors\+::\+Anchors\+::map (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&}]{anchor,  }\item[{const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1 $>$\+::\+Single\+Input\+Updater \&}]{updater }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from an input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. {\ttfamily T} should overload the equality and output operators if not already defined. \\
+\hline
+{\em Input\+Type1} & -\/ optional type of the input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. Only specify this type if it is different from the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em anchor} & -\/ input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} \\
+\hline
+{\em updater} & -\/ function that maps the input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} to the output. Accepts an Lvalue reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a shared pointer to the created \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classanchors_1_1Anchors_a60a3206d143248df185ca41de3f77af4}\label{classanchors_1_1Anchors_a60a3206d143248df185ca41de3f77af4}} 
+\index{anchors::Anchors@{anchors::Anchors}!map2@{map2}}
+\index{map2@{map2}!anchors::Anchors@{anchors::Anchors}}
+\doxysubsubsection{\texorpdfstring{map2()}{map2()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 , typename Input\+Type2 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ anchors\+::\+Anchors\+::map2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&}]{anchor1,  }\item[{const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type2 $>$ \&}]{anchor2,  }\item[{const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Dual\+Input\+Updater \&\&}]{updater }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from two input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. {\ttfamily T} should overload the equality and output operators if not already defined. \\
+\hline
+{\em Input\+Type1} & -\/ optional type of the first input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. Only specify this type if it is different from the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. \\
+\hline
+{\em Input\+Type2} & -\/ optional type of the second input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. Only specify this type if it is different from the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em anchor1} & -\/ first input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em anchor2} & -\/ second input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em updater} & -\/ function that maps the input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}} to the output. Accepts an Rvalue reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a shared pointer to the created \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classanchors_1_1Anchors_a4f9bf61e8eeb3ad44360b57f6c579542}\label{classanchors_1_1Anchors_a4f9bf61e8eeb3ad44360b57f6c579542}} 
+\index{anchors::Anchors@{anchors::Anchors}!map2@{map2}}
+\index{map2@{map2}!anchors::Anchors@{anchors::Anchors}}
+\doxysubsubsection{\texorpdfstring{map2()}{map2()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 , typename Input\+Type2 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ T $>$ anchors\+::\+Anchors\+::map2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type1 $>$ \&}]{anchor1,  }\item[{const \mbox{\hyperlink{classanchors_1_1Anchors_aece6dba4ebfdd9fdf0ce9085e6153b11}{Anchor\+Ptr}}$<$ Input\+Type2 $>$ \&}]{anchor2,  }\item[{const typename \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Dual\+Input\+Updater \&}]{updater }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from two input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. {\ttfamily T} should overload the equality and output operators if not already defined. \\
+\hline
+{\em Input\+Type1} & -\/ optional type of the first input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. Only specify this type if it is different from the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. \\
+\hline
+{\em Input\+Type2} & -\/ optional type of the second input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. Only specify this type if it is different from the output \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} type. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em anchor1} & -\/ first input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em anchor2} & -\/ second input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em updater} & -\/ function that maps the input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}} to the output. Accepts an Lvalue reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a shared pointer to the created \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/\+Users/user/\+Google Drive/\+Code\+Projects/anchors/src/anchorutil.\+h\end{DoxyCompactItemize}

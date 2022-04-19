@@ -1,0 +1,62 @@
+\hypertarget{classanchors_1_1AnchorBase}{}\doxysection{anchors\+::Anchor\+Base Class Reference}
+\label{classanchors_1_1AnchorBase}\index{anchors::AnchorBase@{anchors::AnchorBase}}
+
+
+Inheritance diagram for anchors\+::Anchor\+Base\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classanchors_1_1AnchorBase__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_aa239c8326615a26224f8c04538bdd587}\label{classanchors_1_1AnchorBase_aa239c8326615a26224f8c04538bdd587}} 
+using {\bfseries Anchor\+Id} = boost\+::uuids\+::uuid
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a70ec02ac2d2dd578b07ed62dd31faa23}\label{classanchors_1_1AnchorBase_a70ec02ac2d2dd578b07ed62dd31faa23}} 
+virtual void {\bfseries compute} (int stabilization\+Number)=0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a50c97053ec6d1e0b823df5dcdba580e7}\label{classanchors_1_1AnchorBase_a50c97053ec6d1e0b823df5dcdba580e7}} 
+virtual Anchor\+Id {\bfseries get\+Id} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a3e0ac4f4287fecd4ee2811024cdb652f}\label{classanchors_1_1AnchorBase_a3e0ac4f4287fecd4ee2811024cdb652f}} 
+virtual int {\bfseries get\+Height} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_ace165163b0cebdaa5e660966e8a8b4ef}\label{classanchors_1_1AnchorBase_ace165163b0cebdaa5e660966e8a8b4ef}} 
+virtual int {\bfseries get\+Recompute\+Id} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a7b27f91362bed0ea15d32cd4b365717b}\label{classanchors_1_1AnchorBase_a7b27f91362bed0ea15d32cd4b365717b}} 
+virtual int {\bfseries get\+Change\+Id} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a037619bf7178d572af2785221b691feb}\label{classanchors_1_1AnchorBase_a037619bf7178d572af2785221b691feb}} 
+virtual void {\bfseries set\+Change\+Id} (int change\+Id)=0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a2ffb23709f6e0770d6e60afb36a33164}\label{classanchors_1_1AnchorBase_a2ffb23709f6e0770d6e60afb36a33164}} 
+virtual void {\bfseries mark\+Necessary} ()=0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_af50a0642df7b421172fd0dfe41be42e0}\label{classanchors_1_1AnchorBase_af50a0642df7b421172fd0dfe41be42e0}} 
+virtual void {\bfseries decrement\+Necessary\+Count} ()=0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_ab9fdba94048c111fa58fa5a3a1c5bfa6}\label{classanchors_1_1AnchorBase_ab9fdba94048c111fa58fa5a3a1c5bfa6}} 
+virtual bool {\bfseries is\+Necessary} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a49c6c172914a2edccdc5f015e104df76}\label{classanchors_1_1AnchorBase_a49c6c172914a2edccdc5f015e104df76}} 
+virtual bool {\bfseries is\+Stale} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_ae3298ca67a8045618ee73e15daf8786f}\label{classanchors_1_1AnchorBase_ae3298ca67a8045618ee73e15daf8786f}} 
+virtual std\+::unordered\+\_\+set$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorBase}{Anchor\+Base}} $>$ $>$ {\bfseries get\+Dependants} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_af535e4775ae81d8a6563580401fa3dbb}\label{classanchors_1_1AnchorBase_af535e4775ae81d8a6563580401fa3dbb}} 
+virtual std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorBase}{Anchor\+Base}} $>$ $>$ {\bfseries get\+Dependencies} () const =0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_a06a9cc1aa28faecb5930eb42d4b6c6c5}\label{classanchors_1_1AnchorBase_a06a9cc1aa28faecb5930eb42d4b6c6c5}} 
+virtual void {\bfseries add\+Dependant} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorBase}{Anchor\+Base}} $>$ \&parent)=0
+\item 
+\mbox{\Hypertarget{classanchors_1_1AnchorBase_ae546d1fc3b18f4af5bae532f21134472}\label{classanchors_1_1AnchorBase_ae546d1fc3b18f4af5bae532f21134472}} 
+virtual void {\bfseries remove\+Dependant} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorBase}{Anchor\+Base}} $>$ \&parent)=0
+\end{DoxyCompactItemize}

@@ -1,0 +1,237 @@
+{
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-release/CMakeFiles/3.21.1/CMakeSystem.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeDependentOption.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-release/CMakeFiles/3.21.1/CMakeCCompiler.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-release/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/MSVC-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-MSVC-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-MSVC.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-release/CMakeFiles/3.21.1/CMakeRCCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/MSVC-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-MSVC-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-MSVC.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CTest.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CTestUseLaunchers.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CTestTargets.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/DartConfiguration.tcl.in"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CPack.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CPackComponent.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Templates/CPackConfig.cmake.in"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Templates/CPackConfig.cmake.in"
+		},
+		{
+			"path" : "src/CMakeLists.txt"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/installed/x86-windows/share/boost/vcpkg-cmake-wrapper.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindBoost.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"path" : "test/CMakeLists.txt"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/installed/x86-windows/share/GTest/GTestConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/installed/x86-windows/share/GTest/GTestConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/JetBrains/CLion 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/installed/x86-windows/share/GTest/GTestTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/installed/x86-windows/share/GTest/GTestTargets-debug.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/src/vcpkg/installed/x86-windows/share/GTest/GTestTargets-release.cmake"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "C:/Users/user/Google Drive/CodeProjects/anchors/cmake-build-release",
+		"source" : "C:/Users/user/Google Drive/CodeProjects/anchors"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

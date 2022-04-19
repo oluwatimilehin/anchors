@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+  <compounddef id="classanchors_1_1Anchors" kind="class" language="C++" prot="public">
+    <compoundname>anchors::Anchors</compoundname>
+    <includes refid="anchorutil_8h" local="no">anchorutil.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>std::shared_ptr&lt; <ref refid="classanchors_1_1AnchorWrap" kindref="compound">AnchorWrap</ref>&lt; T &gt; &gt;</type>
+        <definition>using anchors::Anchors::AnchorPtr =  std::shared_ptr&lt;AnchorWrap&lt;T&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>AnchorPtr</name>
+        <qualifiedname>anchors::Anchors::AnchorPtr</qualifiedname>
+        <briefdescription>
+<para>Alias representing a shared pointer to an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> of output type T. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="21" column="5" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classanchors_1_1Anchors_1a67bc86dc97f15c2beb28bc395f9f57b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; T &gt;</type>
+        <definition>AnchorPtr&lt; T &gt; anchors::Anchors::create</definition>
+        <argsstring>(const T &amp;value)</argsstring>
+        <name>create</name>
+        <qualifiedname>anchors::Anchors::create</qualifiedname>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Creates an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> containing the given value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. <computeroutput>T</computeroutput> should overload the equality and output operators if not already defined. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- initial value of the <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a shared pointer to the created <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="32" column="22" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="114" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classanchors_1_1Anchors_1a4e0d9710f681bd94d4bf493831c358d2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename InputType1</type>
+            <defval>T</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; T &gt;</type>
+        <definition>AnchorPtr&lt; T &gt; anchors::Anchors::map</definition>
+        <argsstring>(const AnchorPtr&lt; InputType1 &gt; &amp;anchor, const typename Anchor&lt; T, InputType1 &gt;::SingleInputUpdater &amp;updater)</argsstring>
+        <name>map</name>
+        <qualifiedname>anchors::Anchors::map</qualifiedname>
+        <param>
+          <type>const <ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; InputType1 &gt; &amp;</type>
+          <declname>anchor</declname>
+        </param>
+        <param>
+          <type>const typename <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>&lt; T, InputType1 &gt;::SingleInputUpdater &amp;</type>
+          <declname>updater</declname>
+        </param>
+        <briefdescription>
+<para>Creates an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> from an input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- type of the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. <computeroutput>T</computeroutput> should overload the equality and output operators if not already defined. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputType1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- optional type of the input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. Only specify this type if it is different from the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>anchor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>updater</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- function that maps the input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> to the output. Accepts an Lvalue reference. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a shared pointer to the created <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="47" column="22" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="121" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classanchors_1_1Anchors_1a9f8a15e84a2730abdfb04cd532c07c62" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename InputType1</type>
+            <defval>T</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; T &gt;</type>
+        <definition>AnchorPtr&lt; T &gt; anchors::Anchors::map</definition>
+        <argsstring>(const AnchorPtr&lt; InputType1 &gt; &amp;anchor, const typename Anchor&lt; T, InputType1 &gt;::SingleInputUpdater &amp;&amp;updater)</argsstring>
+        <name>map</name>
+        <qualifiedname>anchors::Anchors::map</qualifiedname>
+        <param>
+          <type>const <ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; InputType1 &gt; &amp;</type>
+          <declname>anchor</declname>
+        </param>
+        <param>
+          <type>const typename <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>&lt; T, InputType1 &gt;::SingleInputUpdater &amp;&amp;</type>
+          <declname>updater</declname>
+        </param>
+        <briefdescription>
+<para>Creates an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> from an input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- type of the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. <computeroutput>T</computeroutput> should overload the equality and output operators if not already defined. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputType1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- optional type of the input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. Only specify this type if it is different from the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>anchor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>updater</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- function that maps the input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> to the output. Accepts an Rvalue reference. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a shared pointer to the created <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="64" column="22" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="131" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classanchors_1_1Anchors_1a4f9bf61e8eeb3ad44360b57f6c579542" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename InputType1</type>
+            <defval>T</defval>
+          </param>
+          <param>
+            <type>typename InputType2</type>
+            <defval>T</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; T &gt;</type>
+        <definition>AnchorPtr&lt; T &gt; anchors::Anchors::map2</definition>
+        <argsstring>(const AnchorPtr&lt; InputType1 &gt; &amp;anchor1, const AnchorPtr&lt; InputType2 &gt; &amp;anchor2, const typename Anchor&lt; T, InputType1, InputType2 &gt;::DualInputUpdater &amp;updater)</argsstring>
+        <name>map2</name>
+        <qualifiedname>anchors::Anchors::map2</qualifiedname>
+        <param>
+          <type>const <ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; InputType1 &gt; &amp;</type>
+          <declname>anchor1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; InputType2 &gt; &amp;</type>
+          <declname>anchor2</declname>
+        </param>
+        <param>
+          <type>const typename <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>&lt; T, InputType1, InputType2 &gt;::DualInputUpdater &amp;</type>
+          <declname>updater</declname>
+        </param>
+        <briefdescription>
+<para>Creates an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> from two input <ref refid="classanchors_1_1Anchors" kindref="compound">Anchors</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- type of the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. <computeroutput>T</computeroutput> should overload the equality and output operators if not already defined. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputType1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- optional type of the first input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. Only specify this type if it is different from the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputType2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- optional type of the second input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. Only specify this type if it is different from the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>anchor1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- first input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>anchor2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- second input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>updater</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- function that maps the input <ref refid="classanchors_1_1Anchors" kindref="compound">Anchors</ref> to the output. Accepts an Lvalue reference. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a shared pointer to the created <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="84" column="22" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="138" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classanchors_1_1Anchors_1a60a3206d143248df185ca41de3f77af4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename InputType1</type>
+            <defval>T</defval>
+          </param>
+          <param>
+            <type>typename InputType2</type>
+            <defval>T</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; T &gt;</type>
+        <definition>AnchorPtr&lt; T &gt; anchors::Anchors::map2</definition>
+        <argsstring>(const AnchorPtr&lt; InputType1 &gt; &amp;anchor1, const AnchorPtr&lt; InputType2 &gt; &amp;anchor2, const typename Anchor&lt; T, InputType1, InputType2 &gt;::DualInputUpdater &amp;&amp;updater)</argsstring>
+        <name>map2</name>
+        <qualifiedname>anchors::Anchors::map2</qualifiedname>
+        <param>
+          <type>const <ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; InputType1 &gt; &amp;</type>
+          <declname>anchor1</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" kindref="member">AnchorPtr</ref>&lt; InputType2 &gt; &amp;</type>
+          <declname>anchor2</declname>
+        </param>
+        <param>
+          <type>const typename <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>&lt; T, InputType1, InputType2 &gt;::DualInputUpdater &amp;&amp;</type>
+          <declname>updater</declname>
+        </param>
+        <briefdescription>
+<para>Creates an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> from two input <ref refid="classanchors_1_1Anchors" kindref="compound">Anchors</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- type of the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. <computeroutput>T</computeroutput> should overload the equality and output operators if not already defined. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputType1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- optional type of the first input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. Only specify this type if it is different from the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputType2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- optional type of the second input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. Only specify this type if it is different from the output <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref> type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>anchor1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- first input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>anchor2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- second input <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>updater</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- function that maps the input <ref refid="classanchors_1_1Anchors" kindref="compound">Anchors</ref> to the output. Accepts an Rvalue reference. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a shared pointer to the created <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="106" column="22" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="150" bodyend="156"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classanchors_1_1Anchors" kindref="compound">Anchors</ref> is an utility class containing functions to simplify creating a shared pointer to an <ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref>, which the <ref refid="classanchors_1_1Engine" kindref="compound">Engine</ref> class operates on. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>To create shared pointers with custom allocators, you can invoke the public constructors in the <computeroutput><ref refid="classanchors_1_1Anchor" kindref="compound">Anchor</ref></computeroutput> class. </para>
+    </detaileddescription>
+    <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" line="15" column="1" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h" bodystart="15" bodyend="111"/>
+    <listofallmembers>
+      <member refid="classanchors_1_1Anchors_1aece6dba4ebfdd9fdf0ce9085e6153b11" prot="public" virt="non-virtual"><scope>anchors::Anchors</scope><name>AnchorPtr</name></member>
+      <member refid="classanchors_1_1Anchors_1a67bc86dc97f15c2beb28bc395f9f57b8" prot="public" virt="non-virtual"><scope>anchors::Anchors</scope><name>create</name></member>
+      <member refid="classanchors_1_1Anchors_1a4e0d9710f681bd94d4bf493831c358d2" prot="public" virt="non-virtual"><scope>anchors::Anchors</scope><name>map</name></member>
+      <member refid="classanchors_1_1Anchors_1a9f8a15e84a2730abdfb04cd532c07c62" prot="public" virt="non-virtual"><scope>anchors::Anchors</scope><name>map</name></member>
+      <member refid="classanchors_1_1Anchors_1a4f9bf61e8eeb3ad44360b57f6c579542" prot="public" virt="non-virtual"><scope>anchors::Anchors</scope><name>map2</name></member>
+      <member refid="classanchors_1_1Anchors_1a60a3206d143248df185ca41de3f77af4" prot="public" virt="non-virtual"><scope>anchors::Anchors</scope><name>map2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

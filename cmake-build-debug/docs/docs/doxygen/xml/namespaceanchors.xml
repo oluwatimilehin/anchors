@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+  <compounddef id="namespaceanchors" kind="namespace" language="C++">
+    <compoundname>anchors</compoundname>
+    <innerclass refid="classanchors_1_1Anchor" prot="public">anchors::Anchor</innerclass>
+    <innerclass refid="classanchors_1_1AnchorBase" prot="public">anchors::AnchorBase</innerclass>
+    <innerclass refid="classanchors_1_1Anchors" prot="public">anchors::Anchors</innerclass>
+    <innerclass refid="classanchors_1_1AnchorWrap" prot="public">anchors::AnchorWrap</innerclass>
+    <innerclass refid="classanchors_1_1Engine" prot="public">anchors::Engine</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h" line="32" column="1"/>
+  </compounddef>
+</doxygen>

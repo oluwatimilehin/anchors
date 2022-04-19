@@ -1,0 +1,12 @@
+C:\WINDOWS\system32\wsl.exe --distribution Ubuntu-20.04 --exec /bin/bash -c "export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd '/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-release' && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Release '-DCMAKE_TOOLCHAIN_FILE=C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake' -G 'CodeBlocks - Unix Makefiles' '/mnt/c/Users/user/Google Drive/CodeProjects/anchors'"
+CMake Error at /usr/share/cmake-3.16/Modules/CMakeDetermineSystem.cmake:99 (message):
+  Could not find toolchain file:
+  C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake
+Call Stack (most recent call first):
+  CMakeLists.txt:3 (project)
+
+
+CMake Error: CMake was unable to find a build program corresponding to "Unix Makefiles".  CMAKE_MAKE_PROGRAM is not set.  You probably need to select a different build tool.
+CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
+-- Configuring incomplete, errors occurred!

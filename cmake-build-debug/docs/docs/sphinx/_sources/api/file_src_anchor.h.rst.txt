@@ -1,0 +1,81 @@
+
+.. _file_src_anchor.h:
+
+File anchor.h
+=============
+
+|exhale_lsh| :ref:`Parent directory <dir_src>` (``src``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``src/anchor.h``)
+-----------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_src_anchor.h.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``algorithm``
+
+- ``anchorbase.h`` (:ref:`file_src_anchorbase.h`)
+
+- ``boost/uuid/uuid_generators.hpp``
+
+- ``boost/uuid/uuid_io.hpp``
+
+- ``functional``
+
+- ``memory``
+
+- ``unordered_set``
+
+- ``vector``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_src_anchor.cpp`
+
+- :ref:`file_src_anchorutil.h`
+
+- :ref:`file_src_engine.h`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_anchors`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structstd_1_1hash_3_01anchors_1_1AnchorBase_01_4`
+
+- :ref:`exhale_struct_structstd_1_1less_3_01std_1_1shared__ptr_3_01anchors_1_1AnchorBase_01_4_01_4`
+
+- :ref:`exhale_class_classanchors_1_1Anchor`
+
+- :ref:`exhale_class_classanchors_1_1AnchorWrap`
+

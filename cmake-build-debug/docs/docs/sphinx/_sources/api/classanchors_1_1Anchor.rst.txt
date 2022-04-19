@@ -1,0 +1,25 @@
+.. _exhale_class_classanchors_1_1Anchor:
+
+Template Class Anchor
+=====================
+
+- Defined in :ref:`file_src_anchor.h`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public anchors::AnchorWrap< T >`` (:ref:`exhale_class_classanchors_1_1AnchorWrap`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: anchors::Anchor
+   :members:
+   :protected-members:
+   :undoc-members:

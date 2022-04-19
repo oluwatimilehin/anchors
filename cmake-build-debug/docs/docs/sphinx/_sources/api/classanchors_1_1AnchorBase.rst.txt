@@ -1,0 +1,25 @@
+.. _exhale_class_classanchors_1_1AnchorBase:
+
+Class AnchorBase
+================
+
+- Defined in :ref:`file_src_anchorbase.h`
+
+
+Inheritance Relationships
+-------------------------
+
+Derived Type
+************
+
+- ``public anchors::AnchorWrap< T >`` (:ref:`exhale_class_classanchors_1_1AnchorWrap`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: anchors::AnchorBase
+   :members:
+   :protected-members:
+   :undoc-members:

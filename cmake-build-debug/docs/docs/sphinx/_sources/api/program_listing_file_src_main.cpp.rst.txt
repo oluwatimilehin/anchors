@@ -1,0 +1,13 @@
+
+.. _program_listing_file_src_main.cpp:
+
+Program Listing for File main.cpp
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_src_main.cpp>` (``src/main.cpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   int main(int, char**) { return 0; }

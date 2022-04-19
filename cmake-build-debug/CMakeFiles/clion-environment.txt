@@ -1,0 +1,3 @@
+ToolSet: Ubuntu 20.04.4 LTS (local)Options: 
+
+Options:-DCMAKE_TOOLCHAIN_FILE=/home/timiadeniran/vcpkg/scripts/buildsystems/vcpkg.cmake

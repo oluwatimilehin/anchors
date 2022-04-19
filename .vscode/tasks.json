@@ -1,0 +1,37 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "cmake",
+            "args": ["cmake ."]
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: gcc build active file",
+			"command": "/usr/bin/gcc",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-Wall",
+				"-Wextra",
+				"-Wconversion",
+				"-Wpedantic",
+				"-std=c++2a"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/bin/gcc"
+		}
+	]
+}

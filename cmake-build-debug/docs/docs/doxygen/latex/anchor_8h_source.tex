@@ -1,0 +1,353 @@
+\hypertarget{anchor_8h_source}{}\doxysection{anchor.\+h}
+\label{anchor_8h_source}\index{/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h@{/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// anchor.h}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef ANCHORS\_ANCHOR\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define ANCHORS\_ANCHOR\_H}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}anchorbase.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <boost/uuid/uuid\_generators.hpp>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <boost/uuid/uuid\_io.hpp>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <unordered\_set>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{template} <>}
+\DoxyCodeLine{16 \textcolor{keyword}{struct }std::hash<anchors::AnchorBase> \{}
+\DoxyCodeLine{17     std::size\_t operator()(\textcolor{keyword}{const} anchors::AnchorBase\& a) \textcolor{keyword}{const} \textcolor{keyword}{noexcept} \{}
+\DoxyCodeLine{18         \textcolor{keywordflow}{return} hash\_value(a.getId());}
+\DoxyCodeLine{19     \}}
+\DoxyCodeLine{20 \};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{comment}{// Used by the priority queue in the Engine class to store Anchors in increasing}}
+\DoxyCodeLine{23 \textcolor{comment}{// order.}}
+\DoxyCodeLine{24 \textcolor{keyword}{template} <>}
+\DoxyCodeLine{25 \textcolor{keyword}{struct }std::less<std::shared\_ptr<anchors::AnchorBase>> \{}
+\DoxyCodeLine{26     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} std::shared\_ptr<anchors::AnchorBase>\& a1,}
+\DoxyCodeLine{27                     \textcolor{keyword}{const} std::shared\_ptr<anchors::AnchorBase>\& a2)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{28         \textcolor{keywordflow}{return} a1-\/>getHeight() > a2-\/>getHeight();}
+\DoxyCodeLine{29     \}}
+\DoxyCodeLine{30 \};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }anchors \{}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{40 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{41 \textcolor{keyword}{class }\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap}} : \textcolor{keyword}{public} AnchorBase \{}
+\DoxyCodeLine{42    \textcolor{keyword}{public}:}
+\DoxyCodeLine{43     \textcolor{keyword}{virtual} \mbox{\hyperlink{classanchors_1_1AnchorWrap}{\string~AnchorWrap}}()\{\};}
+\DoxyCodeLine{44     \textcolor{keyword}{virtual} T get() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46    \textcolor{keyword}{protected}:}
+\DoxyCodeLine{47     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} set(\textcolor{keyword}{const} T\& value) = 0;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classanchors_1_1Engine}{Engine}};}
+\DoxyCodeLine{50 \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{58 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1 = T, \textcolor{keyword}{typename} InputType2 = T>}
+\DoxyCodeLine{59 \textcolor{keyword}{class }\mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} : \textcolor{keyword}{public} \mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap}}<T> \{}
+\DoxyCodeLine{60    \textcolor{keyword}{public}:}
+\DoxyCodeLine{65     \textcolor{keyword}{using} \mbox{\hyperlink{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}{SingleInputUpdater}} = std::function<T(InputType1\&)>;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{71     \textcolor{keyword}{using} \mbox{\hyperlink{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}{DualInputUpdater}} = std::function<T(InputType1\&, InputType2\&)>;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}() = \textcolor{keyword}{delete};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{79     \textcolor{keyword}{explicit} \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}(\textcolor{keyword}{const} T\& value);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{87     \textcolor{keyword}{explicit} \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}(\textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap<InputType1>}}>\& input,}
+\DoxyCodeLine{88                     \textcolor{keyword}{const} \mbox{\hyperlink{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}{SingleInputUpdater}}\&                      updater);}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{97     \textcolor{keyword}{explicit} \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}(\textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap<InputType1>}}>\& firstInput,}
+\DoxyCodeLine{98                     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap<InputType2>}}>\& secondInput,}
+\DoxyCodeLine{99                     \textcolor{keyword}{const} \mbox{\hyperlink{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}{DualInputUpdater}}\&                        updater);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}(\textcolor{keyword}{const} \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}\& a) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103     \mbox{\hyperlink{classanchors_1_1Anchor}{\string~Anchor}}() \textcolor{keyword}{override} = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105     \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classanchors_1_1Engine}{Engine}};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107     \textcolor{keyword}{friend} std::ostream\& operator<<(std::ostream\& out, \textcolor{keyword}{const} \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}\& anchor) \{}
+\DoxyCodeLine{108         out << \textcolor{stringliteral}{"{}[ value="{}} << anchor.get() << \textcolor{stringliteral}{"{}, height="{}} << anchor.getHeight(),}
+\DoxyCodeLine{109             \textcolor{stringliteral}{"{}, firstDependency="{}} << anchor.d\_firstDependency}
+\DoxyCodeLine{110                                  << \textcolor{stringliteral}{"{}, secondDependency="{}}}
+\DoxyCodeLine{111                                  << anchor.d\_secondDependency << \textcolor{stringliteral}{"{} ]"{}};}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113         \textcolor{keywordflow}{return} out;}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116    \textcolor{keyword}{private}:}
+\DoxyCodeLine{117     \textcolor{comment}{// PRIVATE MANIPULATORS}}
+\DoxyCodeLine{118     T get() \textcolor{keyword}{const override};}
+\DoxyCodeLine{119     \textcolor{comment}{// Returns the current value of an Anchor.}}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121     \textcolor{keywordtype}{void} compute(\textcolor{keywordtype}{int} stabilizationNumber) \textcolor{keyword}{override};}
+\DoxyCodeLine{122     \textcolor{comment}{// Computes the value of an Anchor based on its inputs and updater function.}}
+\DoxyCodeLine{123     \textcolor{comment}{// When this function is called by the Engine, it is guaranteed that the}}
+\DoxyCodeLine{124     \textcolor{comment}{// inputs are up-\/to-\/date.}}
+\DoxyCodeLine{125     \textcolor{comment}{// This function also sets the recomputeID of the Anchor to the given}}
+\DoxyCodeLine{126     \textcolor{comment}{// stabilizationNumber, and will update the changeId only if the Anchor}}
+\DoxyCodeLine{127     \textcolor{comment}{// value changes after recomputing.}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \textcolor{keywordtype}{void} markNecessary() \textcolor{keyword}{override};}
+\DoxyCodeLine{130     \textcolor{comment}{// Increments the `necessary count` of an Anchor. An Anchor is necessary if}}
+\DoxyCodeLine{131     \textcolor{comment}{// it is a dependency of an observed Anchor, either directly or indirectly.}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133     \textcolor{keywordtype}{bool} isNecessary() \textcolor{keyword}{const override};}
+\DoxyCodeLine{134     \textcolor{comment}{// Returns true if at least one observed Anchor depends on it, either}}
+\DoxyCodeLine{135     \textcolor{comment}{// directly or indirectly.}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137     \textcolor{keywordtype}{bool} isStale() \textcolor{keyword}{const override};}
+\DoxyCodeLine{138     \textcolor{comment}{// Returns true if the Anchor is necessary and has never been computed or}}
+\DoxyCodeLine{139     \textcolor{comment}{// its recomputeId is less than the changeId of one of its children.}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141     \textcolor{keywordtype}{void} decrementNecessaryCount() \textcolor{keyword}{override};}
+\DoxyCodeLine{142     \textcolor{comment}{// Decrements the `necessary count` of an Anchor after a dependant is marked}}
+\DoxyCodeLine{143     \textcolor{comment}{// as unobserved.}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     AnchorBase::AnchorId getId() \textcolor{keyword}{const override};}
+\DoxyCodeLine{146     \textcolor{comment}{// Returns the generated UUID of the Anchor.}}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148     \textcolor{keywordtype}{int} getHeight() \textcolor{keyword}{const override};}
+\DoxyCodeLine{149     \textcolor{comment}{// Returns the height of an Anchor. An Anchor's height must always be}}
+\DoxyCodeLine{150     \textcolor{comment}{// greater than the heights of its inputs.}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152     \textcolor{keywordtype}{int} getRecomputeId() \textcolor{keyword}{const override};}
+\DoxyCodeLine{153     \textcolor{comment}{// Returns the ID at which the Anchor was last computed.}}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155     \textcolor{keywordtype}{int} getChangeId() \textcolor{keyword}{const override};}
+\DoxyCodeLine{156     \textcolor{comment}{// Returns the ID at which the value of an Anchor last changed.}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158     \textcolor{keywordtype}{void} setChangeId(\textcolor{keywordtype}{int} changeId) \textcolor{keyword}{override};}
+\DoxyCodeLine{159     \textcolor{comment}{// Set the ID at which the value of an Anchor changed.}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{keywordtype}{void} set(\textcolor{keyword}{const} T\& value) \textcolor{keyword}{override};}
+\DoxyCodeLine{162     \textcolor{comment}{// Set the value of the Anchor.}}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164     \textcolor{keywordtype}{void} addDependant(\textcolor{keyword}{const} std::shared\_ptr<AnchorBase>\& dependant) \textcolor{keyword}{override};}
+\DoxyCodeLine{165     \textcolor{comment}{// Adds the given Anchor as a dependant of this Anchor. When this Anchor's}}
+\DoxyCodeLine{166     \textcolor{comment}{// value changes, we want to know update its dependants.}}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168     \textcolor{keywordtype}{void} removeDependant(\textcolor{keyword}{const} std::shared\_ptr<AnchorBase>\& dependant) \textcolor{keyword}{override};}
+\DoxyCodeLine{169     \textcolor{comment}{// Removes the given Anchor from the dependants of this Anchor.}}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171     std::unordered\_set<std::shared\_ptr<AnchorBase>> getDependants()}
+\DoxyCodeLine{172         \textcolor{keyword}{const override};}
+\DoxyCodeLine{173     \textcolor{comment}{// Returns the dependants of this Anchor.}}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175     std::vector<std::shared\_ptr<AnchorBase>> getDependencies() \textcolor{keyword}{const override};}
+\DoxyCodeLine{176     \textcolor{comment}{// Returns the dependencies of this Anchor.}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178     \textcolor{comment}{// PRIVATE DATA}}
+\DoxyCodeLine{179     boost::uuids::random\_generator d\_idGenerator;}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181     boost::uuids::uuid d\_id;}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183     T d\_value\{\};}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185     \textcolor{keywordtype}{int} d\_height\{\};}
+\DoxyCodeLine{186     \textcolor{keywordtype}{int} d\_necessary\{\};}
+\DoxyCodeLine{187     \textcolor{keywordtype}{int} d\_numDependencies\{\};}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189     \textcolor{keywordtype}{int} d\_recomputeId\{\};}
+\DoxyCodeLine{190     \textcolor{keywordtype}{int} d\_changeId\{\};}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{192     \textcolor{keywordtype}{bool} d\_hasNeverBeenComputed;}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194     \textcolor{keyword}{const} std::shared\_ptr<AnchorWrap<InputType1>> d\_firstDependency;}
+\DoxyCodeLine{195     \textcolor{keyword}{const} std::shared\_ptr<AnchorWrap<InputType2>> d\_secondDependency;}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197     std::unordered\_set<std::shared\_ptr<AnchorBase>> d\_dependants;}
+\DoxyCodeLine{198     \textcolor{comment}{// Anchors that depend on it.}}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200     \mbox{\hyperlink{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}{SingleInputUpdater}} d\_singleInputUpdater;}
+\DoxyCodeLine{201 }
+\DoxyCodeLine{202     \mbox{\hyperlink{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}{DualInputUpdater}} d\_dualInputUpdater;}
+\DoxyCodeLine{203 \};}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{206 \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor<T, InputType1, InputType2>::Anchor}}(\textcolor{keyword}{const} T\& value)}
+\DoxyCodeLine{207     : d\_id(d\_idGenerator()),}
+\DoxyCodeLine{208       d\_value(value),}
+\DoxyCodeLine{209       d\_hasNeverBeenComputed(true),}
+\DoxyCodeLine{210       d\_dependants() \{\}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{213 \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor<T, InputType1, InputType2>::Anchor}}(}
+\DoxyCodeLine{214     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap<InputType1>}}>\& input,}
+\DoxyCodeLine{215     \textcolor{keyword}{const} \mbox{\hyperlink{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}{SingleInputUpdater}}\&                      updater)}
+\DoxyCodeLine{216     : d\_id(d\_idGenerator()),}
+\DoxyCodeLine{217       d\_height(input-\/>getHeight() + 1),}
+\DoxyCodeLine{218       d\_numDependencies(1),}
+\DoxyCodeLine{219       d\_hasNeverBeenComputed(true),}
+\DoxyCodeLine{220       d\_firstDependency(input),}
+\DoxyCodeLine{221       d\_dependants(),}
+\DoxyCodeLine{222       d\_singleInputUpdater(updater) \{\}}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{225 \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor<T, InputType1, InputType2>::Anchor}}(}
+\DoxyCodeLine{226     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap<InputType1>}}>\& firstInput,}
+\DoxyCodeLine{227     \textcolor{keyword}{const} std::shared\_ptr<\mbox{\hyperlink{classanchors_1_1AnchorWrap}{AnchorWrap<InputType2>}}>\& secondInput,}
+\DoxyCodeLine{228     \textcolor{keyword}{const} \mbox{\hyperlink{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}{DualInputUpdater}}\&                        updater)}
+\DoxyCodeLine{229     : d\_id(d\_idGenerator()),}
+\DoxyCodeLine{230       d\_height(std::max(firstInput-\/>getHeight(), secondInput-\/>getHeight()) + 1),}
+\DoxyCodeLine{231       d\_numDependencies(2),}
+\DoxyCodeLine{232       d\_hasNeverBeenComputed(true),}
+\DoxyCodeLine{233       d\_firstDependency(firstInput),}
+\DoxyCodeLine{234       d\_secondDependency(secondInput),}
+\DoxyCodeLine{235       d\_dependants(),}
+\DoxyCodeLine{236       d\_dualInputUpdater(updater) \{\}}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{239 T \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor<T, InputType1, InputType2>::get}}()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{240     \textcolor{keywordflow}{return} d\_value;}
+\DoxyCodeLine{241 \}}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{244 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::compute(\textcolor{keywordtype}{int} stabilizationNumber) \{}
+\DoxyCodeLine{245     \textcolor{keywordflow}{if} (d\_recomputeId == stabilizationNumber) \{}
+\DoxyCodeLine{246         \textcolor{comment}{// Don't compute a node more than once in the same cycle}}
+\DoxyCodeLine{247         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{248     \}}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250     T newValue;}
+\DoxyCodeLine{251     d\_recomputeId = stabilizationNumber;}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253     d\_hasNeverBeenComputed = \textcolor{keyword}{false};}
+\DoxyCodeLine{254 }
+\DoxyCodeLine{255     \textcolor{keywordflow}{if} (d\_numDependencies == 0) \{}
+\DoxyCodeLine{256         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{257     \}}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259     \textcolor{keywordflow}{if} (d\_numDependencies == 1) \{}
+\DoxyCodeLine{260         InputType1 inputVal = d\_firstDependency-\/>get();}
+\DoxyCodeLine{261         newValue            = d\_singleInputUpdater(inputVal);}
+\DoxyCodeLine{262     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{263         InputType1 inputVal  = d\_firstDependency-\/>get();}
+\DoxyCodeLine{264         InputType2 inputVal2 = d\_secondDependency-\/>get();}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266         newValue = d\_dualInputUpdater(inputVal, inputVal2);}
+\DoxyCodeLine{267     \}}
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269     \textcolor{keywordflow}{if} (newValue != d\_value) \{}
+\DoxyCodeLine{270         d\_changeId = stabilizationNumber;}
+\DoxyCodeLine{271         d\_value    = newValue;}
+\DoxyCodeLine{272     \}}
+\DoxyCodeLine{273 \}}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{275 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{276 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::markNecessary() \{}
+\DoxyCodeLine{277     d\_necessary++;}
+\DoxyCodeLine{278 \}}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{281 \textcolor{keywordtype}{bool} Anchor<T, InputType1, InputType2>::isNecessary()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{282     \textcolor{keywordflow}{return} d\_necessary > 0;}
+\DoxyCodeLine{283 \}}
+\DoxyCodeLine{284 }
+\DoxyCodeLine{285 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{286 \textcolor{keywordtype}{bool} Anchor<T, InputType1, InputType2>::isStale()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{287     \textcolor{keywordtype}{bool} recomputeIdLessThanChildChangeId = \textcolor{keyword}{false};}
+\DoxyCodeLine{288 }
+\DoxyCodeLine{289     \textcolor{keywordflow}{if} (d\_numDependencies >= 1) \{}
+\DoxyCodeLine{290         recomputeIdLessThanChildChangeId =}
+\DoxyCodeLine{291             d\_recomputeId < d\_firstDependency-\/>getChangeId();}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{293         \textcolor{keywordflow}{if} (!recomputeIdLessThanChildChangeId \&\& d\_numDependencies == 2) \{}
+\DoxyCodeLine{294             recomputeIdLessThanChildChangeId |=}
+\DoxyCodeLine{295                 d\_recomputeId < d\_secondDependency-\/>getChangeId();}
+\DoxyCodeLine{296         \}}
+\DoxyCodeLine{297     \}}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299     \textcolor{keywordflow}{return} isNecessary() \&}
+\DoxyCodeLine{300            (d\_hasNeverBeenComputed || recomputeIdLessThanChildChangeId);}
+\DoxyCodeLine{301 \}}
+\DoxyCodeLine{302 }
+\DoxyCodeLine{303 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{304 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::decrementNecessaryCount() \{}
+\DoxyCodeLine{305     \textcolor{keywordflow}{if} (d\_necessary <= 0) \{}
+\DoxyCodeLine{306         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{307     \}}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309     d\_necessary-\/-\/;}
+\DoxyCodeLine{310 \}}
+\DoxyCodeLine{311 }
+\DoxyCodeLine{312 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{313 AnchorBase::AnchorId Anchor<T, InputType1, InputType2>::getId()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{314     \textcolor{keywordflow}{return} d\_id;}
+\DoxyCodeLine{315 \}}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{318 \textcolor{keywordtype}{int} Anchor<T, InputType1, InputType2>::getHeight()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{319     \textcolor{keywordflow}{return} d\_height;}
+\DoxyCodeLine{320 \}}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{322 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{323 \textcolor{keywordtype}{int} Anchor<T, InputType1, InputType2>::getRecomputeId()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{324     \textcolor{keywordflow}{return} d\_recomputeId;}
+\DoxyCodeLine{325 \}}
+\DoxyCodeLine{326 }
+\DoxyCodeLine{327 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{328 \textcolor{keywordtype}{int} Anchor<T, InputType1, InputType2>::getChangeId()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{329     \textcolor{keywordflow}{return} d\_changeId;}
+\DoxyCodeLine{330 \}}
+\DoxyCodeLine{331 }
+\DoxyCodeLine{332 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{333 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::setChangeId(\textcolor{keywordtype}{int} changeId) \{}
+\DoxyCodeLine{334     d\_changeId = changeId;}
+\DoxyCodeLine{335 \}}
+\DoxyCodeLine{336 }
+\DoxyCodeLine{337 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{338 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::set(\textcolor{keyword}{const} T\& value) \{}
+\DoxyCodeLine{339     d\_value = value;}
+\DoxyCodeLine{340 \}}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{342 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{343 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::addDependant(}
+\DoxyCodeLine{344     \textcolor{keyword}{const} std::shared\_ptr<AnchorBase>\& dependant) \{}
+\DoxyCodeLine{345     d\_dependants.insert(dependant);}
+\DoxyCodeLine{346 \}}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{349 \textcolor{keywordtype}{void} Anchor<T, InputType1, InputType2>::removeDependant(}
+\DoxyCodeLine{350     \textcolor{keyword}{const} std::shared\_ptr<AnchorBase>\& dependant) \{}
+\DoxyCodeLine{351     d\_dependants.erase(dependant);}
+\DoxyCodeLine{352 \}}
+\DoxyCodeLine{353 }
+\DoxyCodeLine{354 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{355 std::unordered\_set<std::shared\_ptr<AnchorBase>>}
+\DoxyCodeLine{356 Anchor<T, InputType1, InputType2>::getDependants()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{357     std::unordered\_set<std::shared\_ptr<AnchorBase>> result;}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{359     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& parent : d\_dependants) \{}
+\DoxyCodeLine{360         result.insert(parent);}
+\DoxyCodeLine{361     \}}
+\DoxyCodeLine{362 }
+\DoxyCodeLine{363     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{364 \}}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{366 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} InputType1, \textcolor{keyword}{typename} InputType2>}
+\DoxyCodeLine{367 std::vector<std::shared\_ptr<AnchorBase>>}
+\DoxyCodeLine{368 Anchor<T, InputType1, InputType2>::getDependencies()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{369     std::vector<std::shared\_ptr<AnchorBase>> result;}
+\DoxyCodeLine{370 }
+\DoxyCodeLine{371     \textcolor{keywordflow}{if} (d\_numDependencies >= 1) \{}
+\DoxyCodeLine{372         result.push\_back(d\_firstDependency);}
+\DoxyCodeLine{373 }
+\DoxyCodeLine{374         \textcolor{keywordflow}{if} (d\_numDependencies == 2) \{}
+\DoxyCodeLine{375             result.push\_back(d\_secondDependency);}
+\DoxyCodeLine{376         \}}
+\DoxyCodeLine{377     \}}
+\DoxyCodeLine{378 }
+\DoxyCodeLine{379     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{380 \}}
+\DoxyCodeLine{381 }
+\DoxyCodeLine{382 \}  \textcolor{comment}{// namespace anchors}}
+\DoxyCodeLine{383 }
+\DoxyCodeLine{384 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

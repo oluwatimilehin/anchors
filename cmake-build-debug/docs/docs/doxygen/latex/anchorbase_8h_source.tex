@@ -1,0 +1,63 @@
+\hypertarget{anchorbase_8h_source}{}\doxysection{anchorbase.\+h}
+\label{anchorbase_8h_source}\index{/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorbase.h@{/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorbase.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef ANCHORS\_ANCHORBASE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define ANCHORS\_ANCHORBASE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#pragma comment(lib, "{}bcrypt.lib"{}})  \textcolor{comment}{// For Windows machines}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <boost/uuid/uuid.hpp>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <unordered\_set>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }anchors \{}
+\DoxyCodeLine{12 \textcolor{comment}{/***}}
+\DoxyCodeLine{13 \textcolor{comment}{ `AnchorBase` represents an Anchor without its type information, which allows us}}
+\DoxyCodeLine{14 \textcolor{comment}{ store Anchors of different types in a container.}}
+\DoxyCodeLine{15 \textcolor{comment}{}}
+\DoxyCodeLine{16 \textcolor{comment}{ The functions in this class are implemented as private functions and only}}
+\DoxyCodeLine{17 \textcolor{comment}{ visible to the Engine class.}}
+\DoxyCodeLine{18 \textcolor{comment}{ ***/}}
+\DoxyCodeLine{19 \textcolor{keyword}{class }AnchorBase \{}
+\DoxyCodeLine{20    \textcolor{keyword}{public}:}
+\DoxyCodeLine{21     \textcolor{keyword}{using} AnchorId = boost::uuids::uuid;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{virtual} \string~AnchorBase()\{\};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} compute(\textcolor{keywordtype}{int} stabilizationNumber) = 0;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keyword}{virtual} AnchorId getId() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} getHeight() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} getRecomputeId() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} getChangeId() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} setChangeId(\textcolor{keywordtype}{int} changeId) = 0;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} markNecessary() = 0;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} decrementNecessaryCount() = 0;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} isNecessary() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} isStale() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keyword}{virtual} std::unordered\_set<std::shared\_ptr<AnchorBase>> getDependants()}
+\DoxyCodeLine{46         \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keyword}{virtual} std::vector<std::shared\_ptr<AnchorBase>> getDependencies()}
+\DoxyCodeLine{49         \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} addDependant(\textcolor{keyword}{const} std::shared\_ptr<AnchorBase>\& parent) = 0;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} removeDependant(\textcolor{keyword}{const} std::shared\_ptr<AnchorBase>\& parent) = 0;}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 \}  \textcolor{comment}{// namespace anchors}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// ANCHORS\_ANCHORBASE\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+  <compounddef id="structstd_1_1less_3_01std_1_1shared__ptr_3_01anchors_1_1AnchorBase_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>std::less&lt; std::shared_ptr&lt; anchors::AnchorBase &gt; &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structstd_1_1less_3_01std_1_1shared__ptr_3_01anchors_1_1AnchorBase_01_4_01_4_1af66190cc04dd93c12bce47bbb99d5bb9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool std::less&lt; std::shared_ptr&lt; anchors::AnchorBase &gt; &gt;::operator()</definition>
+        <argsstring>(const std::shared_ptr&lt; anchors::AnchorBase &gt; &amp;a1, const std::shared_ptr&lt; anchors::AnchorBase &gt; &amp;a2) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>std::less&lt; std::shared_ptr&lt; anchors::AnchorBase &gt; &gt;::operator()</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; anchors::AnchorBase &gt; &amp;</type>
+          <declname>a1</declname>
+        </param>
+        <param>
+          <type>const std::shared_ptr&lt; anchors::AnchorBase &gt; &amp;</type>
+          <declname>a2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h" line="26" column="10" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h" bodystart="26" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h" line="25" column="1" bodyfile="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h" bodystart="25" bodyend="30"/>
+    <listofallmembers>
+      <member refid="structstd_1_1less_3_01std_1_1shared__ptr_3_01anchors_1_1AnchorBase_01_4_01_4_1af66190cc04dd93c12bce47bbb99d5bb9" prot="public" virt="non-virtual"><scope>std::less&lt; std::shared_ptr&lt; anchors::AnchorBase &gt; &gt;</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

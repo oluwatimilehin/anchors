@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../anchor.h
+functional
+-
+memory
+-
+unordered_set
+-
+vector
+-
+
+../engine.h
+anchor.h
+-
+memory
+-
+queue
+-
+unordered_set
+-
+
+/mnt/c/Users/user/Google Drive/CodeProjects/anchors/main.cpp
+anchor.h
+-
+engine.h
+-
+iostream
+-
+memory
+-
+

@@ -1,0 +1,142 @@
+
+.. _program_listing_file_src_engine.h:
+
+Program Listing for File engine.h
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_src_engine.h>` (``src/engine.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   // engine.h
+   #ifndef ANCHORS_ENGINE_H
+   #define ANCHORS_ENGINE_H
+   
+   #include "anchor.h"
+   #include "anchorutil.h"
+   
+   #include <memory>
+   #include <queue>
+   #include <unordered_set>
+   
+   namespace anchors {
+   
+   class Engine {
+      public:
+       Engine();
+   
+       template <typename T>
+       T get(const AnchorPtr<T>& anchor);
+   
+       template <typename T>
+       void set(AnchorPtr<T>& anchor, T val);
+   
+       template <typename T>
+       void observe(AnchorPtr<T>& anchor);
+   
+       template <typename T>
+       void observe(std::vector<AnchorPtr<T>>& anchors);
+   
+       template <typename T>
+       void unobserve(AnchorPtr<T>& anchor);
+   
+      private:
+       // PRIVATE MANIPULATORS
+       void stabilize();
+       // Brings all observed Anchors up-to-date.
+   
+       void observeNode(std::shared_ptr<AnchorBase>& current,
+                        std::unordered_set<std::shared_ptr<AnchorBase>>&);
+       // Marks all the dependencies of the given Anchor as necessary and adds
+       // stale Anchors to the recompute heap;
+   
+       void unobserveNode(std::shared_ptr<AnchorBase>& current);
+       // Removes `current` from the set of observed Anchors.
+       // Also decrements the 'necessary' count and removes `current` as a
+       // dependant of each of its dependencies.
+   
+       // PRIVATE DATA
+       int d_stabilizationNumber;
+       // Current stabilization number of the engine. We use this number to
+       // represent when an Anchor value was recomputed and/or changed.
+   
+       std::unordered_set<std::shared_ptr<AnchorBase>> d_observedNodes;
+       // Set of observed Anchors.
+   
+       std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
+       // Priority queue containing Anchors that need to be recomputed, in
+       // increasing order of their heights.
+   
+       std::unordered_set<std::shared_ptr<AnchorBase>> d_recomputeSet;
+       // Set of Anchors present in the recompute queue.
+   
+       //    std::priority_queue<std::shared_ptr<AnchorBase>> d_adjustHeightsHeap;
+       //    // Update the adjust-heights heap when setUpdater is called. Will use
+       //    later.
+   };
+   
+   template <typename T>
+   T Engine::get(const AnchorPtr<T>& anchor) {
+       if (d_observedNodes.contains(anchor)) {
+           stabilize();
+       }
+   
+       return anchor->get();
+   }
+   
+   template <typename T>
+   void Engine::set(AnchorPtr<T>& anchor, T val) {
+       T oldVal = anchor->get();
+   
+       if (oldVal == val) return;
+       d_stabilizationNumber++;
+   
+       anchor->setChangeId(d_stabilizationNumber);
+       anchor->set(val);
+   
+       if (anchor->isNecessary()) {
+           for (const auto& parent : anchor->getDependants()) {
+               if (parent->isNecessary() && !d_recomputeSet.contains(parent)) {
+                   d_recomputeHeap.push(parent);
+                   d_recomputeSet.insert(parent);
+               }
+           }
+       }
+   }
+   
+   template <typename T>
+   void Engine::observe(AnchorPtr<T>& anchor) {
+       if (d_observedNodes.contains(anchor)) {
+           return;
+       }
+   
+       d_observedNodes.insert(anchor);
+   
+       std::unordered_set<std::shared_ptr<AnchorBase>> visited;
+       std::shared_ptr<AnchorBase>                     anchorBase = anchor;
+       observeNode(anchorBase, visited);
+   }
+   
+   template <typename T>
+   void Engine::observe(std::vector<AnchorPtr<T>>& anchors) {
+       for (auto& anchor : anchors) {
+           observe(anchor);
+       }
+   }
+   
+   template <typename T>
+   void Engine::unobserve(AnchorPtr<T>& anchor) {
+       if (!d_observedNodes.contains(anchor)) {
+           return;
+       }
+   
+       d_observedNodes.erase(anchor);
+   
+       std::shared_ptr<AnchorBase> anchorBase = anchor;
+       unobserveNode(anchorBase);
+   }
+   
+   }  // namespace anchors
+   #endif

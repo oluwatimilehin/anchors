@@ -1,0 +1,129 @@
+\hypertarget{classanchors_1_1Anchor}{}\doxysection{anchors\+::Anchor\texorpdfstring{$<$}{<} T, Input\+Type1, Input\+Type2 \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classanchors_1_1Anchor}\index{anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}}
+
+
+A single node in the computation graph containing a value.  
+
+
+
+
+{\ttfamily \#include $<$anchor.\+h$>$}
+
+
+
+Inheritance diagram for anchors\+::Anchor\texorpdfstring{$<$}{<} T, Input\+Type1, Input\+Type2 \texorpdfstring{$>$}{>}\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classanchors_1_1Anchor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for anchors\+::Anchor\texorpdfstring{$<$}{<} T, Input\+Type1, Input\+Type2 \texorpdfstring{$>$}{>}\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classanchors_1_1Anchor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}\label{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}} 
+using {\bfseries Single\+Input\+Updater} = std\+::function$<$ T(Input\+Type1 \&)$>$
+\begin{DoxyCompactList}\small\item\em Alias for function that accepts an input of type Input\+Type1 and returns a value of type T. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}\label{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}} 
+using {\bfseries Dual\+Input\+Updater} = std\+::function$<$ T(Input\+Type1 \&, Input\+Type2 \&)$>$
+\begin{DoxyCompactList}\small\item\em Alias for function that accepts inputs of type Input\+Type1 and Input\+Type2 and returns a value of type T. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classanchors_1_1Anchor_a982bec7cbb9c8c031e5cc97f509605bb}{Anchor}} (const T \&value)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classanchors_1_1Anchor_a3d419c04bf45c4c2620e458c3d7c4a65}{Anchor}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ Input\+Type1 $>$ $>$ \&input, const \mbox{\hyperlink{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}{Single\+Input\+Updater}} \&updater)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from an input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classanchors_1_1Anchor_a85314a09a050cf1cdacbbf3c54487a72}{Anchor}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ Input\+Type1 $>$ $>$ \&first\+Input, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ Input\+Type2 $>$ $>$ \&second\+Input, const \mbox{\hyperlink{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}{Dual\+Input\+Updater}} \&updater)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from two input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename Input\+Type1 = T, typename Input\+Type2 = T$>$\newline
+class anchors\+::\+Anchor$<$ T, Input\+Type1, Input\+Type2 $>$}
+A single node in the computation graph containing a value. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ type of the \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}\textquotesingle{}s value \\
+\hline
+{\em Input\+Type1} & -\/ optional type of the first input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}, if applicable. \\
+\hline
+{\em Input\+Type2} & -\/ optional type of the second input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}, if applicable. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classanchors_1_1Anchor_a982bec7cbb9c8c031e5cc97f509605bb}\label{classanchors_1_1Anchor_a982bec7cbb9c8c031e5cc97f509605bb}} 
+\index{anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}!Anchor@{Anchor}}
+\index{Anchor@{Anchor}!anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}}
+\doxysubsubsection{\texorpdfstring{Anchor()}{Anchor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 , typename Input\+Type2 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchor}{anchors\+::\+Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Anchor (\begin{DoxyParamCaption}\item[{const T \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+
+See \mbox{\hyperlink{classanchors_1_1Anchors_a67bc86dc97f15c2beb28bc395f9f57b8}{Anchors\+::create(const T\& value)}} 
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ initial value of the \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classanchors_1_1Anchor_a3d419c04bf45c4c2620e458c3d7c4a65}\label{classanchors_1_1Anchor_a3d419c04bf45c4c2620e458c3d7c4a65}} 
+\index{anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}!Anchor@{Anchor}}
+\index{Anchor@{Anchor}!anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}}
+\doxysubsubsection{\texorpdfstring{Anchor()}{Anchor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 , typename Input\+Type2 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchor}{anchors\+::\+Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Anchor (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ Input\+Type1 $>$ $>$ \&}]{input,  }\item[{const \mbox{\hyperlink{classanchors_1_1Anchor_ae3af5184594cfbb2b97cccf6c7ecd1dd}{Single\+Input\+Updater}} \&}]{updater }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from an input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. 
+
+See \mbox{\hyperlink{classanchors_1_1Anchors_a4e0d9710f681bd94d4bf493831c358d2}{Anchors\+::map()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & -\/ input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em updater} & -\/ function that maps the input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} to the output. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classanchors_1_1Anchor_a85314a09a050cf1cdacbbf3c54487a72}\label{classanchors_1_1Anchor_a85314a09a050cf1cdacbbf3c54487a72}} 
+\index{anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}!Anchor@{Anchor}}
+\index{Anchor@{Anchor}!anchors::Anchor$<$ T, InputType1, InputType2 $>$@{anchors::Anchor$<$ T, InputType1, InputType2 $>$}}
+\doxysubsubsection{\texorpdfstring{Anchor()}{Anchor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T , typename Input\+Type1 , typename Input\+Type2 $>$ \\
+\mbox{\hyperlink{classanchors_1_1Anchor}{anchors\+::\+Anchor}}$<$ T, Input\+Type1, Input\+Type2 $>$\+::\+Anchor (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ Input\+Type1 $>$ $>$ \&}]{first\+Input,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classanchors_1_1AnchorWrap}{Anchor\+Wrap}}$<$ Input\+Type2 $>$ $>$ \&}]{second\+Input,  }\item[{const \mbox{\hyperlink{classanchors_1_1Anchor_a113cb70396b66ad7d76c42768f6a31d1}{Dual\+Input\+Updater}} \&}]{updater }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Creates an \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}} from two input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}}. 
+
+See \mbox{\hyperlink{classanchors_1_1Anchors_a4f9bf61e8eeb3ad44360b57f6c579542}{Anchors\+::map2()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em first\+Input} & -\/ first input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em second\+Input} & -\/ second input \mbox{\hyperlink{classanchors_1_1Anchor}{Anchor}}. \\
+\hline
+{\em updater} & -\/ function that maps the input \mbox{\hyperlink{classanchors_1_1Anchors}{Anchors}} to the output. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/\+Users/user/\+Google Drive/\+Code\+Projects/anchors/src/anchor.\+h\end{DoxyCompactItemize}

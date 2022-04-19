@@ -1,0 +1,6 @@
+C:\WINDOWS\system32\wsl.exe --distribution Ubuntu-20.04 --exec /bin/bash -c "export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd '/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug' && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/home/timiadeniran/vcpkg/scripts/buildsystems/vcpkg.cmake -G 'CodeBlocks - Unix Makefiles' '/mnt/c/Users/user/Google Drive/CodeProjects/anchors'"
+-- DOXYGEN_EXECUTABLE = '/usr/bin/doxygen'
+Doxygen build started
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug

@@ -1,0 +1,23 @@
+
+.. _program_listing_file_src_CMakeLists.txt:
+
+Program Listing for File CMakeLists.txt
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_src_CMakeLists.txt>` (``src/CMakeLists.txt``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   find_package(Boost REQUIRED)
+   
+   set(HEADER_FILES anchor.h anchorbase.h anchorutil.h engine.h)
+   
+   include_directories(${Boost_INCLUDE_DIRS})
+   
+   add_library(anchors anchor.cpp anchorutil.cpp engine.cpp ${HEADER_FILES})
+   add_executable(demo main.cpp)
+   
+   link_libraries(anchors PRIVATE Boost::uuid) # This doesn't work if I prepend `target_`
+   target_link_libraries(demo anchors)

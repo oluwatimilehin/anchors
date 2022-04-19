@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="anchors"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\..\home\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\scripts\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\scripts\buildsystems\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\boost\;CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\gtest\;CMake Files\src\;CMake Files\docs\;CMake Files\test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="package_source">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 package_source"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Experimental">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 Experimental"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Continuous">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 Continuous"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Nightly">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 Nightly"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="package">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 package"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="demo">
+				<Option output="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src/demo" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/timiadeniran/vcpkg/installed/x64-linux/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 demo"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="demo/fast">
+				<Option output="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src/demo" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/timiadeniran/vcpkg/installed/x64-linux/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 demo/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="anchors">
+				<Option output="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src/libanchors.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/timiadeniran/vcpkg/installed/x64-linux/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 anchors"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="anchors/fast">
+				<Option output="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src/libanchors.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/timiadeniran/vcpkg/installed/x64-linux/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 anchors/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Doxygen">
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/docs"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/docs/Makefile&quot;  VERBOSE=1 Doxygen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/docs/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/docs/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/docs/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="anchorstest">
+				<Option output="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/test/anchorstest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/timiadeniran/vcpkg/installed/x64-linux/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 anchorstest"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="anchorstest/fast">
+				<Option output="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/test/anchorstest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/cmake-build-debug/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/timiadeniran/vcpkg/installed/x64-linux/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 anchorstest/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/mnt/c/Users/user/Google\ Drive/CodeProjects/anchors/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/docs/Doxyfile.in">
+			<Option target="Doxygen"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.cpp">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchor.h">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorbase.h">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.cpp">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/anchorutil.h">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/engine.cpp">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/engine.h">
+			<Option target="anchors"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/main.cpp">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/test/engine.i.t.cpp">
+			<Option target="anchorstest"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/scripts/buildsystems/vcpkg.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\scripts\buildsystems\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/installed/x64-linux/share/boost/vcpkg-cmake-wrapper.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\boost\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/installed/x64-linux/share/gtest/GTestConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\gtest\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/installed/x64-linux/share/gtest/GTestConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\gtest\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/installed/x64-linux/share/gtest/GTestTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\gtest\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/installed/x64-linux/share/gtest/GTestTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\gtest\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/../../../../../../../home/timiadeniran/vcpkg/installed/x64-linux/share/gtest/GTestTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\..\home\timiadeniran\vcpkg\installed\x64-linux\share\gtest\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/docs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\docs\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/docs/Doxyfile.in">
+			<Option virtualFolder="CMake Files\docs\"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/user/Google Drive/CodeProjects/anchors/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
