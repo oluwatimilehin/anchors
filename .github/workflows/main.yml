@@ -12,8 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install quetzal and Doxygen dependencies
-        run: sudo apt-get install -y --no-install-recommends libboost-all-dev doxygen graphviz
+      - name: Install dependencies
+        run: sudo apt-get install -y --no-install-recommends libboost1.71-dev libgtest-dev doxygen graphviz
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
