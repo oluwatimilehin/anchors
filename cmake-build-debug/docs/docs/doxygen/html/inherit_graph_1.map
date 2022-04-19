@@ -1,4 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classanchors_1_1AnchorWrap.html" title="This class exists to simplify the Anchors API, so that we can pass an Anchor around using only the ty..." alt="" coords="5,13,204,39"/>
-<area shape="rect" id="node2" href="$classanchors_1_1Anchor.html" title="A single node in the computation graph containing a value." alt="" coords="252,5,443,47"/>
-</map>
