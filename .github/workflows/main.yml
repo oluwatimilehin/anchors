@@ -1,7 +1,9 @@
-name: Doxygen Action
+name: CMake
 
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -11,11 +13,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Doxygen Action
-        uses: mattnotmitt/doxygen-action@v1.9.3
-        with:
-          doxyfile-path: "docs/Doxyfile.in"
-          working-directory: "."
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Build
+        # Build your program with the given configuration
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        # Execute tests defined by the CMake configuration.
+        # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+        run: ctest -C ${{env.BUILD_TYPE}}
+
+      - name: Generate documentation
+        working-directory: ${{github.workspace}}/build
+        # this is defined in the repo docs/CMakeLists.txt file
+        run: make docs
+
+      - name: Moving Files
+        run: |
+          mv ${{github.workspace}}/build/docs/html ./docs/api      
+
+#      - name: Doxygen Action
+#        uses: mattnotmitt/doxygen-action@v1.9.3
+#        with:
+#          doxyfile-path: "docs/Doxyfile.in"
+#          working-directory: "."
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
