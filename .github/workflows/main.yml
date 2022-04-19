@@ -12,8 +12,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: sudo apt-get install -y --no-install-recommends libboost1.71-dev libgtest-dev doxygen graphviz
+
+      - name: Install gtest manually
+        run: >
+          sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt 
+          && sudo make && sudo cp *.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a 
+          && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
+
+      - name: Install other dependencies
+        run: sudo apt-get install -y --no-install-recommends libboost1.71-dev doxygen graphviz
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -37,11 +44,11 @@ jobs:
         run: |
           mv ${{github.workspace}}/build/docs/html ./docs/api      
 
-#      - name: Doxygen Action
-#        uses: mattnotmitt/doxygen-action@v1.9.3
-#        with:
-#          doxyfile-path: "docs/Doxyfile.in"
-#          working-directory: "."
+      #      - name: Doxygen Action
+      #        uses: mattnotmitt/doxygen-action@v1.9.3
+      #        with:
+      #          doxyfile-path: "docs/Doxyfile.in"
+      #          working-directory: "."
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
