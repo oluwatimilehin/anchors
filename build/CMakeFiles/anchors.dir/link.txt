@@ -1,2 +1,0 @@
-/bin/ar qc libanchors.a  CMakeFiles/anchors.dir/anchors.cpp.o
-/bin/ranlib libanchors.a
