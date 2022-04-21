@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 Usage</h1>
 <p >An <code>Anchor</code> represents a node in the graph (or think of it like a cell in a spreadsheet) and you can define an updater function to create an <code>Anchor</code> from one or more Anchors.</p>
 <p >As a basic example, let's define an <code>Anchor</code> whose value is the sum of two other anchors.</p>
-<div class="fragment"><div class="line"><span class="keyword">using namespace </span>anchors;</div>
+<div class="fragment"><div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceanchors.html">anchors</a>;</div>
 <div class="line"> </div>
 <div class="line">Engine d_engine; <span class="comment">// First set up the anchors engine</span></div>
 <div class="line"> </div>
@@ -113,6 +113,7 @@ Usage</h1>
 <div class="line"><span class="keyword">auto</span> sum = [](<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b) { <span class="keywordflow">return</span> a + b; };</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> anchorC(Anchors::map2&lt;int&gt;(anchorA, anchorB, sum)); <span class="comment">// Note that the function will not be called until you `get` the value of `anchorC`.</span></div>
+<div class="ttc" id="anamespaceanchors_html"><div class="ttname"><a href="namespaceanchors.html">anchors</a></div><div class="ttdoc">Main library namespace.</div><div class="ttdef"><b>Definition:</b> anchor.h:32</div></div>
 </div><!-- fragment --><p >Anchors follows a demand-driven model and will only (re)compute the value of an <code>Anchor</code> if you observe the <code>Anchor</code>. That is, only observed <code>Anchor</code> nodes are guaranteed to return their latest value.</p>
 <div class="fragment"><div class="line">d_engine.observe(anchorC);</div>
 <div class="line">EXPECT_EQ(d_engine.get(anchorC), 5);</div>

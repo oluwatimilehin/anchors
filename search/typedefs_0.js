@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dualinputupdater_0',['DualInputUpdater',['../classanchors_1_1Anchor.html#a113cb70396b66ad7d76c42768f6a31d1',1,'anchors::Anchor']]]
+  ['anchorptr_0',['AnchorPtr',['../namespaceanchors.html#a39fdc5b9fc77f92981d298bb13061565',1,'anchors']]]
 ];

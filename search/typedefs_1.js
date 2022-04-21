@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['singleinputupdater_0',['SingleInputUpdater',['../classanchors_1_1Anchor.html#ae3af5184594cfbb2b97cccf6c7ecd1dd',1,'anchors::Anchor']]]
+  ['dualinputupdater_0',['DualInputUpdater',['../classanchors_1_1Anchor.html#a113cb70396b66ad7d76c42768f6a31d1',1,'anchors::Anchor']]]
 ];
