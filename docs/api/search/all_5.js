@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['map_8',['map',['../classanchors_1_1Anchors.html#a4e0d9710f681bd94d4bf493831c358d2',1,'anchors::Anchors::map(const AnchorPtr&lt; InputType1 &gt; &amp;anchor, const typename Anchor&lt; T, InputType1 &gt;::SingleInputUpdater &amp;updater)'],['../classanchors_1_1Anchors.html#a9f8a15e84a2730abdfb04cd532c07c62',1,'anchors::Anchors::map(const AnchorPtr&lt; InputType1 &gt; &amp;anchor, const typename Anchor&lt; T, InputType1 &gt;::SingleInputUpdater &amp;&amp;updater)']]],
+  ['map2_9',['map2',['../classanchors_1_1Anchors.html#a4f9bf61e8eeb3ad44360b57f6c579542',1,'anchors::Anchors::map2(const AnchorPtr&lt; InputType1 &gt; &amp;anchor1, const AnchorPtr&lt; InputType2 &gt; &amp;anchor2, const typename Anchor&lt; T, InputType1, InputType2 &gt;::DualInputUpdater &amp;updater)'],['../classanchors_1_1Anchors.html#a60a3206d143248df185ca41de3f77af4',1,'anchors::Anchors::map2(const AnchorPtr&lt; InputType1 &gt; &amp;anchor1, const AnchorPtr&lt; InputType2 &gt; &amp;anchor2, const typename Anchor&lt; T, InputType1, InputType2 &gt;::DualInputUpdater &amp;&amp;updater)']]]
+];
