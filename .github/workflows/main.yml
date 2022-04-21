@@ -22,9 +22,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libboost1.71-dev 
           sudo apt-get install -y graphviz libclang-cpp1-9 libclang1-9
-          wget https://www.doxygen.nl/files/doxygen-1.9.2.linux.bin.tar.gz
-          tar -xvzf doxygen-1.9.2.linux.bin.tar.gz
-          ln -s doxygen-1.9.2/bin/doxygen doxygen
+          wget https://www.doxygen.nl/files/doxygen-1.9.3.linux.bin.tar.gz
+          tar -xvzf doxygen-1.9.3.linux.bin.tar.gz
+          ln -s doxygen-1.9.3/bin/doxygen doxygen
+          cd doxygen-1.9.3 && sudo make install
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
