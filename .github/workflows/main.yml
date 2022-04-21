@@ -42,16 +42,10 @@ jobs:
         run: |
           mv ${{github.workspace}}/build/docs/doxygen/html ./docs/api      
 
-      #      - name: Doxygen Action
-      #        uses: mattnotmitt/doxygen-action@v1.9.3
-      #        with:
-      #          doxyfile-path: "docs/Doxyfile.in"
-      #          working-directory: "."
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Default Doxyfile build documentation to html directory.
           # Change the directory if changes in Doxyfile
-          publish_dir: ./html
+          publish_dir: ./
