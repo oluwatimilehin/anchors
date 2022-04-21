@@ -4,6 +4,9 @@
 
 #include "anchor.h"
 
+/**
+ * Main library namespace
+ */
 namespace anchors {
 /**
  * Alias representing a shared pointer to an Anchor of output type `T`.
