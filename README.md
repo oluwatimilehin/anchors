@@ -47,7 +47,7 @@ EXPECT_EQ(d_engine.get(anchorC), 13);
 
 ### More Examples
 
-### String Concatenation
+#### String Concatenation
 
 ````cpp
 auto username(Anchors::create(std::string("John")));
