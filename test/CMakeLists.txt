@@ -11,7 +11,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(anchorstest engine.i.t.cpp)
 
 target_link_libraries(anchorstest PRIVATE
-        anchors
+        ${PROJECT_NAME}
         gtest
         gtest_main)
 

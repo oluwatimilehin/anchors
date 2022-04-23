@@ -2,8 +2,6 @@ find_package(Boost REQUIRED)
 
 set(HEADER_FILES anchor.h anchorbase.h anchorutil.h engine.h)
 
-add_library(anchors anchor.cpp anchorutil.cpp engine.cpp ${HEADER_FILES})
-add_executable(demo main.cpp)
+add_library(${PROJECT_NAME} anchor.cpp anchorutil.cpp engine.cpp ${HEADER_FILES})
 
-target_link_libraries(anchors PUBLIC Boost::headers)
-target_link_libraries(demo anchors)
+target_link_libraries(${PROJECT_NAME} PUBLIC Boost::headers)
