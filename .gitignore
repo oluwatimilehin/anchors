@@ -35,5 +35,6 @@
 .clang-format
 build/
 .idea/
+install/
 cmake-build-debug/
 cmake-build-release/
