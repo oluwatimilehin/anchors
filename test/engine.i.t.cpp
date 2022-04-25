@@ -2,9 +2,9 @@
 // Created by Timi Adeniran on 29/03/2022.
 //
 
-#include "../src/engine.h"
+#include "../include/engine.h"
 
-#include "../src/anchorutil.h"
+#include "../include/anchorutil.h"
 
 #include <algorithm>
 #include <gtest/gtest.h>
