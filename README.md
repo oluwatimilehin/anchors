@@ -8,6 +8,8 @@ and [janestreet/incremental](https://github.com/janestreet/incremental) for OCam
 
 It allows you model complex computations as a DAG which will update efficiently in response to an input change.
 
+[API Documentation](https://oluwatimilehin.github.io/anchors/)
+
 ## Usage
 
 An `Anchor` represents a node in the graph (or think of it like a cell in a spreadsheet) and you can define an updater
@@ -16,6 +18,9 @@ function to create an `Anchor` from one or more Anchors.
 As a basic example, let's define an `Anchor` whose value is the sum of two other anchors.
 
 ````cpp
+#include <anchors/anchorutil.h>
+#include <anchors/engine.h>
+
 using namespace anchors;
 
 Engine d_engine; // First set up the anchors engine
@@ -152,6 +157,17 @@ EXPECT_EQ(subtractionCounter, 2);
   if any of its input has changed since it was last brought up to date.
 
 ## Installation
+You can use Anchors from a CMake project by extracting the linked file[TODO] and adding the following:
+
+````
+# CMakeLists.txt
+list(APPEND CMAKE_PREFIX_PATH <path_to_library_folder)
+find_package(Boost REQUIRED) # Anchors requires a Boost installation
+find_package(Anchors REQUIRED)
+....
+
+target_link_libraries(${YOUR_TARGET} PRIVATE Anchors::anchors)
+````
 
 ## Roadmap
 
