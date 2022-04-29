@@ -1,6 +1,6 @@
 # Anchors
 
-![ubuntu](https://github.com/oluwatimilehin/anchors/actions/workflows/main.yml/badge.svg)
+![ubuntu](https://github.com/oluwatimilehin/anchors/actions/workflows/ubuntu.yml/badge.svg)
 
 Anchors is a C++ library for [self-adjusting computations](https://lord.io/spreadsheets/) based
 on [lord/anchors](https://github.com/lord/anchors) for rust
