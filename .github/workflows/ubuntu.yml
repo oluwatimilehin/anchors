@@ -33,7 +33,7 @@ jobs:
         run: |
            mkdir ${{github.workspace}}/install
            cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DBUILD_DOCS=ON \
-          -DCMAKE_INSTALL_PREFIX:PATH=${{github.workspace}}/install  -DBUILD_SHARED_LIBS=OFF
+           -DCMAKE_INSTALL_PREFIX:PATH=${{github.workspace}}/install  -DBUILD_SHARED_LIBS=OFF
 
       - name: Build
         run: |
