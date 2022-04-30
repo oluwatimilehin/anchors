@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  release:
+    # tags:
+    # - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -22,22 +25,54 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libboost1.71-dev 
           sudo apt-get install -y graphviz libclang-cpp1-9 libclang1-9
+          sudo apt install p7zip-full
           wget https://www.doxygen.nl/files/doxygen-1.9.3.linux.bin.tar.gz
           tar -xvzf doxygen-1.9.3.linux.bin.tar.gz
           ln -s doxygen-1.9.3/bin/doxygen doxygen
           cd doxygen-1.9.3 && sudo make install
 
       - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DBUILD_DOCS=ON
+        run: |
+           mkdir ${{github.workspace}}/install
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTING=ON -DBUILD_DOCS=ON \
+           -DCMAKE_INSTALL_PREFIX:PATH=${{github.workspace}}/install  -DBUILD_SHARED_LIBS=OFF
 
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+          
+      - name: Install Strip
+        run: cmake --install ${{github.workspace}}/build --strip
+
+      - name: Pack
+        shell: bash
+        working-directory: ${{github.workspace}}/install
+        run: |
+          ls -laR
+          7z a ../ubuntu_gcc.7z .
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          path: ./ubuntu_gcc.7z
+          name: ubuntu_gcc.7z
+
+      - name: Upload release asset
+        if: github.event_name == 'release' && (github.event.action == 'published' || github.event.action == 'created')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./anchors_ubuntu.7z
+          asset_name: anchors_ubuntu.zip
+          asset_content_type: application/zip
 
       - name: Test
         working-directory: ${{github.workspace}}/build
         # Execute tests defined by the CMake configuration.
         # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-        run: ctest -C ${{env.BUILD_TYPE}}
+        run: |
+          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target anchorstest
+          ctest -C ${{env.BUILD_TYPE}}
 
       - name: Generate documentation
         working-directory: ${{github.workspace}}/build
