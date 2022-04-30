@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: |
           mkdir ${{github.workspace}}/install
-          cmake --build ${{github.workspace}}/build --target ${{github.workspace}}/install/strip --config ${{env.BUILD_TYPE}}
+          cmake --build ${{github.workspace}}/build --target ${{github.workspace}}/install --config ${{env.BUILD_TYPE}}
 
       - name: Install Strip
         shell: bash
