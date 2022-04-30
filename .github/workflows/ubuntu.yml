@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -54,9 +60,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./ubuntu_gcc.7z
-          asset_name: ubuntu_gcc.7z.zip
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./anchors_ubuntu.7z
+          asset_name: anchors_ubuntu.zip
           asset_content_type: application/zip
 
       - name: Test
