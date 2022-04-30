@@ -30,12 +30,18 @@ jobs:
           cd doxygen-1.9.3 && sudo make install
 
       - name: Configure CMake
-        run:  cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DBUILD_DOCS=ON -DBUILD_SHARED_LIBS=OFF
+        run: |
+           mkdir ${{github.workspace}}/install
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DBUILD_DOCS=ON \
+          -DCMAKE_INSTALL_PREFIX:PATH=${{github.workspace}}/install  -DBUILD_SHARED_LIBS=OFF
 
       - name: Build
         run: |
-          mkdir ${{github.workspace}}/install
-          cmake --build ${{github.workspace}}/build --target ${{github.workspace}}/install --config ${{env.BUILD_TYPE}}
+          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+          
+      - name: Install Strip
+        shell: bash
+        run: cmake --install . --strip
 
       - name: Pack
         shell: bash
