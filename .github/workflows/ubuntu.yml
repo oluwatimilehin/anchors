@@ -33,7 +33,7 @@ jobs:
           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DBUILD_DOCS=ON -DBUILD_SHARED_LIBS=OFF
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build . --target ${{github.workspace}}/install/strip --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build --target ${{github.workspace}}/install/strip --config ${{env.BUILD_TYPE}}
 
       - name: Pack
         shell: bash
@@ -48,7 +48,7 @@ jobs:
           name: ubuntu_gcc.7z
 
       - name: Upload release asset
-        if: github.event_name == 'release' && (github.event.action == 'published' || github.event.action == 'created')
+#        if: github.event_name == 'release' && (github.event.action == 'published' || github.event.action == 'created')
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
