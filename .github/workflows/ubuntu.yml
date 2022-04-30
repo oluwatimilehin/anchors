@@ -48,12 +48,12 @@ jobs:
         working-directory: ${{github.workspace}}/install
         run: |
           ls -laR
-          7z a ../ubuntu_gcc.7z .
+          7z a ../anchors_ubuntu.7z .
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
-          path: ./ubuntu_gcc.7z
-          name: ubuntu_gcc.7z
+          path: ./anchors_ubuntu.7z
+          name: anchors_ubuntu.7z
 
       - name: Upload release asset
         if: github.event_name == 'release' && (github.event.action == 'published' || github.event.action == 'created')
@@ -63,7 +63,7 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./anchors_ubuntu.7z
-          asset_name: anchors_ubuntu.zip
+          asset_name: anchors_ubuntu.7z.zip
           asset_content_type: application/zip
 
       - name: Test
