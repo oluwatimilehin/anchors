@@ -32,12 +32,11 @@ jobs:
       - name: Configure CMake
         run: |
            mkdir ${{github.workspace}}/install
-           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS=ON -DBUILD_DOCS=ON \
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTING=ON -DBUILD_DOCS=ON \
            -DCMAKE_INSTALL_PREFIX:PATH=${{github.workspace}}/install  -DBUILD_SHARED_LIBS=OFF
 
       - name: Build
-        run: |
-          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target anchorstest
           
       - name: Install Strip
         run: cmake --install ${{github.workspace}}/build --strip

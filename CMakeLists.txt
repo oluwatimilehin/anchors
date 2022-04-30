@@ -6,9 +6,7 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
-option(BUILD_STATIC_LIBS "Build the static library" ON)
-option(BUILD_SHARED_LIBS "Build the shared library" ON)
-option(BUILD_TESTS "Build test programs" OFF)
+option(BUILD_TESTING "" OFF)
 option(BUILD_DOCS "Build the doxygen docs" OFF)
 
 ## Library Setup
@@ -99,8 +97,8 @@ if(BUILD_DOCS)
     add_subdirectory(docs)
 endif(BUILD_DOCS)
 
-if(BUILD_TESTS)
-    enable_testing()
-    include(CTest)
-    add_subdirectory(test EXCLUDE_FROM_ALL)
-endif(BUILD_TESTS)
+
+enable_testing()
+include(CTest)
+add_subdirectory(test EXCLUDE_FROM_ALL)
+
