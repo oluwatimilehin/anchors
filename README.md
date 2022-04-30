@@ -8,7 +8,7 @@ and [janestreet/incremental](https://github.com/janestreet/incremental) for OCam
 
 It allows you model complex computations as a DAG which will update efficiently in response to an input change.
 
-[API Documentation](https://oluwatimilehin.github.io/anchors/)
+[API Documentation.](https://oluwatimilehin.github.io/anchors/)
 
 ## Usage
 
@@ -157,7 +157,7 @@ EXPECT_EQ(subtractionCounter, 2);
   if any of its input has changed since it was last brought up to date.
 
 ## Installation
-You can use Anchors from a CMake project by extracting the linked file[TODO] and adding the following:
+You can use Anchors from a CMake project by extracting the [file](https://github.com/oluwatimilehin/anchors/releases/download/v0.1.0/anchors_ubuntu.7z.zip) and adding the following:
 
 ````
 # CMakeLists.txt
