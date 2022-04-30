@@ -2,7 +2,9 @@ name: ubuntu
 
 on:
   push:
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
   release:
     # tags:
     # - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
@@ -36,7 +38,7 @@ jobs:
            -DCMAKE_INSTALL_PREFIX:PATH=${{github.workspace}}/install  -DBUILD_SHARED_LIBS=OFF
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target anchorstest
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
           
       - name: Install Strip
         run: cmake --install ${{github.workspace}}/build --strip
@@ -68,7 +70,9 @@ jobs:
         working-directory: ${{github.workspace}}/build
         # Execute tests defined by the CMake configuration.
         # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-        run: ctest -C ${{env.BUILD_TYPE}}
+        run: |
+          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target anchorstest
+          ctest -C ${{env.BUILD_TYPE}}
 
       - name: Generate documentation
         working-directory: ${{github.workspace}}/build
