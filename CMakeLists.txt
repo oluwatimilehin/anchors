@@ -45,7 +45,7 @@ else()
     )
 endif()
 
-set(HEADER_FILES include/anchor.h include/anchorutil.h include/engine.h)
+set(HEADER_FILES include/anchor.h include/anchorutil.h include/engine.h include/anchorbase.h)
 set(public_headers ${HEADER_FILES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

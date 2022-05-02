@@ -2,7 +2,7 @@
 #ifndef ANCHORS_ANCHOR_H
 #define ANCHORS_ANCHOR_H
 
-#include "../src/anchorbase.h"
+#include "anchorbase.h"
 
 #include <algorithm>
 #include <boost/uuid/uuid_generators.hpp>
