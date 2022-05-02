@@ -1,0 +1,4 @@
+<map id="anchors::AnchorWrap&lt; T &gt;" name="anchors::AnchorWrap&lt; T &gt;">
+<area shape="rect" id="node1" title="This class exists to simplify the Anchors API, so that we can pass an Anchor around using only the ty..." alt="" coords="5,5,204,32"/>
+<area shape="rect" id="node2" href="$classanchors_1_1Anchor.html" title="A single node in the computation graph containing a value." alt="" coords="9,80,200,121"/>
+</map>
