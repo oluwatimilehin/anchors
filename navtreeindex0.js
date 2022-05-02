@@ -1,8 +1,5 @@
 var NAVTREEINDEX0 =
 {
-"anchorbase_8h_source.html":[3,0,0,0],
-"dir_68267d1309a1af8e8297ef4c3efbcdba.html":[3,0,0],
-"files.html":[3,0],
 "index.html":[],
 "index.html#autotoc_md1":[0],
 "index.html#autotoc_md2":[0,0],

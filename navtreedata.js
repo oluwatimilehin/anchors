@@ -34,16 +34,13 @@ var NAVTREE =
       [ "Note", "index.html#autotoc_md6", null ]
     ] ],
     [ "Installation", "index.html#autotoc_md7", null ],
-    [ "Roadmap", "index.html#autotoc_md8", null ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
-    ] ]
+    [ "Roadmap", "index.html#autotoc_md8", null ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"anchorbase_8h_source.html"
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
