@@ -6,14 +6,15 @@ Anchors is a C++ library for [self-adjusting computations](https://lord.io/sprea
 on [lord/anchors](https://github.com/lord/anchors) for rust
 and [janestreet/incremental](https://github.com/janestreet/incremental) for OCaml.
 
-It allows you model complex computations as a DAG which will update efficiently in response to an input change.
+Quoting [janestreet/incremental](https://github.com/janestreet/incremental), it allows you build large calculations 
+(of the kind you might build into a spreadsheet) that can react efficiently to changing data.
 
 [API Documentation.](https://oluwatimilehin.github.io/anchors/)
 
 ## Usage
 
-An `Anchor` represents a node in the graph (or think of it like a cell in a spreadsheet) and you can define an updater
-function to create an `Anchor` from one or more Anchors.
+An `Anchor` represents a node in the graph (think a spreadsheet cell) and you can either create an `Anchor` with a value
+or define an `updater` function to create an `Anchor` from one or more Anchors.
 
 As a basic example, let's define an `Anchor` whose value is the sum of two other anchors.
 
@@ -28,14 +29,14 @@ Engine d_engine; // First set up the anchors engine
 AnchorPtr<int> anchorA(Anchors::create(2));
 AnchorPtr<int> anchorB(Anchors::create(3));
 
-auto sum = [](int a, int b) { return a + b; };
+auto sum = [](int a, int b) { return a + b; }; // Updater function
 
 auto anchorC(Anchors::map2<int>(anchorA, anchorB, sum)); // Note that the function will not be called until you `get` the value of `anchorC`.
 
 ````
 
-Anchors follows a demand-driven model and will only (re)compute the value of an `Anchor` if you observe the `Anchor`.
-That is, only observed `Anchor` nodes are guaranteed to return their latest value.
+Anchors follows a demand-driven model and will only (re)compute the value of an `Anchor` when you observe the `Anchor` 
+and call `get()`.
 
 ````cpp
 d_engine.observe(anchorC);
@@ -73,9 +74,10 @@ EXPECT_EQ("Hello, Samuel", d_engine.get(greeting));
 
 ````cpp
 // Create the different anchors.
-// `maxOrder` and `minOrder` accept a vector and return an integer
+
 auto myOrders = Anchors::create(std::vector<int>{150, 200, 300});
 
+// `maxOrder` and `minOrder` accept a vector and return an integer
 AnchorPtr<int> maxOrder = Anchors::map<int, std::vector<int>>(
         myOrders, [](const std::vector<int>& v) {
             return *std::max_element(v.begin(), v.end());
