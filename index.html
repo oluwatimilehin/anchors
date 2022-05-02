@@ -99,11 +99,11 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p ><a class="anchor" id="md__home_runner_work_anchors_anchors_README"></a> <img src="https://github.com/oluwatimilehin/anchors/actions/workflows/ubuntu.yml/badge.svg" alt="ubuntu" style="pointer-events: none;" class="inline"/></p>
 <p >Anchors is a C++ library for <a href="https://lord.io/spreadsheets/">self-adjusting computations</a> based on <a href="https://github.com/lord/anchors">lord/anchors</a> for rust and <a href="https://github.com/janestreet/incremental">janestreet/incremental</a> for OCaml.</p>
-<p >It allows you model complex computations as a DAG which will update efficiently in response to an input change.</p>
+<p >Quoting <a href="https://github.com/janestreet/incremental">janestreet/incremental</a>, it allows you build large calculations (of the kind you might build into a spreadsheet) that can react efficiently to changing data.</p>
 <p ><a href="https://oluwatimilehin.github.io/anchors/">API Documentation.</a></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Usage</h1>
-<p >An <code>Anchor</code> represents a node in the graph (or think of it like a cell in a spreadsheet) and you can define an updater function to create an <code>Anchor</code> from one or more Anchors.</p>
+<p >An <code>Anchor</code> represents a node in the graph (think a spreadsheet cell) and you can either create an <code>Anchor</code> with a value or define an <code>updater</code> function to create an <code>Anchor</code> from one or more Anchors.</p>
 <p >As a basic example, let's define an <code>Anchor</code> whose value is the sum of two other anchors.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;anchors/anchorutil.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;anchors/engine.h&gt;</span></div>
@@ -115,10 +115,10 @@ Usage</h1>
 <div class="line">AnchorPtr&lt;int&gt; anchorA(Anchors::create(2));</div>
 <div class="line">AnchorPtr&lt;int&gt; anchorB(Anchors::create(3));</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">auto</span> sum = [](<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b) { <span class="keywordflow">return</span> a + b; };</div>
+<div class="line"><span class="keyword">auto</span> sum = [](<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b) { <span class="keywordflow">return</span> a + b; }; <span class="comment">// Updater function</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> anchorC(Anchors::map2&lt;int&gt;(anchorA, anchorB, sum)); <span class="comment">// Note that the function will not be called until you `get` the value of `anchorC`.</span></div>
-</div><!-- fragment --><p >Anchors follows a demand-driven model and will only (re)compute the value of an <code>Anchor</code> if you observe the <code>Anchor</code>. That is, only observed <code>Anchor</code> nodes are guaranteed to return their latest value.</p>
+</div><!-- fragment --><p >Anchors follows a demand-driven model and will only (re)compute the value of an <code>Anchor</code> when you observe the <code>Anchor</code> and call <code>get()</code>.</p>
 <div class="fragment"><div class="line">d_engine.observe(anchorC);</div>
 <div class="line">EXPECT_EQ(d_engine.get(anchorC), 5);</div>
 </div><!-- fragment --><p >If you update the value of an <code>Anchor</code> that an observed <code>Anchor</code> depends on, subsequent calls for the observed <code>Anchor</code> will return the updated value.</p>
@@ -143,9 +143,10 @@ String Concatenation</h3>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
 Using an Input of a Different Type</h3>
 <div class="fragment"><div class="line"><span class="comment">// Create the different anchors.</span></div>
-<div class="line"><span class="comment">// `maxOrder` and `minOrder` accept a vector and return an integer</span></div>
+<div class="line"> </div>
 <div class="line"><span class="keyword">auto</span> myOrders = Anchors::create(std::vector&lt;int&gt;{150, 200, 300});</div>
 <div class="line"> </div>
+<div class="line"><span class="comment">// `maxOrder` and `minOrder` accept a vector and return an integer</span></div>
 <div class="line">AnchorPtr&lt;int&gt; maxOrder = Anchors::map&lt;int, std::vector&lt;int&gt;&gt;(</div>
 <div class="line">        myOrders, [](<span class="keyword">const</span> std::vector&lt;int&gt;&amp; v) {</div>
 <div class="line">            <span class="keywordflow">return</span> *std::max_element(v.begin(), v.end());</div>
