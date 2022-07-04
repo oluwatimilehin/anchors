@@ -125,4 +125,59 @@ TEST_F(EngineFixture, VectorManipulation_observedValuesShouldBeUpToDate) {
     EXPECT_EQ(d_engine.get(orderRange), 500);
 }
 
+TEST_F(EngineFixture, Map3_Arithmetic_observedValuesShouldBeUpToDate) {
+    AnchorPtr<int>    anchorA(Anchors::create(2));
+    AnchorPtr<int>    anchorB(Anchors::create(3));
+    AnchorPtr<double> anchorC(Anchors::create(0.5));
+
+    auto multiply = [](int a, int b, double c) { return a * b * c; };
+
+    AnchorPtr<double> anchorD(Anchors::map3<double, int, int, double>(
+        anchorA, anchorB, anchorC, multiply));
+
+    d_engine.observe(anchorD);
+
+    EXPECT_EQ(d_engine.get(anchorD), 3.0);
+
+    d_engine.set(anchorA, 10);
+    d_engine.set(anchorC, 1.0);
+
+    auto addFive = [](double a) { return a + 5; };
+    auto anchorE(Anchors::map<double>(anchorD, addFive));
+
+    d_engine.observe(anchorE);
+
+    EXPECT_EQ(d_engine.get(anchorD), 30.0);
+    EXPECT_EQ(d_engine.get(anchorE), 35.0);
+}
+
+TEST_F(EngineFixture, Map4_StringConcatenation) {
+    auto anchorOne   = Anchors::create(std::string("Liberte"));
+    auto anchorTwo   = Anchors::create(std::string("Egalite"));
+    auto anchorThree = Anchors::create(std::string("Fraternite"));
+    auto anchorFour  = Anchors::create(std::string("Beyonce"));
+
+    using FunctionType = std::function<std::string(
+        std::string&, std::string&, std::string&, std::string&)>;
+
+    FunctionType updater = [](const std::string& string1,
+                              const std::string& string2,
+                              const std::string& string3,
+                              const std::string& string4) {
+        return string1 + ", " + string2 + ", " + string3 + ", " + string4;
+    };
+
+    auto result(Anchors::map4<std::string>(
+        anchorOne, anchorTwo, anchorThree, anchorFour, updater));
+
+    d_engine.observe(result);
+
+    EXPECT_EQ("Liberte, Egalite, Fraternite, Beyonce", d_engine.get(result));
+
+    d_engine.set(anchorTwo, std::string("Beyonce"));
+    d_engine.set(anchorFour, std::string("Fiance"));
+
+    EXPECT_EQ("Liberte, Beyonce, Fraternite, Fiance", d_engine.get(result));
+}
+
 }  // namespace anchorstest

@@ -59,14 +59,14 @@ template <typename T, typename InputType1 = T, typename InputType2 = T>
 class Anchor : public AnchorWrap<T> {
    public:
     /**
-     * Alias for function that accepts an input of type `InputType1` and returns a
-     * value of type `T`.
+     * Alias for function that accepts an input of type `InputType1` and returns
+     * a value of type `T`.
      */
     using SingleInputUpdater = std::function<T(InputType1&)>;
 
     /**
-     * Alias for function that accepts inputs of type `InputType1` and `InputType2`
-     * and returns a value of type `T`.
+     * Alias for function that accepts inputs of type `InputType1` and
+     * `InputType2` and returns a value of type `T`.
      */
     using DualInputUpdater = std::function<T(InputType1&, InputType2&)>;
 
