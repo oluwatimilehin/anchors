@@ -181,5 +181,5 @@ This is still a work in progress, and some tasks I intend to work on in the near
   an [Incremental.bind](https://ocaml.janestreet.com/ocaml-core/latest/doc/incremental/Incremental__/Incremental_intf/#bind)
   equivalent.
 - Support caching input parameters.
-- Support for `map3`, `map4`, etc.
+- ~~Support for `map3`, `map4`, etc.~~
 - More tests.
