@@ -2,7 +2,7 @@
 
 ![ubuntu](https://github.com/oluwatimilehin/anchors/actions/workflows/ubuntu.yml/badge.svg)
 
-Anchors is a C++ library for [self-adjusting computations](https://lord.io/spreadsheets/) based
+Anchors is a C++ library for [incremental computation](https://en.wikipedia.org/wiki/Incremental_computing) based
 on [lord/anchors](https://github.com/lord/anchors) for rust
 and [janestreet/incremental](https://github.com/janestreet/incremental) for OCaml.
 
