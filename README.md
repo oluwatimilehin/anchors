@@ -150,7 +150,75 @@ d_engine.set(anchorZ, 7);
 EXPECT_EQ(d_engine.get(result), 7);
 EXPECT_EQ(additionCounter,1);  // It shouldn't recompute anchorY because its value did not change
 EXPECT_EQ(subtractionCounter, 2);
+````
 
+#### A Quadratic Formula Calculator
+
+````cpp
+    auto a(Anchors::create(2));
+    auto b(Anchors::create(-5));
+    auto c(Anchors::create(-3));
+
+    int bsquareCounter = 0;
+    int fourACCounter  = 0;
+
+    auto negativeB = Anchors::map<double>(b, [](double b) { return -b; });
+    auto bSquare   = Anchors::map<double>(b, [&bsquareCounter](double b) {
+        bsquareCounter++;
+        return b * b;
+    });
+
+    auto fourAC =
+        Anchors::map2<double>(a, c, [&fourACCounter](double x, double y) {
+            fourACCounter++;
+            return 4 * x * y;
+        });
+
+    auto squareRoot = Anchors::map2<double>(
+        bSquare, fourAC, [](double x, double y) { return std::sqrt(x - y); });
+
+    int  denominatorCounter = 0;
+    auto denominator = Anchors::map<double>(a, [&denominatorCounter](double a) {
+        denominatorCounter++;
+        return 2 * a;
+    });
+
+    using FunctionType  = std::function<double(double&, double&, double&)>;
+    FunctionType x1Func = [](double x, double y, double z) {
+        return (x + y) / z;
+    };
+
+    FunctionType x2Func = [](double x, double y, double z) {
+        return (x - y) / z;
+    };
+
+    auto x1 = Anchors::map3<double>(negativeB, squareRoot, denominator, x1Func);
+    auto x2 = Anchors::map3<double>(negativeB, squareRoot, denominator, x2Func);
+
+    d_engine.observe(x1);
+    d_engine.observe(x2);
+
+    {
+        EXPECT_EQ(3, d_engine.get(x1));
+        EXPECT_EQ(-0.5, d_engine.get(x2));
+
+        EXPECT_EQ(1, bsquareCounter);
+        EXPECT_EQ(1, fourACCounter);
+        EXPECT_EQ(1, denominatorCounter);
+    }
+
+    d_engine.set(c, -7);
+
+    {
+        EXPECT_EQ(3.5, d_engine.get(x1));
+        EXPECT_EQ(-1, d_engine.get(x2));
+
+        // Only the value of C changed, so only anchors
+        // that depend on C should be recalculated
+        EXPECT_EQ(1, bsquareCounter);
+        EXPECT_EQ(2, fourACCounter);
+        EXPECT_EQ(1, denominatorCounter);
+    }
 ````
 
 ### Note
