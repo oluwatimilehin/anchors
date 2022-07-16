@@ -29,12 +29,13 @@ var NAVTREE =
       [ "More Examples", "index.html#autotoc_md2", [
         [ "String Concatenation", "index.html#autotoc_md3", null ],
         [ "Using an Input of a Different Type", "index.html#autotoc_md4", null ],
-        [ "Verifying That It Avoids Needless Computations", "index.html#autotoc_md5", null ]
+        [ "Verifying That It Avoids Needless Computations", "index.html#autotoc_md5", null ],
+        [ "A Quadratic Formula Calculator", "index.html#autotoc_md6", null ]
       ] ],
-      [ "Note", "index.html#autotoc_md6", null ]
+      [ "Note", "index.html#autotoc_md7", null ]
     ] ],
-    [ "Installation", "index.html#autotoc_md7", null ],
-    [ "Roadmap", "index.html#autotoc_md8", null ],
+    [ "Installation", "index.html#autotoc_md8", null ],
+    [ "Roadmap", "index.html#autotoc_md9", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

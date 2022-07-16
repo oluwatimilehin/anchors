@@ -217,12 +217,78 @@ Verifying That It Avoids Needless Computations</h3>
 <div class="line">EXPECT_EQ(d_engine.get(result), 7);</div>
 <div class="line">EXPECT_EQ(additionCounter,1);  <span class="comment">// It shouldn&#39;t recompute anchorY because its value did not change</span></div>
 <div class="line">EXPECT_EQ(subtractionCounter, 2);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md6"></a>
+A Quadratic Formula Calculator</h3>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> a(Anchors::create(2));</div>
+<div class="line"><span class="keyword">auto</span> b(Anchors::create(-5));</div>
+<div class="line"><span class="keyword">auto</span> c(Anchors::create(-3));</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> bsquareCounter = 0;</div>
+<div class="line"><span class="keywordtype">int</span> fourACCounter  = 0;</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> negativeB = Anchors::map&lt;double&gt;(b, [](<span class="keywordtype">double</span> b) { <span class="keywordflow">return</span> -b; });</div>
+<div class="line"><span class="keyword">auto</span> bSquare   = Anchors::map&lt;double&gt;(b, [&amp;bsquareCounter](<span class="keywordtype">double</span> b) {</div>
+<div class="line">    bsquareCounter++;</div>
+<div class="line">    <span class="keywordflow">return</span> b * b;</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> fourAC =</div>
+<div class="line">    Anchors::map2&lt;double&gt;(a, c, [&amp;fourACCounter](<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y) {</div>
+<div class="line">        fourACCounter++;</div>
+<div class="line">        <span class="keywordflow">return</span> 4 * x * y;</div>
+<div class="line">    });</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> squareRoot = Anchors::map2&lt;double&gt;(</div>
+<div class="line">    bSquare, fourAC, [](<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y) { <span class="keywordflow">return</span> std::sqrt(x - y); });</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span>  denominatorCounter = 0;</div>
+<div class="line"><span class="keyword">auto</span> denominator = Anchors::map&lt;double&gt;(a, [&amp;denominatorCounter](<span class="keywordtype">double</span> a) {</div>
+<div class="line">    denominatorCounter++;</div>
+<div class="line">    <span class="keywordflow">return</span> 2 * a;</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">using</span> FunctionType  = std::function&lt;double(<span class="keywordtype">double</span>&amp;, <span class="keywordtype">double</span>&amp;, <span class="keywordtype">double</span>&amp;)&gt;;</div>
+<div class="line">FunctionType x1Func = [](<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> z) {</div>
+<div class="line">    <span class="keywordflow">return</span> (x + y) / z;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">FunctionType x2Func = [](<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> z) {</div>
+<div class="line">    <span class="keywordflow">return</span> (x - y) / z;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span> x1 = Anchors::map3&lt;double&gt;(negativeB, squareRoot, denominator, x1Func);</div>
+<div class="line"><span class="keyword">auto</span> x2 = Anchors::map3&lt;double&gt;(negativeB, squareRoot, denominator, x2Func);</div>
+<div class="line"> </div>
+<div class="line">d_engine.observe(x1);</div>
+<div class="line">d_engine.observe(x2);</div>
+<div class="line"> </div>
+<div class="line">{</div>
+<div class="line">    EXPECT_EQ(3, d_engine.get(x1));</div>
+<div class="line">    EXPECT_EQ(-0.5, d_engine.get(x2));</div>
+<div class="line"> </div>
+<div class="line">    EXPECT_EQ(1, bsquareCounter);</div>
+<div class="line">    EXPECT_EQ(1, fourACCounter);</div>
+<div class="line">    EXPECT_EQ(1, denominatorCounter);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">d_engine.set(c, -7);</div>
+<div class="line"> </div>
+<div class="line">{</div>
+<div class="line">    EXPECT_EQ(3.5, d_engine.get(x1));</div>
+<div class="line">    EXPECT_EQ(-1, d_engine.get(x2));</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Only the value of C changed, so only anchors</span></div>
+<div class="line">    <span class="comment">// that depend on C should be recalculated</span></div>
+<div class="line">    EXPECT_EQ(1, bsquareCounter);</div>
+<div class="line">    EXPECT_EQ(2, fourACCounter);</div>
+<div class="line">    EXPECT_EQ(1, denominatorCounter);</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 Note</h2>
 <ul>
 <li>When you <code>get</code> an observed node, it will bring any other "stale" observed nodes up to date. An observed node is stale if any of its input has changed since it was last brought up to date.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Installation</h1>
 <p >You can use Anchors from a CMake project by extracting the <a href="https://github.com/oluwatimilehin/anchors/releases/download/v0.1.0/anchors_ubuntu.7z.zip">file</a> and adding the following:</p>
 <div class="fragment"><div class="line"># CMakeLists.txt</div>
@@ -232,7 +298,7 @@ Installation</h1>
 <div class="line">....</div>
 <div class="line"> </div>
 <div class="line">target_link_libraries(${YOUR_TARGET} PRIVATE Anchors::anchors)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Roadmap</h1>
 <p >This is still a work in progress, and some tasks I intend to work on in the near future are:</p>
 <ul>
