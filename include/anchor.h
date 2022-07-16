@@ -183,11 +183,21 @@ class Anchor : public AnchorWrap<T> {
     T d_value{};
 
     int d_height{};
+    // The height of the Anchor. Its value is 0 if it has no dependencies.
+    // Otherwise, its value = Max(Height of Inputs) + 1
+
     int d_necessary{};
+    // Indicates how many Anchors this node is a dependency of either directly
+    // or indirectly.
+
     int d_numDependencies{};
+    // Number of dependencies this Anchor has.
 
     int d_recomputeId{};
+    // The stabilization number at which this Anchor was last recomputed
+
     int d_changeId{};
+    // The stabilization number at which the value of this Anchor last changed
 
     bool d_hasNeverBeenComputed;
 
