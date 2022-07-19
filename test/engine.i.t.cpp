@@ -26,9 +26,8 @@ TEST_F(EngineFixture, IntegerArithmetic_observedValuesShouldBeUpToDate) {
     AnchorPtr<int> anchorA(Anchors::create(2));
     AnchorPtr<int> anchorB(Anchors::create(3));
 
-    auto sum = [](int a, int b) { return a + b; };
-
-    AnchorPtr<int> anchorC(Anchors::map2<int>(anchorA, anchorB, sum));
+    AnchorPtr<int> anchorC(Anchors::map2<int>(
+        anchorA, anchorB, [](int a, int b) { return a + b; }));
 
     d_engine.observe(anchorC);
 

@@ -24,8 +24,8 @@ void Engine::observeNode(
 
     // Repeat the same for all its dependencies
     for (auto& dep : current->getDependencies()) {
-        observeNode(dep, visited);
         dep->addDependant(current);
+        observeNode(dep, visited);
     }
 }
 
