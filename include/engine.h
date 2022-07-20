@@ -135,10 +135,10 @@ void Engine::set(AnchorPtr<T>& anchor, T val) {
     anchor->set(val);
 
     if (anchor->isNecessary()) {
-        for (const auto& parent : anchor->getDependants()) {
-            if (parent->isNecessary() && !d_recomputeSet.contains(parent)) {
-                d_recomputeHeap.push(parent);
-                d_recomputeSet.insert(parent);
+        for (const auto& dependant : anchor->getDependants()) {
+            if (dependant->isNecessary() && !d_recomputeSet.contains(dependant)) {
+                d_recomputeHeap.push(dependant);
+                d_recomputeSet.insert(dependant);
             }
         }
     }

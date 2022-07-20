@@ -245,6 +245,7 @@ This is still a work in progress, and some tasks I intend to work on in the near
 
 - Implement [lord/anchors](https://lord.io/spreadsheets/) optimization - scroll to "anchors, a hybrid solution".
 - Implement a `setUpdater()` function that allows you change the updater function for an `Anchor`.
+- Cycle Detection.
 - Add support for
   an [Incremental.bind](https://ocaml.janestreet.com/ocaml-core/latest/doc/incremental/Incremental__/Incremental_intf/#bind)
   equivalent.
