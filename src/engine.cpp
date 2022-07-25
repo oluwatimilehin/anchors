@@ -62,8 +62,7 @@ void Engine::stabilize() {
         if (top->getChangeId() == d_stabilizationNumber) {
             // Its value changed.
             for (const auto& dependant : top->getDependants()) {
-                if (dependant->isStale() &&
-                    !d_recomputeSet.contains(dependant)) {
+                if (!d_recomputeSet.contains(dependant)) {
                     d_recomputeHeap.push(dependant);
                 }
             }
