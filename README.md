@@ -7,7 +7,9 @@ on [lord/anchors](https://github.com/lord/anchors) for rust
 and [janestreet/incremental](https://github.com/janestreet/incremental) for OCaml.
 
 Quoting [janestreet/incremental](https://github.com/janestreet/incremental), it allows you build large calculations 
-(of the kind you might build into a spreadsheet) that can react efficiently to changing data.
+(of the kind you might build into a spreadsheet) that can react efficiently to changing data. 
+
+You can view the [accompanying blog post](https://timilearning.com/posts/incremental-computing/) for more information. 
 
 [API Documentation.](https://oluwatimilehin.github.io/anchors/)
 
