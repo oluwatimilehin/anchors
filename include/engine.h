@@ -12,8 +12,8 @@
 namespace anchors {
 
 /**
- * Engine is the brain of %Anchors, containing the necessary functions and data to
- * retrieve the value of an `Anchor` object. Note that this class is not
+ * Engine is the brain of %Anchors, containing the necessary functions and data
+ * to retrieve the value of an `Anchor` object. Note that this class is not
  * thread-safe.
  */
 class Engine {
@@ -81,6 +81,10 @@ class Engine {
     void unobserve(AnchorPtr<T>& anchor);
 
    private:
+    // PRIVATE TYPES
+    template <class T>
+    using min_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+
     // PRIVATE MANIPULATORS
     void stabilize();
     // Brings all observed Anchors up-to-date.
@@ -103,7 +107,7 @@ class Engine {
     std::unordered_set<std::shared_ptr<AnchorBase>> d_observedNodes;
     // Set of observed Anchors.
 
-    std::priority_queue<std::shared_ptr<AnchorBase>> d_recomputeHeap;
+    min_heap<std::shared_ptr<AnchorBase>> d_recomputeHeap;
     // Priority queue containing Anchors that need to be recomputed, in
     // increasing order of their heights.
 
@@ -136,7 +140,8 @@ void Engine::set(AnchorPtr<T>& anchor, T val) {
 
     if (anchor->isNecessary()) {
         for (const auto& dependant : anchor->getDependants()) {
-            if (dependant->isNecessary() && !d_recomputeSet.contains(dependant)) {
+            if (dependant->isNecessary() &&
+                !d_recomputeSet.contains(dependant)) {
                 d_recomputeHeap.push(dependant);
                 d_recomputeSet.insert(dependant);
             }

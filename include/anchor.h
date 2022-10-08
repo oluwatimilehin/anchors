@@ -22,7 +22,7 @@ struct std::hash<anchors::AnchorBase> {
 // Used by the priority queue in the Engine class to store Anchors in increasing
 // order.
 template <>
-struct std::less<std::shared_ptr<anchors::AnchorBase>> {
+struct std::greater<std::shared_ptr<anchors::AnchorBase>> {
     bool operator()(const std::shared_ptr<anchors::AnchorBase>& a1,
                     const std::shared_ptr<anchors::AnchorBase>& a2) const {
         return a1->getHeight() > a2->getHeight();
