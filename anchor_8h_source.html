@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('anchor_8h_source.html',''); initResiza
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// Used by the priority queue in the Engine class to store Anchors in increasing</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// order.</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">struct </span>std::less&lt;std::shared_ptr&lt;anchors::AnchorBase&gt;&gt; {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">struct </span>std::greater&lt;std::shared_ptr&lt;anchors::AnchorBase&gt;&gt; {</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">bool</span> operator()(<span class="keyword">const</span> std::shared_ptr&lt;anchors::AnchorBase&gt;&amp; a1,</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                    <span class="keyword">const</span> std::shared_ptr&lt;anchors::AnchorBase&gt;&amp; a2)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">return</span> a1-&gt;getHeight() &gt; a2-&gt;getHeight();</div>
